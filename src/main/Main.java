@@ -4,9 +4,9 @@ public class Main {
 
 	/**
 	 * @param args
-	 */
+	 */	
 	public static void main(String[] args) {
-		System.out.println("du kannsch eh nix");
+	System.out.println("hanspeter");
 
 	}
 
