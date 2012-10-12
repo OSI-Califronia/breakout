@@ -34,6 +34,12 @@ public class GridTest extends TestCase {
 		grid.addBall(ball);
 		assertEquals(1, grid.getBalls().size());
 		assertSame(ball, grid.getBalls().get(0));
+		
+		ball.setSpeedX(150);
+		assertEquals(150, ball.getSpeedX());
+		
+		ball.setSpeedY(250);
+		assertEquals(250, ball.getSpeedY());
 	}
 	
 	@Test
