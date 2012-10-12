@@ -1,6 +1,5 @@
-package data;
+package data.bricks;
 
-import java.awt.Point;
 
 public abstract class AbstractBrick {
 	
@@ -8,5 +7,9 @@ public abstract class AbstractBrick {
 	private int y;
 	private int width;
 	private int height;
+	
+	
+	
+	
 	
 }
