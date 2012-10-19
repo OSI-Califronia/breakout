@@ -23,6 +23,12 @@ public class PlayGrid {
 		setHeight(height);
 		setWidth(width);
 	}
+	
+	public void clearGrid() {
+		getBalls().clear();
+		getBricks().clear();
+		setSlider(null);
+	}
 
 	public int getHeight() {
 		return height;
@@ -70,5 +76,5 @@ public class PlayGrid {
 		this.slider = slider;
 	}
 	
-
+	
 }

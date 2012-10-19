@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<local-project language="java" version="3.5.1457" flavor="j2se">
+  <property name="hide-externals" value="true" />
+  <property name="show-needs-to-compile" value="false" />
+  <property name="root-file" value="Z:\eclipse_workdir" />
+  <property name="detail-mode" value="false" />
+  <property name="project-type" value="eclipse_workspace" />
+  <classpath>
+    <classpathentry kind="lib" path="Z:\eclipse_workdir\algorithmik\bin" />
+    <classpathentry kind="lib" path="Z:\eclipse_workdir\progtech2_htwg\bin" />
+    <classpathentry kind="lib" path="Z:\eclipse_workdir\breakout\bin" />
+  </classpath>
+  <excludes>
+    <exclude expression="*aufgabe*" />
+  </excludes>
+  <restructuring>
+    <set version="1" name="Sandbox 1" hiview="Codemap" active="true" todo="false" />
+    <set version="1" name="Flattened to classes" hiview="Codemap" active="false" todo="false">
+      <action type="flatten" active="true" description="Flatten root">
+        <params flattenLeafFolders="true">
+          <container-fqn fqn="root" type="root" path="" isroot="true" />
+        </params>
+        <composite-set />
+      </action>
+    </set>
+    <set version="1" name="Flattened to leaf packages" hiview="Codemap" active="false" todo="false">
+      <action type="flatten" active="true" description="Flatten root">
+        <params flattenLeafFolders="false">
+          <container-fqn fqn="root" type="root" path="" isroot="true" />
+        </params>
+        <composite-set />
+      </action>
+    </set>
+  </restructuring>
+  <sourcepaths>
+    <pathentry type="file" path="Z:\eclipse_workdir\algorithmik\src" />
+    <pathentry type="file" path="Z:\eclipse_workdir\progtech2_htwg\src" />
+    <pathentry type="file" path="Z:\eclipse_workdir\breakout\test" />
+  </sourcepaths>
+  <grid-set sep="." version="3.5.1457">
+    <grid name="Diagram 1" enforce="true" strict="false">
+      <row>
+        <cell pattern="" vexpanded="true" visibility="public">
+          <grid>
+            <row>
+              <cell name="Main" pattern="controller.Main" vexpanded="false" visibility="public" />
+              <cell name="TestGameController" pattern="controller.TestGameController" vexpanded="false" visibility="public" />
+              <cell name="GridTest" pattern="data.GridTest" vexpanded="false" visibility="public" />
+            </row>
+          </grid>
+        </cell>
+      </row>
+      <row>
+        <cell name="view" pattern="view.?" vexpanded="true" visibility="public">
+          <grid>
+            <row>
+              <cell name="UITextView" pattern="view.UITextView" vexpanded="false" visibility="public" />
+            </row>
+            <row>
+              <cell name="AbstractView" pattern="view.AbstractView" vexpanded="false" visibility="public" />
+            </row>
+          </grid>
+        </cell>
+      </row>
+      <row>
+        <cell name="controller" pattern="controller.?" vexpanded="true" visibility="public">
+          <grid>
+            <row>
+              <cell name="GameController" pattern="controller.GameController" vexpanded="false" visibility="public" />
+            </row>
+          </grid>
+        </cell>
+      </row>
+      <row>
+        <cell name="data" pattern="data.*" vexpanded="true" visibility="public">
+          <grid>
+            <row>
+              <cell name="data" pattern="data.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="PlayGrid" pattern="data.PlayGrid" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+            </row>
+            <row>
+              <cell name="bricks" pattern="data.bricks.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="SimpleBrick" pattern="data.bricks.SimpleBrick" vexpanded="false" visibility="public" />
+                    <cell name="Slider" pattern="data.bricks.Slider" vexpanded="false" visibility="public" />
+                  </row>
+                  <row>
+                    <cell name="AbstractBrick" pattern="data.bricks.AbstractBrick" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+            </row>
+            <row>
+              <cell name="Ball" pattern="data.Ball" vexpanded="false" visibility="public" />
+            </row>
+          </grid>
+        </cell>
+      </row>
+      <description>Top-level breakout</description>
+    </grid>
+  </grid-set>
+</local-project>
+
