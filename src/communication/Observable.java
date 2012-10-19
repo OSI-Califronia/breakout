@@ -24,4 +24,5 @@ public class Observable {
 			obs.updateRepaintPlayGrid();
 		}		
 	}
+	
 }

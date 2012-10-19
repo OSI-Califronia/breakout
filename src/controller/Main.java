@@ -3,7 +3,6 @@ package controller;
 import view.UITextView;
 
 public class Main {
-
 	
 	public static void main(String[] args) {
 		// Controller

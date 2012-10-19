@@ -42,7 +42,7 @@ public class GameController extends Observable {
 	}
 	
 	public void start() {
-		timer.scheduleAtFixedRate(task, 0, 333);
+		timer.scheduleAtFixedRate(task, 0, 50);
 	}
 	
 	public void stop() {
@@ -56,8 +56,6 @@ public class GameController extends Observable {
 	
 	public void updateGame() {
 		moveBalls();	
-		
-		//TODO moveSlider
 		
 		notifyRepaintPlayGrid();
 		

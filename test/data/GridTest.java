@@ -29,19 +29,19 @@ public class GridTest extends TestCase {
 		assertEquals(500, grid.getHeight());
 	}
 
-	@Test
-	public void testBalls() {
-		grid.addBall(ball);
-		assertEquals(1, grid.getBalls().size());
-		assertSame(ball, grid.getBalls().get(0));
-		
-		
-		assertEquals(10, ball.getX());
-		assertEquals(20, ball.getY());
-		assertEquals(30, ball.getSpeedX());
-		assertEquals(40, ball.getSpeedY());
-		
-	}
+//	@Test
+//	public void testBalls() {
+//		grid.addBall(ball);
+//		assertEquals(1, grid.getBalls().size());
+//		assertSame(ball, grid.getBalls().get(0));
+//		
+//		
+//		assertEquals(10, ball.getX());
+//		assertEquals(20, ball.getY());
+//		assertEquals(30, ball.getSpeedX());
+//		assertEquals(40, ball.getSpeedY());
+//		
+//	}
 	
 	@Test
 	public void testBricks() {

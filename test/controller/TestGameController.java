@@ -18,14 +18,14 @@ public class TestGameController extends TestCase {
 	
 	@Before
 	public void setUp() throws Exception {
-		// create data
+		// create data model
 		playGrid = new PlayGrid(400, 600);	
 		
-		// controller
+		// create controller
 		controller = new GameController();
 		controller.setGrid(playGrid);
 		
-		// View
+		// create view
 		view = new UITextView();
 		view.setController(controller);		
 		controller.addObserver(view);
@@ -33,7 +33,7 @@ public class TestGameController extends TestCase {
 	}
 
 	@Test
-	public void _testCollisionControl() {		
+	public void testCollisionControl() {		
 		
 		
 		// ############################    COLLISION TESTING ############################
@@ -100,32 +100,32 @@ public class TestGameController extends TestCase {
 		
 		controller.start();
 		
-		Thread.sleep(3000);
+		Thread.sleep(500);
 		
 		System.out.printf("ball vs. left side\n");
 		controller.getGrid().clearGrid();
 		controller.getGrid().addBall(new Ball(5, 10, -1, 0, 3));	
 		
-		Thread.sleep(3000);
+		Thread.sleep(500);
 		
 		System.out.printf("ball vs. right side\n");
 		controller.getGrid().clearGrid();
 		controller.getGrid().addBall(new Ball(gWidth-5, 10, 1, 0, 3));	
 		
-		Thread.sleep(3000);
+		Thread.sleep(500);
 		
 		System.out.printf("ball vs. top side\n");
 		controller.getGrid().clearGrid();
 		controller.getGrid().addBall(new Ball(50, 5, 0, -1, 3));	
 		
-		Thread.sleep(3000);
+		Thread.sleep(500);
 		
 		
 		System.out.printf("ball vs. bottom side\n");
 		controller.getGrid().clearGrid();
 		controller.getGrid().addBall(new Ball(50, gheight-5, 0, 1, 3));	
 		
-		Thread.sleep(5000);
+		Thread.sleep(1000);
 				
 		assertTrue(controller.getGrid().getBalls().size() == 0); // game over
 		controller.stop();
