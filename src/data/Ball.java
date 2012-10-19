@@ -2,51 +2,61 @@ package data;
 
 public class Ball {
 
-	private int x;
-	private int y;
-	private int speedX;
-	private int speedY;
+	private double x;
+	private double y;
+	private double speedX;
+	private double speedY;
+	private double radius;
 	
-	public Ball(int x, int y, int speedX, int speedY) {
+
+	public Ball(double x, double y, double speedX, double speedY, double radius) {
 		super();
 		setX(x);
 		setY(y);
 		setSpeedX(speedX);
 		setSpeedY(speedY);
+		setRadius(radius);
 	}
 
-	public int getX() {
+	public double getX() {
 		return x;
 	}
 
-	public void setX(int x) {
+	public void setX(double x) {
 		this.x = x;
 	}
 
-	public int getY() {
+	public double getY() {
 		return y;
 	}
 
-	public void setY(int y) {
+	public void setY(double y) {
 		this.y = y;
 	}
 
-	public int getSpeedX() {
+	public double getSpeedX() {
 		return speedX;
 	}
 
-	public void setSpeedX(int speedX) {
+	public void setSpeedX(double speedX) {
 		this.speedX = speedX;
 	}
 
-	public int getSpeedY() {
+	public double getSpeedY() {
 		return speedY;
 	}
 
-	public void setSpeedY(int speedY) {
+	public void setSpeedY(double speedY) {
 		this.speedY = speedY;
 	}
 	
-	
+	public double getRadius() {
+		return radius;
+	}
+
+	public void setRadius(double radius) {
+		this.radius = radius;
+	}
+
 	
 }

@@ -18,7 +18,7 @@ public class GridTest extends TestCase {
 	@Before
 	public void setUp() throws Exception {
 		grid = new PlayGrid(500, 500);
-		ball = new Ball(20, 20, 10, 10);
+		ball = new Ball(10, 20, 30, 40, 3);
 		
 		
 	}
@@ -35,11 +35,12 @@ public class GridTest extends TestCase {
 		assertEquals(1, grid.getBalls().size());
 		assertSame(ball, grid.getBalls().get(0));
 		
-		ball.setSpeedX(150);
-		assertEquals(150, ball.getSpeedX());
 		
-		ball.setSpeedY(250);
-		assertEquals(250, ball.getSpeedY());
+		assertEquals(10, ball.getX());
+		assertEquals(20, ball.getY());
+		assertEquals(30, ball.getSpeedX());
+		assertEquals(40, ball.getSpeedY());
+		
 	}
 	
 	@Test
