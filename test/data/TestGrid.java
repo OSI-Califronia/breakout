@@ -8,7 +8,7 @@ import org.junit.Test;
 import data.bricks.SimpleBrick;
 import data.bricks.Slider;
 
-public class GridTest extends TestCase {
+public class TestGrid extends TestCase {
 	
 	private PlayGrid grid;
 	private Ball ball;

@@ -4,6 +4,10 @@ import view.UITextView;
 
 public class Main {
 	
+	public Main() {
+		super();
+	}
+	
 	public static void main(String[] args) {
 		// Controller
 		GameController controller = new GameController();		

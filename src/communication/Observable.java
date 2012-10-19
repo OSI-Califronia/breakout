@@ -3,6 +3,8 @@ package communication;
 import java.util.List;
 import java.util.Vector;
 
+import controller.GameController.GAME_STATE;
+
 public class Observable {
 	
 	protected List<IObserver> observerList = new Vector<IObserver>();
@@ -25,4 +27,9 @@ public class Observable {
 		}		
 	}
 	
+	public void notifyGameStateChanged(GAME_STATE state) {
+		for (IObserver obs : observerList) {
+			obs.updateGameState(state);
+		}	
+	}
 }

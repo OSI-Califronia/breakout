@@ -20,6 +20,10 @@ public class PlayGrid {
 	
 	public PlayGrid(int height, int width) {
 		super();
+		
+		balls = new LinkedList<Ball>();		
+		bricks = new LinkedList<AbstractBrick>();
+		
 		setHeight(height);
 		setWidth(width);
 	}
@@ -78,10 +82,7 @@ public class PlayGrid {
 		this.width = width;
 	}
 
-	public List<Ball> getBalls() {
-		if (balls == null) {
-			balls = new LinkedList<Ball>();			
-		}		
+	public List<Ball> getBalls() {	
 		return balls;
 	}
 
@@ -90,9 +91,6 @@ public class PlayGrid {
 	}
 
 	public List<AbstractBrick> getBricks() {
-		if (bricks == null) {
-			bricks = new LinkedList<AbstractBrick>();
-		}
 		return bricks;
 	}
 
