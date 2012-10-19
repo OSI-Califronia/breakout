@@ -12,6 +12,7 @@
   </classpath>
   <excludes>
     <exclude expression="*aufgabe*" />
+    <exclude expression="*parser*" />
   </excludes>
   <restructuring>
     <set version="1" name="Sandbox 1" hiview="Codemap" active="true" todo="false" />
@@ -44,8 +45,8 @@
           <grid>
             <row>
               <cell name="Main" pattern="controller.Main" vexpanded="false" visibility="public" />
-              <cell name="TestGameController" pattern="controller.TestGameController" vexpanded="false" visibility="public" />
               <cell name="GridTest" pattern="data.GridTest" vexpanded="false" visibility="public" />
+              <cell name="TestGameController" pattern="controller.TestGameController" vexpanded="false" visibility="public" />
             </row>
           </grid>
         </cell>
@@ -75,13 +76,7 @@
         <cell name="data" pattern="data.*" vexpanded="true" visibility="public">
           <grid>
             <row>
-              <cell name="data" pattern="data.?" vexpanded="true" visibility="public">
-                <grid>
-                  <row>
-                    <cell name="PlayGrid" pattern="data.PlayGrid" vexpanded="false" visibility="public" />
-                  </row>
-                </grid>
-              </cell>
+              <cell name="PlayGrid" pattern="data.PlayGrid" vexpanded="false" visibility="public" />
             </row>
             <row>
               <cell name="bricks" pattern="data.bricks.?" vexpanded="true" visibility="public">
@@ -98,6 +93,18 @@
             </row>
             <row>
               <cell name="Ball" pattern="data.Ball" vexpanded="false" visibility="public" />
+            </row>
+          </grid>
+        </cell>
+      </row>
+      <row>
+        <cell name="communication" pattern="communication.?" vexpanded="true" visibility="public">
+          <grid>
+            <row>
+              <cell name="Observable" pattern="communication.Observable" vexpanded="false" visibility="public" />
+            </row>
+            <row>
+              <cell name="IObserver" pattern="communication.IObserver" vexpanded="false" visibility="public" />
             </row>
           </grid>
         </cell>

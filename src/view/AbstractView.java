@@ -1,17 +1,16 @@
 package view;
 
+import communication.IObserver;
+
 import controller.GameController;
 
-public abstract class AbstractView {
+public abstract class AbstractView implements IObserver {
 	
 	protected GameController controller;
 	
 	public AbstractView() {
 		super();				
 	}
-	
-	public abstract void repaintPlayGrid();
-
 	
 	public GameController getController() {
 		return controller;

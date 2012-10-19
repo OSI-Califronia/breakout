@@ -29,6 +29,38 @@ public class PlayGrid {
 		getBricks().clear();
 		setSlider(null);
 	}
+	
+	/**
+	 * Checks for Collision with border of grid
+	 * @param ball
+	 * @return True if ball has left the grid, false otherwise
+	 */
+	public boolean tryCollision(Ball ball) {
+		int ballx = (int) ball.getX();
+		int bally = (int) ball.getY();
+		int ballr = (int) ball.getRadius();
+		
+		// top
+		if (bally - ballr <= 0) {
+			ball.setSpeedY(ball.getSpeedY() * (-1));
+		}
+		
+		// left
+		if (ballx - ballr <= 0) {
+			ball.setSpeedX(ball.getSpeedX() * (-1));
+		}
+		
+		// right
+		if (ballx + ballr >= getWidth()) {
+			ball.setSpeedX(ball.getSpeedX() * (-1));
+		}
+		
+		// bottom
+		if (bally - ballr >= getHeight()) {
+			return true;
+		} 
+		return false;		
+	}
 
 	public int getHeight() {
 		return height;
