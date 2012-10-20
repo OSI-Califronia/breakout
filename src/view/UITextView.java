@@ -13,21 +13,19 @@ public class UITextView extends AbstractView {
 
 	@Override
 	public void updateRepaintPlayGrid() {		
-		System.out.println("Grid Breite: " + getController().getGrid().getWidth() + " Höhe: " + getController().getGrid().getHeight());
-		
+
 		for (AbstractBrick brick : getController().getGrid().getBricks()) {
-			System.out.printf("Stein %d %d \n", brick.getX(), brick.getY());
+			System.out.printf("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
 		}
 		
 		for (Ball ball : getController().getGrid().getBalls()) {
-			System.out.printf("Ball %f %f  speed: %f %f \n", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
+			System.out.printf("TUI: ball (%.1f, %.1f)  speed: (%.1f, %.1f) \n---\n", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
 		}
 	}
 
 	@Override
 	public void updateGameState(GAME_STATE state) {
-		// TODO Auto-generated method stub
-		
+		System.out.println("TUI: game state changed: " + state.name());
 	}
 	
 

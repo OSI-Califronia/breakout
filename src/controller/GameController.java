@@ -34,7 +34,6 @@ public class GameController extends Observable {
 
 		@Override
 		public void run() {
-			System.out.println("Task run");
 			updateGame();			
 		}		
 	}
