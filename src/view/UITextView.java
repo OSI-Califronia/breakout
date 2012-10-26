@@ -1,12 +1,17 @@
 package view;
 
+import communication.IObserver;
+
+import controller.GameController;
 import controller.GameController.GAME_STATE;
 import data.Ball;
 import data.bricks.AbstractBrick;
 
 
-public class UITextView extends AbstractView {
+public class UITextView implements IObserver {
 		
+	protected GameController controller;	
+	
 	public UITextView() {
 		super();
 	}
@@ -25,6 +30,14 @@ public class UITextView extends AbstractView {
 	@Override
 	public void updateGameState(GAME_STATE state) {
 		System.out.println("TUI: game state changed: " + state.name());
+	}
+	
+	public GameController getController() {
+		return controller;
+	}
+
+	public void setController(GameController controller) {
+		this.controller = controller;
 	}
 	
 

@@ -75,7 +75,7 @@ public class GameController extends Observable {
 
 
 	public void start() {
-		timer.scheduleAtFixedRate(task, 0, 50);
+		timer.scheduleAtFixedRate(task, 0, 10);
 		setState(GAME_STATE.RUNNING);
 		notifyGameStateChanged(state);
 	}
