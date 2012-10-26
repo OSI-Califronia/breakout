@@ -64,10 +64,13 @@ public class GameController extends Observable {
 	 */
 	public void updateGame() {
 		moveBalls();	
-
+		
+		// Check if no ball on game grid
+		if (getGrid().getBalls().isEmpty()) {
+			terminate();
+		}
+		
 		notifyRepaintPlayGrid();
-
-		//TODO check gameover
 	}
 
 
@@ -86,7 +89,7 @@ public class GameController extends Observable {
 	public void terminate() {
 		stop();
 		setState(state = GAME_STATE.GAMEOVER);
-		//TODO
+		notifyGameStateChanged(state);
 	}
 
 	/**

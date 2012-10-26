@@ -12,6 +12,7 @@ public class Slider extends AbstractBrick {
 
 	@Override
 	public boolean tryCollision(Ball b) {
+		//TODO unterscheidliche winkel
 		return tryCollisionRectangle(b);
 	}
 

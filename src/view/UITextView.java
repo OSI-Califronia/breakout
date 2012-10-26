@@ -12,8 +12,7 @@ public class UITextView extends AbstractView {
 	}
 
 	@Override
-	public void updateRepaintPlayGrid() {		
-
+	public void updateRepaintPlayGrid() {	
 		for (AbstractBrick brick : getController().getGrid().getBricks()) {
 			System.out.printf("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
 		}
