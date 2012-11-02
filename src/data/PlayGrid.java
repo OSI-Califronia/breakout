@@ -4,8 +4,11 @@ package data;
 import java.util.LinkedList;
 import java.util.List;
 
-import data.bricks.AbstractBrick;
-import data.bricks.Slider;
+import data.objects.AbstractBrick;
+import data.objects.Ball;
+import data.objects.Slider;
+
+
 
 
 public class PlayGrid {

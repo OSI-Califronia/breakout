@@ -2,16 +2,17 @@ package controller;
 
 import junit.framework.TestCase;
 
+
 import org.junit.Before;
 import org.junit.Test;
 
 import communication.ObservableGame.GAME_STATE;
 
 import view.UITextView;
-import data.Ball;
 import data.PlayGrid;
-import data.bricks.SimpleBrick;
-import data.bricks.Slider;
+import data.objects.Ball;
+import data.objects.SimpleBrick;
+import data.objects.Slider;
 
 public class TestGameController extends TestCase {
 

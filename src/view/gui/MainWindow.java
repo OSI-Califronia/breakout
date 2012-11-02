@@ -45,6 +45,8 @@ public class MainWindow extends JFrame implements IGameObserver {
 		this.pack();		
 		
 		this.addKeyListener(getGameKeyListener());
+		
+		this.setDefaultCloseOperation(this.EXIT_ON_CLOSE);
 		    
 	}
 	

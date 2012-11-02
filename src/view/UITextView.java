@@ -4,8 +4,8 @@ import communication.IGameObserver;
 
 import controller.GameController;
 import communication.ObservableGame.GAME_STATE;
-import data.Ball;
-import data.bricks.AbstractBrick;
+import data.objects.AbstractBrick;
+import data.objects.Ball;
 
 
 public class UITextView implements IGameObserver {

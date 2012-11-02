@@ -4,12 +4,13 @@ import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
+
 import communication.ObservableGame;
 
-import data.Ball;
 import data.PlayGrid;
-import data.bricks.AbstractBrick;
-import data.bricks.Slider;
+import data.objects.AbstractBrick;
+import data.objects.Ball;
+import data.objects.Slider;
 
 
 public class GameController extends ObservableGame {

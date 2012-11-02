@@ -1,19 +1,28 @@
 package Launcher;
 
 
+import org.junit.Test;
+
+import junit.framework.TestCase;
 import controller.GameController;
 import view.UITextView;
 import view.gui.MainWindow;
-import data.Ball;
 import data.PlayGrid;
-import data.bricks.SimpleBrick;
-import data.bricks.Slider;
+import data.objects.Ball;
+import data.objects.SimpleBrick;
+import data.objects.Slider;
 
 // Kein Test vorgesehen da prinzipiell unbegrenzte Laufzeit
-public class Launcher {
+public class Launcher extends TestCase {
 	
 	public Launcher() {
 		super();
+	}
+	
+	@Test
+	public void testLauncher() {
+		main(null);
+		assertEquals(true, true);
 	}
 	
 	/**
@@ -31,13 +40,14 @@ public class Launcher {
 		grid.setSlider(new Slider(200, 450, 100, 30));	
 		
 		// create controller
+		
 		GameController controller = new GameController();		
 		controller.setGrid(grid);
 		
 		// TUI
 		UITextView view = new UITextView();
 		view.setController(controller);
-		//controller.addObserver(view);
+		controller.addObserver(view);
 		
 		
 		// GUI
@@ -45,7 +55,7 @@ public class Launcher {
 		mainWindow.setController(controller);
 		controller.addObserver(mainWindow);
 		
-		
+
 		
 	}
 	

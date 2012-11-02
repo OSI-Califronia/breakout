@@ -3,7 +3,7 @@
   <property name="hide-externals" value="true" />
   <property name="show-needs-to-compile" value="false" />
   <property name="root-file" value="Z:\eclipse_workdir" />
-  <property name="detail-mode" value="false" />
+  <property name="detail-mode" value="true" />
   <property name="project-type" value="eclipse_workspace" />
   <classpath>
     <classpathentry kind="lib" path="Z:\eclipse_workdir\algorithmik\bin" />
@@ -11,8 +11,9 @@
     <classpathentry kind="lib" path="Z:\eclipse_workdir\breakout\bin" />
   </classpath>
   <excludes>
+    <exclude expression="*test*" />
     <exclude expression="*aufgabe*" />
-    <exclude expression="*parser*" />
+    <exclude expression="parser*" />
   </excludes>
   <restructuring>
     <set version="1" name="Sandbox 1" hiview="Codemap" active="true" todo="false" />
@@ -41,24 +42,34 @@
   <grid-set sep="." version="3.5.1457">
     <grid name="Diagram 1" enforce="true" strict="false">
       <row>
-        <cell pattern="" vexpanded="true" visibility="public">
+        <cell name="Launcher" pattern="Launcher.?" vexpanded="true" visibility="public">
           <grid>
             <row>
-              <cell name="Main" pattern="controller.Main" vexpanded="false" visibility="public" />
-              <cell name="GridTest" pattern="data.GridTest" vexpanded="false" visibility="public" />
-              <cell name="TestGameController" pattern="controller.TestGameController" vexpanded="false" visibility="public" />
+              <cell name="Launcher" pattern="Launcher.Launcher" vexpanded="false" visibility="public" />
             </row>
           </grid>
         </cell>
+        <cell name="TestGameController" pattern="controller.TestGameController" vexpanded="false" visibility="public" />
       </row>
       <row>
-        <cell name="view" pattern="view.?" vexpanded="true" visibility="public">
+        <cell name="view" pattern="view.*" vexpanded="true" visibility="public">
           <grid>
             <row>
-              <cell name="UITextView" pattern="view.UITextView" vexpanded="false" visibility="public" />
-            </row>
-            <row>
-              <cell name="AbstractView" pattern="view.AbstractView" vexpanded="false" visibility="public" />
+              <cell name="view" pattern="view.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="UITextView" pattern="view.UITextView" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
+              <cell name="gui" pattern="view.gui.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="GameView2D" pattern="view.gui.GameView2D" vexpanded="false" visibility="public" />
+                    <cell name="MainWindow" pattern="view.gui.MainWindow" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
             </row>
           </grid>
         </cell>
@@ -76,7 +87,13 @@
         <cell name="data" pattern="data.*" vexpanded="true" visibility="public">
           <grid>
             <row>
-              <cell name="PlayGrid" pattern="data.PlayGrid" vexpanded="false" visibility="public" />
+              <cell name="data" pattern="data.?" vexpanded="true" visibility="public">
+                <grid>
+                  <row>
+                    <cell name="PlayGrid" pattern="data.PlayGrid" vexpanded="false" visibility="public" />
+                  </row>
+                </grid>
+              </cell>
             </row>
             <row>
               <cell name="bricks" pattern="data.bricks.?" vexpanded="true" visibility="public">
@@ -101,10 +118,8 @@
         <cell name="communication" pattern="communication.?" vexpanded="true" visibility="public">
           <grid>
             <row>
-              <cell name="Observable" pattern="communication.Observable" vexpanded="false" visibility="public" />
-            </row>
-            <row>
-              <cell name="IObserver" pattern="communication.IObserver" vexpanded="false" visibility="public" />
+              <cell name="IGameObserver" pattern="communication.IGameObserver" vexpanded="false" visibility="public" />
+              <cell name="ObservableGame" pattern="communication.ObservableGame" vexpanded="false" visibility="public" />
             </row>
           </grid>
         </cell>

@@ -1,6 +1,5 @@
-package data.bricks;
+package data.objects;
 
-import data.Ball;
 
 
 public abstract class AbstractBrick {

@@ -8,10 +8,11 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-import data.Ball;
+
 import data.PlayGrid;
-import data.bricks.AbstractBrick;
-import data.bricks.Slider;
+import data.objects.AbstractBrick;
+import data.objects.Ball;
+import data.objects.Slider;
 
 
 public class GameView2D extends JPanel {	
