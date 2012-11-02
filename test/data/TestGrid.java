@@ -10,6 +10,7 @@ import data.objects.*;
 public class TestGrid extends TestCase {
 	
 	private PlayGrid grid;
+	@SuppressWarnings("unused")
 	private Ball ball;
 	private SimpleBrick brick;
 	private Slider slider;

@@ -15,6 +15,7 @@ import data.objects.Ball;
 import data.objects.Slider;
 
 
+@SuppressWarnings("serial")
 public class GameView2D extends JPanel {	
 
 	private MainWindow mainWindow;
