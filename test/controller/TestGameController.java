@@ -98,6 +98,25 @@ public class TestGameController extends TestCase {
 		
 		assertTrue(controller.getGrid().getBricks().size() == 0); // no bricks left
 		assertTrue(controller.getGrid().getBalls().get(0).getSpeedX() == 1); // speedY 1
+		
+		
+		// test slider collision ------------------------------------------------------------------
+		
+		resetGrid(); 
+		controller.getGrid().addBall(new Ball(50, 50, 0, 1, 1));
+		System.out.println(controller.getGrid().getBalls().size());
+		controller.getGrid().setSlider(new Slider(50, 52, 10, 10));
+		controller.updateGame();
+		controller.updateGame();
+		controller.updateGame();
+		controller.updateGame();
+		controller.updateGame();
+		controller.updateGame();
+		
+		System.out.println(controller.getGrid().getBalls().size());
+		assertTrue(controller.getGrid().getBalls().get(0).getSpeedY() < 0); // collision detected
+
+		
 	}
 	
 	
@@ -175,7 +194,7 @@ public class TestGameController extends TestCase {
 		assertTrue(controller.getState() == GAME_STATE.GAMEOVER);
 		
 		// needed to fix EclEmma bug (no full coverage for enums)
-		GameController.GAME_STATE.valueOf(GameController.GAME_STATE.values()[0].name());
+		GAME_STATE.valueOf(GameController.GAME_STATE.values()[0].name());
 		GameController.PLAYER_INPUT.valueOf(GameController.PLAYER_INPUT.values()[0].name());
 	}
 	

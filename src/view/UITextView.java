@@ -1,11 +1,14 @@
 package view;
 
+import java.util.Locale;
+
 import communication.IGameObserver;
+import communication.ObservableGame.GAME_STATE;
 
 import controller.GameController;
-import communication.ObservableGame.GAME_STATE;
 import data.objects.AbstractBrick;
 import data.objects.Ball;
+import data.objects.Slider;
 
 
 public class UITextView implements IGameObserver {
@@ -14,6 +17,7 @@ public class UITextView implements IGameObserver {
 	
 	public UITextView() {
 		super();
+		Locale.setDefault(new Locale("en", "US"));
 	}
 
 	@Override
@@ -21,7 +25,11 @@ public class UITextView implements IGameObserver {
 		for (AbstractBrick brick : getController().getGrid().getBricks()) {
 			System.out.printf("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
 		}
-		
+		Slider s;
+		if ((s = getController().getGrid().getSlider()) != null) {
+			System.out.printf("TUI: slider (%d, %d)\n", s.getX(), s.getY());
+		}
+
 		for (Ball ball : getController().getGrid().getBalls()) {
 			System.out.printf("TUI: ball (%.1f, %.1f)  speed: (%.1f, %.1f) \n---\n", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
 		}

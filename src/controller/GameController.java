@@ -14,6 +14,15 @@ import data.objects.Slider;
 
 
 public class GameController extends ObservableGame {
+	
+	/**
+	 * TODO:
+	 * - Nur reagieren wenn Spiel läuft (ProcessInput)
+	 * - maximale Ballgeschwindigkeit einführen
+	 * - level laden
+	 * - neustart ermöglichen
+	 * - timer thread richtig beenden
+	 */
 
 	public enum PLAYER_INPUT {
 		LEFT,
@@ -54,7 +63,7 @@ public class GameController extends ObservableGame {
 
 	/**
 	 * Prepares the next frame of the game:
-	 * - Move balls
+	 * - Move balls and do collision tests
 	 * - Check game rules (game over etc.)
 	 * - Request repaint
 	 */
