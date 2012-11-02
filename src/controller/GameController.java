@@ -22,6 +22,7 @@ public class GameController extends ObservableGame {
 	 * - level laden
 	 * - neustart ermöglichen
 	 * - timer thread richtig beenden
+	 * 
 	 */
 
 	public enum PLAYER_INPUT {
