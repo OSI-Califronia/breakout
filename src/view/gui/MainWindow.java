@@ -14,15 +14,17 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-import communication.IObserver;
+import communication.IGameObserver;
+import communication.ObservableGame.GAME_STATE;
 
 import controller.GameController;
-import controller.GameController.GAME_STATE;
 
 @SuppressWarnings("serial")
-public class MainWindow extends JFrame implements IObserver {
+public class MainWindow extends JFrame implements IGameObserver {
 	
 	protected GameController controller;
+	
+	private KeyListener keyListener;
 	
 	private JPanel bpaButtons;	
 	private JButton btnStart;
@@ -42,21 +44,31 @@ public class MainWindow extends JFrame implements IObserver {
 		this.add(getBpaGameView2D(), BorderLayout.CENTER);
 		this.pack();		
 		
-		this.addKeyListener(new KeyListener() {
-		    public void keyPressed(KeyEvent e) {
-		    	if (e.getKeyCode() == KeyEvent.VK_LEFT) {
-		    		getController().processInput(GameController.PLAYER_INPUT.LEFT);
-		    	}
-		    	
-		    	if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
-		    		getController().processInput(GameController.PLAYER_INPUT.RIGHT);
-		    	}
-		    }
+		this.addKeyListener(getGameKeyListener());
+		    
+	}
+	
+	
+	public KeyListener getGameKeyListener() {
+		if (keyListener == null) {
+			keyListener = new KeyListener() {
+				public void keyPressed(KeyEvent e) {
+			    	if (e.getKeyCode() == KeyEvent.VK_LEFT) {
+			    		getController().processInput(GameController.PLAYER_INPUT.LEFT);
+			    	}
+			    	
+			    	if (e.getKeyCode() == KeyEvent.VK_RIGHT) {
+			    		getController().processInput(GameController.PLAYER_INPUT.RIGHT);
+			    	}
+			    }
 
-		    public void keyReleased(KeyEvent e) { }
+			    public void keyReleased(KeyEvent e) {   }
 
-		    public void keyTyped(KeyEvent e) { }
-		});
+			    public void keyTyped(KeyEvent e) {  }
+			};
+		}
+		return keyListener;
+	
 	}
 	
 	private JPanel getBpaButtons() {
@@ -79,7 +91,8 @@ public class MainWindow extends JFrame implements IObserver {
 	
 	private JButton getBtnStart() {
 		if (btnStart == null) {
-			btnStart = getGameButton("New Game");			
+			btnStart = getGameButton("New Game");	
+			btnStart.addKeyListener(getGameKeyListener());
 			btnStart.addActionListener(new ActionListener() {						
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -94,6 +107,7 @@ public class MainWindow extends JFrame implements IObserver {
 	private JButton getBtnStop() {
 		if (btnStop == null) {
 			btnStop = getGameButton("End Game");			
+			btnStop.addKeyListener(getGameKeyListener());
 			btnStop.addActionListener(new ActionListener() {						
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -118,6 +132,8 @@ public class MainWindow extends JFrame implements IObserver {
 
 	public void setController(GameController controller) {
 		this.controller = controller;
+		getBpaGameView2D().setPreferredSize(new Dimension(getController().getGrid().getWidth(),
+				getController().getGrid().getHeight()));
 	}
 
 	

@@ -5,7 +5,7 @@ import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
 
-import controller.GameController.GAME_STATE;
+import communication.ObservableGame.GAME_STATE;
 
 import view.UITextView;
 import data.Ball;

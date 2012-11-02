@@ -3,7 +3,8 @@ package controller;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
-import communication.Observable;
+
+import communication.ObservableGame;
 
 import data.Ball;
 import data.PlayGrid;
@@ -11,7 +12,7 @@ import data.bricks.AbstractBrick;
 import data.bricks.Slider;
 
 
-public class GameController extends Observable {
+public class GameController extends ObservableGame {
 
 	public enum PLAYER_INPUT {
 		LEFT,
@@ -19,12 +20,6 @@ public class GameController extends Observable {
 		CLOSE,
 		PAUSE,
 		START
-	}
-
-	public enum GAME_STATE {
-		RUNNING,
-		PAUSED,
-		GAMEOVER
 	}
 
 	private class GameTimerTask extends TimerTask {		
@@ -101,10 +96,10 @@ public class GameController extends Observable {
 			start();
 			break;
 		case LEFT:
-			moveSlider(-1);
+			moveSlider(-20);
 			break;
 		case RIGHT:
-			moveSlider(+1);
+			moveSlider(+20);
 			break;
 		case PAUSE:
 			stop();

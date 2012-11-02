@@ -1,8 +1,8 @@
 package communication;
 
-import controller.GameController.GAME_STATE;
+import communication.ObservableGame.GAME_STATE;
 
-public interface IObserver {
+public interface IGameObserver {
 	
 	public void updateRepaintPlayGrid();
 	public void updateGameState(GAME_STATE state);

@@ -12,8 +12,14 @@ public class Slider extends AbstractBrick {
 
 	@Override
 	public boolean tryCollision(Ball b) {
-		//TODO unterscheidliche winkel
-		return tryCollisionRectangle(b);
+		boolean ret = tryCollisionRectangle(b);
+		if (ret) {
+			double delta = b.getX() - (this.getX() + this.getWidth() / 2);
+			double diversionFactor = delta / this.getWidth();  // -0.5  to 0.5
+			b.setSpeedX(b.getSpeedX() + 3 * Math.sin(diversionFactor));
+		}
+
+		return ret;
 	}
 
 }

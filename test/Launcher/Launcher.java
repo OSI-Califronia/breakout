@@ -2,7 +2,6 @@ package Launcher;
 
 
 import controller.GameController;
-import controller.GameController.GAME_STATE;
 import view.UITextView;
 import view.gui.MainWindow;
 import data.Ball;
@@ -24,7 +23,11 @@ public class Launcher {
 		// create data model
 		PlayGrid grid = new PlayGrid(500, 500);
 		grid.addBrick(new SimpleBrick(50, 50));
+		grid.addBrick(new SimpleBrick(100, 50));
+		grid.addBrick(new SimpleBrick(150, 50));
 		grid.addBall(new Ball(60, 80, 0, -1, 5));
+		grid.addBall(new Ball(80, 80, 2, -2, 5));
+		grid.addBall(new Ball(100, 80, 3, 1.5, 5));
 		grid.setSlider(new Slider(200, 450, 100, 30));	
 		
 		// create controller
@@ -34,7 +37,7 @@ public class Launcher {
 		// TUI
 		UITextView view = new UITextView();
 		view.setController(controller);
-		controller.addObserver(view);
+		//controller.addObserver(view);
 		
 		
 		// GUI

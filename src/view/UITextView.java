@@ -1,14 +1,14 @@
 package view;
 
-import communication.IObserver;
+import communication.IGameObserver;
 
 import controller.GameController;
-import controller.GameController.GAME_STATE;
+import communication.ObservableGame.GAME_STATE;
 import data.Ball;
 import data.bricks.AbstractBrick;
 
 
-public class UITextView implements IObserver {
+public class UITextView implements IGameObserver {
 		
 	protected GameController controller;	
 	
