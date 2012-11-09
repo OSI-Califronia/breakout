@@ -103,7 +103,7 @@ public class TestGameController extends TestCase {
 		// test slider collision ------------------------------------------------------------------
 		
 		resetGrid(); 
-		controller.getGrid().addBall(new Ball(50, 50, 0, 1, 1));
+		controller.getGrid().addBall(new Ball(55, 50, 0, 1, 1));
 		System.out.println(controller.getGrid().getBalls().size());
 		controller.getGrid().setSlider(new Slider(50, 52, 10, 10));
 		controller.updateGame();
