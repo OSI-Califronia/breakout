@@ -1,6 +1,6 @@
 package data.objects;
 
-public class Ball {
+public class Ball implements IDecodable {
 
 	private double x;
 	private double y;
@@ -8,6 +8,9 @@ public class Ball {
 	private double speedY;
 	private double radius;
 	
+	public Ball() {
+		super();
+	}
 
 	public Ball(double x, double y, double speedX, double speedY, double radius) {
 		super();
@@ -58,5 +61,14 @@ public class Ball {
 		this.radius = radius;
 	}
 
+	@Override
+	public void decode(String line) {
+		String[] s = line.split(",");
+		setX(Double.valueOf(s[0]));
+		setY(Double.valueOf(s[1]));	
+		setSpeedX(Double.valueOf(s[2]));
+		setSpeedY(Double.valueOf(s[3]));
+		setRadius(Double.valueOf(s[4]));
+	}
 	
 }

@@ -11,6 +11,7 @@ import java.awt.event.KeyListener;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JFrame;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
@@ -147,6 +148,10 @@ public class MainWindow extends JFrame implements IGameObserver {
 	@Override
 	public void updateGameState(GAME_STATE state) {
 		// TODO Auto-generated method stub
+		
+		if (state == GAME_STATE.WINGAME) {
+			JOptionPane.showMessageDialog(this, "You win the Game");
+		}
 		
 	}
 }

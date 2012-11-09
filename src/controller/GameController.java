@@ -54,10 +54,7 @@ public class GameController extends ObservableGame {
 		initialize();
 	}
 
-	public void initialize() {
-		// init timer
-		task = new GameTimerTask();
-		timer = new Timer("Game_timer");	
+	public void initialize() {		
 		setState(GAME_STATE.PAUSED);
 	}
 
@@ -75,28 +72,44 @@ public class GameController extends ObservableGame {
 			terminate();
 		}
 		
+		// check if no more bricks left
+		if (getGrid().getBricks().isEmpty()) {
+			winGame();
+		}
+		
 		notifyRepaintPlayGrid();
 	}
 
 
 	public void start() {
+		// timer 
+		resetTimer();
 		timer.scheduleAtFixedRate(task, 0, 10);
 		setState(GAME_STATE.RUNNING);
 		notifyGameStateChanged(state);
 	}
 
 	public void stop() {
-		timer.cancel();
+		if (timer != null) {
+			timer.cancel();
+		}
+		
 		setState(GAME_STATE.PAUSED);
 		notifyGameStateChanged(state);
 	}
 
 	public void terminate() {
 		stop();
-		setState(state = GAME_STATE.GAMEOVER);
+		setState(GAME_STATE.GAMEOVER);
 		notifyGameStateChanged(state);
 	}
-
+	
+	public void winGame() {
+		stop();
+		setState(GAME_STATE.WINGAME);
+		notifyGameStateChanged(state);
+	}
+	
 	/**
 	 * Process interactive user input (e.g. from key hits)
 	 */
@@ -172,6 +185,12 @@ public class GameController extends ObservableGame {
 		}
 
 
+	}
+	
+	protected Timer resetTimer() {
+		task = new GameTimerTask();		
+		timer = new Timer("Game Timer");
+		return timer;
 	}
 
 

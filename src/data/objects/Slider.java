@@ -5,6 +5,10 @@ package data.objects;
 
 public class Slider extends AbstractBrick {
 	
+	public Slider() {
+		super();
+	}
+	
 	public Slider(int x, int y, int width, int height) {
 		super(x, y, width, height);
 	}
@@ -20,5 +24,15 @@ public class Slider extends AbstractBrick {
 
 		return ret;
 	}
+
+	@Override
+	public void decode(String line) {
+		String[] s = line.split(",");
+		setX(Integer.valueOf(s[0]));
+		setY(Integer.valueOf(s[1]));	
+		setWidth(Integer.valueOf(s[2]));
+		setHeight(Integer.valueOf(s[3]));
+	}
+	
 
 }

@@ -8,7 +8,8 @@ public class ObservableGame {
 	public enum GAME_STATE {
 		RUNNING,
 		PAUSED,
-		GAMEOVER
+		GAMEOVER,
+		WINGAME
 	}
 	
 	protected List<IGameObserver> observerList = new Vector<IGameObserver>();

@@ -2,13 +2,17 @@ package data.objects;
 
 
 
-public abstract class AbstractBrick {
+public abstract class AbstractBrick implements IDecodable {
 	
 	private int x;
 	private int y;
 	private int width;
 	private int height;
 	private int hitCount;
+	
+	public AbstractBrick() {
+		super();
+	}
 	
 	public AbstractBrick(int x, int y, int width, int height) {
 		super();

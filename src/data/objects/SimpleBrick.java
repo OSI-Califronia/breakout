@@ -5,6 +5,10 @@ package data.objects;
 
 public class SimpleBrick extends AbstractBrick {
 
+	public SimpleBrick() {
+		super(0, 0, 50, 20);
+	}
+	
 	public SimpleBrick(int x, int y) {
 		super(x, y, 50, 20);
 	}
@@ -25,6 +29,13 @@ public class SimpleBrick extends AbstractBrick {
 		}
 		
 		return isBrickDead();
+	}
+
+	@Override
+	public void decode(String line) {
+		String[] s = line.split(",");
+		setX(Integer.valueOf(s[0]));
+		setY(Integer.valueOf(s[1]));		
 	}
 	
 }

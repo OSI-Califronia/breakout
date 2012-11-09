@@ -1,5 +1,7 @@
 package controller;
 
+import java.io.File;
+
 import junit.framework.TestCase;
 
 
@@ -197,6 +199,14 @@ public class TestGameController extends TestCase {
 		GAME_STATE.valueOf(GameController.GAME_STATE.values()[0].name());
 		GameController.PLAYER_INPUT.valueOf(GameController.PLAYER_INPUT.values()[0].name());
 	}
+	
+	@Test
+	public void testLoadLevel() {
+		playGrid.loadLevel(new File("test/sampleLevel1.txt"));
+		
+		assertFalse(playGrid.getBricks().isEmpty());
+	}
+	
 	
 	@Override
 	public void tearDown() {

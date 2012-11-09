@@ -1,11 +1,16 @@
 package data;
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 
 import data.objects.AbstractBrick;
 import data.objects.Ball;
+import data.objects.IDecodable;
 import data.objects.Slider;
 
 
@@ -67,6 +72,42 @@ public class PlayGrid {
 			return true;
 		} 
 		return false;		
+	}
+	
+	public void loadLevel(File f) {
+		try {
+			Locale.setDefault(new Locale("en", "US"));
+			Scanner s = new Scanner(f);
+			
+			while (s.hasNextLine()) {
+				String line = s.nextLine();
+				
+				String className = line.substring(0, line.indexOf(":"));
+				Class<?> classObj = this.getClass().getClassLoader().loadClass(className);
+				
+				IDecodable obj = (IDecodable) classObj.newInstance();
+				obj.decode(line.substring(className.length()+1));			
+				
+				
+				if (obj instanceof Ball) {
+					getBalls().add((Ball) obj);
+				} else if (obj instanceof Slider) {
+					setSlider((Slider) obj);
+				} else if (obj instanceof AbstractBrick) {
+					getBricks().add((AbstractBrick) obj);
+				} else {
+					throw new IllegalArgumentException("Unknown Game Obj in level " + f.getName());
+				}
+			}
+		} catch(IOException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {			
+			e.printStackTrace();
+		} catch (InstantiationException e) {			
+			e.printStackTrace();
+		} catch (IllegalAccessException e) {			
+			e.printStackTrace();
+		}
 	}
 
 	public int getHeight() {
