@@ -23,7 +23,7 @@ public class SimpleBrick extends AbstractBrick {
 
 	@Override
 	public boolean tryCollision(Ball b) {		
-		// increase Hitcounte if brick was hit by a ball
+		// increase hit counter if brick was hit by a ball
 		if (tryCollisionRectangle(b)) {
 			setHitCount(getHitCount()+1);
 		}
@@ -36,6 +36,11 @@ public class SimpleBrick extends AbstractBrick {
 		String[] s = line.split(",");
 		setX(Integer.valueOf(s[0]));
 		setY(Integer.valueOf(s[1]));		
+	}
+
+	@Override
+	public String encode() {
+		return AbstractBrick.encodeBasic(this).toString();
 	}
 	
 }

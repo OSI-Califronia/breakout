@@ -55,10 +55,16 @@ public abstract class AbstractBrick implements IDecodable {
 		this.height = height;
 	}
 	
+	/**
+	 * Get count of previous collisions with a ball.
+	 */
 	public int getHitCount() {
 		return hitCount;
 	}
 
+	/**
+	 * Set count of previous collisions with a ball.
+	 */
 	public void setHitCount(int hitCount) {
 		this.hitCount = hitCount;
 	}	
@@ -66,7 +72,7 @@ public abstract class AbstractBrick implements IDecodable {
 	public abstract boolean tryCollision(Ball b);
 	
 	/**
-	 * Hit test helper for rectangular bricks. Changes ball movement
+	 * Hit-test helper for rectangular bricks. Changes ball movement
 	 * when a collision was detected.
 	 * @param b
 	 * @return True if ball was hit, false if not.
@@ -113,6 +119,31 @@ public abstract class AbstractBrick implements IDecodable {
 		}
 		
 		return isHit; 
+	}
+	
+	/**
+	 * Default brick->string encoder.
+	 * Override if custom brick properties need to be encoded.
+	 */
+	public String encode() {
+		return AbstractBrick.encodeBasic(this).toString();
+	}
+	
+	/**
+	 * Encodes the basic parameters of a brick (x, y, width, height) as a string.
+	 * 
+	 * @param b Brick to be encoded as a string.
+	 * @return Returns a string builder that can be used to append custom 
+	 * brick properties. No comma is inserted at the end of the string.
+	 */
+	public static StringBuilder encodeBasic(AbstractBrick b) {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%d,", b.getX()));
+		sb.append(String.format("%d,", b.getY()));
+		sb.append(String.format("%d,", b.getWidth()));
+		sb.append(String.format("%d", b.getHeight()));
+		
+		return sb;
 	}
 	
 }

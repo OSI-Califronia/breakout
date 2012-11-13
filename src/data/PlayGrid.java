@@ -1,8 +1,14 @@
 package data;
 
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -73,6 +79,39 @@ public class PlayGrid {
 		} 
 		return false;		
 	}
+	
+	public void saveLevel(File f) throws FileNotFoundException  {
+		Locale.setDefault(new Locale("en", "US"));
+		
+		OutputStreamWriter w = new OutputStreamWriter(new FileOutputStream(f));
+		PrintWriter out = new PrintWriter(new BufferedWriter(w));
+		
+		// TODO: save playgrid data (size)
+			
+		// save bricks
+		for (AbstractBrick brick : this.getBricks()) {
+			out.print(brick.getClass().getName());
+			out.print(':');
+			out.println(brick.encode());
+		}
+		
+		// save balls
+		for (Ball b : this.getBalls()) {
+			out.print(b.getClass().getName());
+			out.print(':');
+			out.println(b.encode());
+		}
+		
+		// save slider - last object, no newline at the end!
+		out.print(this.getSlider().getClass().getName());
+		out.print(':');
+		out.print(this.getSlider().encode());
+		
+		out.close();
+		
+	}
+	
+	
 	
 	public void loadLevel(File f) {
 		try {

@@ -70,5 +70,17 @@ public class Ball implements IDecodable {
 		setSpeedY(Double.valueOf(s[3]));
 		setRadius(Double.valueOf(s[4]));
 	}
+
+	@Override
+	public String encode() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(String.format("%.3f,", this.getX()));
+		sb.append(String.format("%.3f,", this.getY()));
+		sb.append(String.format("%.3f,", this.getSpeedX()));
+		sb.append(String.format("%.3f,", this.getSpeedY()));
+		sb.append(String.format("%.3f", this.getRadius()));
+		
+		return sb.toString();
+	}
 	
 }

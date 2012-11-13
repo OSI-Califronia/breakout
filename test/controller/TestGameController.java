@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 
 import junit.framework.TestCase;
 
@@ -205,6 +206,23 @@ public class TestGameController extends TestCase {
 		playGrid.loadLevel(new File("test/sampleLevel1.txt"));
 		
 		assertFalse(playGrid.getBricks().isEmpty());
+	}
+	
+	@Test
+	public void testSaveLevel() {
+		try {
+			testLoadLevel();
+			controller.getGrid().saveLevel(new File ("test/sampleLevel1_out.txt"));
+			
+			PlayGrid grid2 = new PlayGrid(500, 500);
+			grid2.loadLevel(new File("test/sampleLevel1_out.txt"));
+			assertEquals(playGrid.getBalls().size(), grid2.getBalls().size());
+			assertEquals(playGrid.getBricks().size(), grid2.getBricks().size());
+			
+			
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		}		
 	}
 	
 	

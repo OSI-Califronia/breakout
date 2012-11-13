@@ -33,6 +33,6 @@ public class Slider extends AbstractBrick {
 		setWidth(Integer.valueOf(s[2]));
 		setHeight(Integer.valueOf(s[3]));
 	}
-	
+
 
 }
