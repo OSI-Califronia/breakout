@@ -20,6 +20,10 @@ public class UITextView implements IGameObserver {
 		Locale.setDefault(new Locale("en", "US"));
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see communication.IGameObserver#updateRepaintPlayGrid()
+	 */
 	@Override
 	public void updateRepaintPlayGrid() {	
 		for (AbstractBrick brick : getController().getGrid().getBricks()) {
@@ -35,6 +39,10 @@ public class UITextView implements IGameObserver {
 		}
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see communication.IGameObserver#updateGameState(communication.ObservableGame.GAME_STATE)
+	 */
 	@Override
 	public void updateGameState(GAME_STATE state) {
 		System.out.println("TUI: game state changed: " + state.name());

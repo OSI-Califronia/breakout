@@ -26,6 +26,10 @@ public class GameView2D extends JPanel {
 		initializeComponents();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see javax.swing.JComponent#paint(java.awt.Graphics)
+	 */
 	@Override
 	public void paint(Graphics g) {
 		super.paint(g);		
