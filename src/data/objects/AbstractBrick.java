@@ -72,6 +72,35 @@ public abstract class AbstractBrick implements IDecodable {
 	public abstract boolean tryCollision(Ball b);
 	
 	/**
+	 * This mthod return ture if a balls X is Between left and right border of this brick
+	 * @param ballx
+	 * @return
+	 */
+	protected boolean matchesXRange(int ballx) {
+		return ballx > this.getX() && ballx < this.getX() + this.getWidth();		
+	}
+	
+	/**
+	 * This method returns true if a balls Y is Between top and bottom of this brick
+	 * @param bally
+	 * @return  
+	 */
+	protected boolean matchesYRange(int bally) {
+		return bally > this.getY() && bally < this.getY() + this.getHeight();
+	}
+	
+	/**
+	 * This mthod checks if the value is betweeen min and max
+	 * @param value
+	 * @param min
+	 * @param max
+	 * @return
+	 */
+	protected boolean isBetween(int value, int min, int max) {
+		return value >= min && value <= max;
+	}
+	
+	/**
 	 * Hit-test helper for rectangular bricks. Changes ball movement
 	 * when a collision was detected.
 	 * @param b
@@ -82,38 +111,39 @@ public abstract class AbstractBrick implements IDecodable {
 		int ballx = (int) b.getX();
 		int bally = (int) b.getY();
 		int ballr = (int) b.getRadius();
-		double tol_y = 5;
-		double tol_x = 5;
+		int tolY = 5;
+		int tolX = 5;
 		
-		// Collision with top border
-		if (ballx > this.getX() && ballx < this.getX() + this.getWidth()  // ballx matches bricks width
-			&& bally + ballr >= this.getY() && bally + ballr < this.getY() + tol_y) {
-			b.setSpeedY(b.getSpeedY() * (-1)); // invert speedy
+		
+		// Collision with top border		
+		if (matchesXRange(ballx) && 
+			isBetween(bally + ballr, this.getY(), this.getY() + tolY)) {// ballx matches bricks width
+			b.inverseSpeedY(); // invert speedy
 			b.setY(this.getY() - b.getRadius() - 1);
 			isHit = true;
 		}
 		
 		// Collision with bottom border
-		if (ballx > this.getX() && ballx < this.getX() + this.getWidth()  // ballx matches bricks width
-			&& bally - ballr <= this.getY() + this.getHeight() && bally - ballr > this.getY() + this.getHeight() - tol_y) {
-			b.setSpeedY(b.getSpeedY() * (-1)); // invert speedy
+		if (matchesXRange(ballx) && 
+			isBetween(bally - ballr, this.getY() + this.getHeight(), this.getY() + this.getHeight() - tolY)) { // ballx matches bricks width
+			b.inverseSpeedY();// invert speedy
 			b.setY(this.getY() + this.getHeight() + b.getRadius() + 1);
 			isHit = true;
 		}
 		
 		// Collision with left border
-		if (bally > this.getY() && bally < this.getY() + this.getHeight()  // bally matches bricks height
-			&& ballx + ballr >= this.getX() && ballx + ballr < this.getX() + tol_x) {
-			b.setSpeedX(b.getSpeedX() * (-1)); // invert speedx
+		if (matchesYRange(bally) && 
+			isBetween(ballx + ballr, this.getX(), this.getX() + tolX)){ // bally matches bricks height
+			b.inverseSpeedX(); // invert speedx
 			b.setX(this.getX() - b.getRadius() - 1);
 			isHit = true;
 		}
 		
 		
 		// Collision with right border
-		if (bally > this.getY() && bally < this.getY() + this.getHeight()  // bally matches bricks height
-			&& ballx - ballr <= this.getX() + this.getWidth() && ballx - ballr > this.getX() + this.getWidth() - tol_x) {
-			b.setSpeedX(b.getSpeedX() * (-1)); // invert speedx
+		if (matchesYRange(bally) && 
+			isBetween(ballx - ballr, this.getX() + this.getWidth(), this.getX() + this.getWidth() - tolX)){ // bally matches bricks height
+			b.inverseSpeedX(); // invert speedx
 			b.setX(this.getX() + this.getWidth() + b.getRadius() + 1);
 			isHit = true;
 		}

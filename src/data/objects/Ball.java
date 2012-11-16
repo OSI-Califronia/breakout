@@ -60,6 +60,14 @@ public class Ball implements IDecodable {
 	public void setRadius(double radius) {
 		this.radius = radius;
 	}
+	
+	public void inverseSpeedX() {
+		speedX = speedX * (-1);
+	}
+	
+	public void inverseSpeedY() {
+		speedY = speedY * (-1);
+	}
 
 	@Override
 	public void decode(String line) {
