@@ -1,7 +1,7 @@
 package communication;
 
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Vector;
 
 public class ObservableGame {
 	
@@ -12,7 +12,7 @@ public class ObservableGame {
 		WINGAME
 	}
 	
-	protected List<IGameObserver> observerList = new Vector<IGameObserver>();
+	protected List<IGameObserver> observerList = new LinkedList<IGameObserver>();
 	
 	public ObservableGame() {
 		super();
