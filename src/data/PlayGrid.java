@@ -132,7 +132,7 @@ public class PlayGrid {
 			while (s.hasNextLine()) {
 				String line = s.nextLine();
 				
-				String className = line.substring(0, line.indexOf(":"));
+				String className = line.substring(0, line.indexOf(':'));
 				Class<?> classObj = this.getClass().getClassLoader().loadClass(className);
 				
 				IDecodable obj = (IDecodable) classObj.newInstance();

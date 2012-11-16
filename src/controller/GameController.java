@@ -139,12 +139,13 @@ public class GameController extends ObservableGame {
 	 */
 	private void moveSlider(int delta) {
 		int newx = getGrid().getSlider().getX() + delta;
-		if (newx < 0) 
+		if (newx < 0) {
 			return;
-		else if (newx > getGrid().getWidth() - getGrid().getSlider().getWidth())
+	    } else if (newx > getGrid().getWidth() - getGrid().getSlider().getWidth()) {
 			return;
-		else
+		} else {
 			getGrid().getSlider().setX(newx);
+		}
 	}
 
 
@@ -166,8 +167,9 @@ public class GameController extends ObservableGame {
 			itbrick = getGrid().getBricks().iterator();
 			while (itbrick.hasNext()) {
 				currentBrick = itbrick.next();
-				if (currentBrick.tryCollision(currentBall))
+				if (currentBrick.tryCollision(currentBall)) {
 					itbrick.remove();
+				}
 			}
 
 			// check for collisions with grid borders (and change direction)
