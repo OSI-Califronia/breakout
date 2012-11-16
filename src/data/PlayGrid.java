@@ -80,40 +80,51 @@ public class PlayGrid {
 		return false;		
 	}
 	
-	public void saveLevel(File f) throws FileNotFoundException  {
-		Locale.setDefault(new Locale("en", "US"));
-		
-		OutputStreamWriter w = new OutputStreamWriter(new FileOutputStream(f));
-		PrintWriter out = new PrintWriter(new BufferedWriter(w));
-		
-		// TODO: save playgrid data (size)
+	public boolean saveLevel(File f)  {
+		PrintWriter out = null;
+		try {
+			Locale.setDefault(new Locale("en", "US"));			
+			OutputStreamWriter w;			
+			w = new OutputStreamWriter(new FileOutputStream(f));
 			
-		// save bricks
-		for (AbstractBrick brick : this.getBricks()) {
-			out.print(brick.getClass().getName());
+			out = new PrintWriter(new BufferedWriter(w));
+			
+			// TODO: save playgrid data (size)
+				
+			// save bricks
+			for (AbstractBrick brick : this.getBricks()) {
+				out.print(brick.getClass().getName());
+				out.print(':');
+				out.println(brick.encode());
+			}
+			
+			// save balls
+			for (Ball b : this.getBalls()) {
+				out.print(b.getClass().getName());
+				out.print(':');
+				out.println(b.encode());
+			}
+			
+			// save slider - last object, no newline at the end!
+			out.print(this.getSlider().getClass().getName());
 			out.print(':');
-			out.println(brick.encode());
-		}
-		
-		// save balls
-		for (Ball b : this.getBalls()) {
-			out.print(b.getClass().getName());
-			out.print(':');
-			out.println(b.encode());
-		}
-		
-		// save slider - last object, no newline at the end!
-		out.print(this.getSlider().getClass().getName());
-		out.print(':');
-		out.print(this.getSlider().encode());
-		
-		out.close();
-		
+			out.print(this.getSlider().encode());
+			
+			return true;
+			
+		} catch (FileNotFoundException e) {			
+			e.printStackTrace();
+			return false;
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}		
 	}
 	
 	
 	
-	public void loadLevel(File f) {
+	public boolean loadLevel(File f) {
 		try {
 			Locale.setDefault(new Locale("en", "US"));
 			Scanner s = new Scanner(f);
@@ -135,18 +146,14 @@ public class PlayGrid {
 				} else if (obj instanceof AbstractBrick) {
 					getBricks().add((AbstractBrick) obj);
 				} else {
-					throw new IllegalArgumentException("Unknown Game Obj in level " + f.getName());
+					throw new IllegalArgumentException("Unknown Game Obj in level " + f.getName());					
 				}
 			}
-		} catch(IOException e) {
+		} catch(Exception e) {
 			e.printStackTrace();
-		} catch (ClassNotFoundException e) {			
-			e.printStackTrace();
-		} catch (InstantiationException e) {			
-			e.printStackTrace();
-		} catch (IllegalAccessException e) {			
-			e.printStackTrace();
-		}
+			return false;
+		} 
+		return true;
 	}
 
 	public int getHeight() {

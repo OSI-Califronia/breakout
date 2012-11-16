@@ -118,8 +118,43 @@ public class TestGameController extends TestCase {
 		
 		System.out.println(controller.getGrid().getBalls().size());
 		assertTrue(controller.getGrid().getBalls().get(0).getSpeedY() < 0); // collision detected
-
+	
 		
+	}
+	
+	
+	@Test
+	public void testBallCollision() {
+		System.out.println("testBallCollisions()\n");
+				
+		
+		// border Collision					
+		// right border
+		Ball ball1 = new Ball(controller.getGrid().getWidth() -1, 20, 1, 0, 1);		
+		controller.getGrid().addBall(ball1);	
+		
+		// left border
+		Ball ball2 = new Ball(1, 20, -1, 0, 1);		
+		controller.getGrid().addBall(ball2);
+		
+		// top border
+		Ball ball3 = new Ball(20, 1, 0, -1, 1);
+		controller.getGrid().addBall(ball3);		
+		
+		// bottom
+		Ball ball4 = new Ball(20, controller.getGrid().getHeight(), 0, 1, 1);
+		controller.getGrid().addBall(ball4);
+		
+		controller.updateGame();
+		controller.updateGame();
+		
+		assertTrue(ball1.getSpeedX() == -1);
+		
+		assertTrue(ball2.getSpeedX() == 1);
+		
+		assertTrue(ball3.getSpeedY() == 1);
+		
+		assertFalse(controller.getGrid().getBalls().contains(ball4));
 	}
 	
 	
@@ -164,6 +199,30 @@ public class TestGameController extends TestCase {
 		
 	}
 	
+	@Test 
+	public void testGameState() {
+		// terminate
+		SimpleBrick brick = new SimpleBrick(100, 100);
+		controller.getGrid().addBrick(brick);
+		Ball ball = new Ball(50, 50, 0, 1, 3);
+		controller.getGrid().addBall(ball);	
+		
+		controller.getGrid().getBalls().remove(ball);
+		
+		controller.updateGame();
+		controller.updateGame();
+		
+		assertTrue(controller.getState() == GAME_STATE.GAMEOVER);
+		
+		
+		// winGame
+		controller.getGrid().getBricks().remove(brick);
+	
+		controller.updateGame();
+		controller.updateGame();
+		
+		assertTrue(controller.getState() == GAME_STATE.WINGAME);
+	}
 	
 	@Test
 	public void testUserInput() throws InterruptedException {
@@ -206,24 +265,28 @@ public class TestGameController extends TestCase {
 		playGrid.loadLevel(new File("test/sampleLevel1.txt"));
 		
 		assertFalse(playGrid.getBricks().isEmpty());
+		
+		// test invald game object						
+		assertFalse(playGrid.loadLevel(new File("test/sampleLevelBug.txt")));	
+		
+		// test invalid file path
+		assertFalse(playGrid.loadLevel(new File("test/notValidPath.txt")));		
 	}
 	
 	@Test
 	public void testSaveLevel() {
-		try {
 			testLoadLevel();
-			controller.getGrid().saveLevel(new File ("test/sampleLevel1_out.txt"));
+			assertTrue(controller.getGrid().saveLevel(new File ("test/sampleLevel1_out.txt")));
 			
 			PlayGrid grid2 = new PlayGrid(500, 500);
 			grid2.loadLevel(new File("test/sampleLevel1_out.txt"));
 			assertEquals(playGrid.getBalls().size(), grid2.getBalls().size());
-			assertEquals(playGrid.getBricks().size(), grid2.getBricks().size());
+			assertEquals(playGrid.getBricks().size(), grid2.getBricks().size());	
 			
-			
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		}		
+			// test save level FileNotFound
+			assertFalse(controller.getGrid().saveLevel(new File ("bug/testLevelBug.txt")));
 	}
+	
 	
 	
 	@Override
