@@ -25,8 +25,8 @@ public class UITextView implements IGameObserver {
 		for (AbstractBrick brick : getController().getGrid().getBricks()) {
 			System.out.printf("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
 		}
-		Slider s;
-		if ((s = getController().getGrid().getSlider()) != null) {
+		Slider s = getController().getGrid().getSlider();
+		if (s != null) {
 			System.out.printf("TUI: slider (%d, %d)\n", s.getX(), s.getY());
 		}
 
