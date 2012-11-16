@@ -212,7 +212,7 @@ public class TestGameController extends TestCase {
 		controller.updateGame();
 		controller.updateGame();
 		
-		assertTrue(controller.getState() == GAME_STATE.GAMEOVER);
+		assertTrue(controller.getState() == GAME_STATE.MENU_GAMEOVER);
 		
 		
 		// winGame
@@ -221,7 +221,7 @@ public class TestGameController extends TestCase {
 		controller.updateGame();
 		controller.updateGame();
 		
-		assertTrue(controller.getState() == GAME_STATE.WINGAME);
+		assertTrue(controller.getState() == GAME_STATE.MENU_WINGAME);
 	}
 	
 	@Test
@@ -253,7 +253,7 @@ public class TestGameController extends TestCase {
 		assertTrue(controller.getState() == GAME_STATE.PAUSED);
 		
 		controller.processInput(GameController.PLAYER_INPUT.CLOSE);
-		assertTrue(controller.getState() == GAME_STATE.GAMEOVER);
+		assertTrue(controller.getState() == GAME_STATE.MENU_GAMEOVER);
 		
 		// needed to fix EclEmma bug (no full coverage for enums)
 		GAME_STATE.valueOf(GameController.GAME_STATE.values()[0].name());
@@ -293,7 +293,7 @@ public class TestGameController extends TestCase {
 	public void tearDown() {
 		System.out.println("tearDown()\n");
 		
-		controller.stop();
+		controller.pause();
 //		controller.terminate();		
 		controller.removeObserver(view);
 		controller = null;

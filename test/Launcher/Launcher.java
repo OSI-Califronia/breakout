@@ -32,8 +32,8 @@ public class Launcher extends TestCase {
 	 */
 	public static void main(String[] args) {
 		// create data model
-		PlayGrid grid = new PlayGrid(500, 500);
-		grid.loadLevel(new File("test/sampleLevel1.txt"));
+//		PlayGrid grid = new PlayGrid(500, 500);
+//		grid.loadLevel(new File("test/sampleLevel1.txt"));
 //		grid.addBrick(new SimpleBrick(50, 50));
 //		grid.addBrick(new SimpleBrick(100, 50));
 //		grid.addBrick(new SimpleBrick(150, 50));
@@ -45,18 +45,19 @@ public class Launcher extends TestCase {
 		// create controller
 		
 		GameController controller = new GameController();		
-		controller.setGrid(grid);
+//		controller.setGrid(grid);
 		
 		// TUI
 		UITextView view = new UITextView();
 		view.setController(controller);
 		controller.addObserver(view);
 		
+		controller.initialize();
 		
-		// GUI
-		MainWindow mainWindow = new MainWindow();
-		mainWindow.setController(controller);
-		controller.addObserver(mainWindow);
+//		// GUI
+//		MainWindow mainWindow = new MainWindow();
+//		mainWindow.setController(controller);
+//		controller.addObserver(mainWindow);
 		
 
 		

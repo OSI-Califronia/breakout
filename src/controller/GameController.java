@@ -1,11 +1,12 @@
 package controller;
 
+import java.io.File;
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-
 import communication.ObservableGame;
+import communication.TextMapping;
 
 import data.PlayGrid;
 import data.objects.AbstractBrick;
@@ -13,7 +14,7 @@ import data.objects.Ball;
 import data.objects.Slider;
 
 
-public class GameController extends ObservableGame {
+public class GameController extends ObservableGame {	
 	
 	/**
 	 * TODO:
@@ -29,6 +30,7 @@ public class GameController extends ObservableGame {
 		RIGHT,
 		CLOSE,
 		PAUSE,
+		KILL,
 		START
 	}
 
@@ -50,12 +52,12 @@ public class GameController extends ObservableGame {
 
 	public GameController() {
 		super();		
-
-		initialize();
 	}
 
 	public void initialize() {		
-		setState(GAME_STATE.PAUSED);
+		setState(GAME_STATE.MENU_MAIN);
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_LEVEL_CHOOSE, MENU_ITEM.MNU_END},
+				TextMapping.getTextForIndex(TextMapping.TXT_MAIN_MENU));
 	}
 
 	/**
@@ -69,7 +71,7 @@ public class GameController extends ObservableGame {
 		
 		// Check if no ball on game grid
 		if (getGrid().getBalls().isEmpty()) {
-			terminate();
+			gameOver();
 		}
 		
 		// check if no more bricks left
@@ -79,36 +81,65 @@ public class GameController extends ObservableGame {
 		
 		notifyRepaintPlayGrid();
 	}
-
+	
+	public void processMenuInput(MENU_ITEM indexOfMenuItem) {
+		switch (indexOfMenuItem) {
+		case MNU_NEW_GAME:
+			setGrid(new PlayGrid(500, 500));
+			getGrid().loadLevel(new File("test/sampleLevel1.txt"));
+			this.start();
+			break;
+		case MNU_END:
+			//TODO save level and gameprocess
+			terminate();	
+			break;
+		case MNU_CONTINUE:
+			start();
+			break;
+		case MNU_LEVEL_CHOOSE:
+			//TODO
+			break;
+		}		
+	}
 
 	public void start() {
 		// timer 
 		resetTimer();
 		timer.scheduleAtFixedRate(task, 0, 10);
 		setState(GAME_STATE.RUNNING);
-		notifyGameStateChanged(state);
-	}
-
-	public void stop() {
-		if (timer != null) {
-			timer.cancel();
-		}
 		
-		setState(GAME_STATE.PAUSED);
-		notifyGameStateChanged(state);
 	}
 
+	public void pause() {
+		cancelTimer();
+		
+		setState(GAME_STATE.PAUSED);		
+		notifyGameMenu(new MENU_ITEM[] {MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_CONTINUE, MENU_ITEM.MNU_END},  
+				TextMapping.getTextForIndex(TextMapping.TXT_GAME_PAUSED));
+	}
+
+	public void gameOver() {
+		cancelTimer();
+		
+		setState(GAME_STATE.MENU_GAMEOVER);
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END},
+				TextMapping.getTextForIndex(TextMapping.TXT_YOU_LOSE));		
+	}
+	
 	public void terminate() {
-		stop();
-		setState(GAME_STATE.GAMEOVER);
-		notifyGameStateChanged(state);
+		cancelTimer();
+		
+		setState(GAME_STATE.KILLED);		
 	}
 	
 	public void winGame() {
-		stop();
-		setState(GAME_STATE.WINGAME);
-		notifyGameStateChanged(state);
+		pause();
+		setState(GAME_STATE.MENU_WINGAME);
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END}, 
+				TextMapping.getTextForIndex(TextMapping.TXT_YOU_WIN));		
 	}
+	
+	
 	
 	/**
 	 * Process interactive user input (e.g. from key hits)
@@ -125,9 +156,12 @@ public class GameController extends ObservableGame {
 			moveSlider(+20);
 			break;
 		case PAUSE:
-			stop();
+			pause();
 			break;
 		case CLOSE:
+			gameOver();
+			break;
+		case KILL:
 			terminate();
 			break;
 		}
@@ -195,6 +229,11 @@ public class GameController extends ObservableGame {
 		return timer;
 	}
 
+	protected void cancelTimer()  {
+		if (timer != null) {
+			timer.cancel();
+		}
+	}
 
 	public PlayGrid getGrid() {
 		return grid;
@@ -211,5 +250,6 @@ public class GameController extends ObservableGame {
 
 	public void setState(GAME_STATE state) {
 		this.state = state;
+		notifyGameStateChanged(state);
 	}
 }

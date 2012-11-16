@@ -7,10 +7,18 @@ public class ObservableGame {
 	
 	public enum GAME_STATE {
 		RUNNING,
-		PAUSED,
-		GAMEOVER,
-		WINGAME,
-		MENU
+		PAUSED,		
+		MENU_GAMEOVER,
+		MENU_WINGAME,
+		MENU_MAIN,
+		KILLED
+	}
+	
+	public enum MENU_ITEM {
+		MNU_NEW_GAME,
+		MNU_LEVEL_CHOOSE,
+		MNU_CONTINUE,
+		MNU_END			
 	}
 	
 	protected List<IGameObserver> observerList = new LinkedList<IGameObserver>();
@@ -53,6 +61,13 @@ public class ObservableGame {
 	public void notifyGameStateChanged(GAME_STATE state) {
 		for (IGameObserver obs : observerList) {
 			obs.updateGameState(state);
+		}	
+	}
+	
+	
+	public void notifyGameMenu(MENU_ITEM[] menuItems, String title) {
+		for (IGameObserver obs : observerList) {
+			obs.updateGameMenu(menuItems, title);
 		}	
 	}
 }

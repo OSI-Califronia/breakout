@@ -88,7 +88,7 @@ public class TestView extends TestCase {
 		
 		mainWindow.getBtnStop().doClick();
 		
-		assertTrue(controller.getState() == GAME_STATE.GAMEOVER);
+		assertTrue(controller.getState() == GAME_STATE.MENU_GAMEOVER);
 		
 		
 		mainWindow.dispose();

@@ -17,6 +17,7 @@ import javax.swing.border.BevelBorder;
 
 import communication.IGameObserver;
 import communication.ObservableGame.GAME_STATE;
+import communication.ObservableGame.MENU_ITEM;
 
 import controller.GameController;
 
@@ -158,9 +159,15 @@ public class MainWindow extends JFrame implements IGameObserver {
 	public void updateGameState(GAME_STATE state) {
 		// TODO Auto-generated method stub
 		
-		if (state == GAME_STATE.WINGAME) {
+		if (state == GAME_STATE.MENU_WINGAME) {
 			JOptionPane.showMessageDialog(this, "You win the Game");
 		}
+		
+	}
+
+	@Override
+	public void updateGameMenu(MENU_ITEM[] menuItems, String title) {
+		// TODO Auto-generated method stub
 		
 	}
 }
