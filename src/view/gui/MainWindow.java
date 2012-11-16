@@ -92,7 +92,11 @@ public class MainWindow extends JFrame implements IGameObserver {
 		return btn;
 	}
 	
-	private JButton getBtnStart() {
+	/**
+	 * public because of debugging and testing
+	 * @return
+	 */
+	public JButton getBtnStart() {
 		if (btnStart == null) {
 			btnStart = getGameButton("New Game");	
 			btnStart.addKeyListener(getGameKeyListener());
@@ -107,7 +111,11 @@ public class MainWindow extends JFrame implements IGameObserver {
 		return btnStart;
 	}
 	
-	private JButton getBtnStop() {
+	/**
+	 * public because of debugging and testing
+	 * @return
+	 */
+	public JButton getBtnStop() {
 		if (btnStop == null) {
 			btnStop = getGameButton("End Game");			
 			btnStop.addKeyListener(getGameKeyListener());
@@ -121,6 +129,7 @@ public class MainWindow extends JFrame implements IGameObserver {
 
 		return btnStop;
 	}
+
 	
 	private GameView2D getBpaGameView2D() {
 		if (bpaGameView == null) {
