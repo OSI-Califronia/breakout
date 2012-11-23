@@ -15,7 +15,7 @@ import data.objects.Slider;
 
 
 public class GameController extends ObservableGame {	
-	
+
 	/**
 	 * TODO:
 	 * - Nur reagieren wenn Spiel läuft (ProcessInput)
@@ -28,10 +28,10 @@ public class GameController extends ObservableGame {
 	public enum PLAYER_INPUT {
 		LEFT,
 		RIGHT,
-		CLOSE,
-		PAUSE,
-		KILL,
-		START
+		//CANCEL_GAME,
+		PAUSE
+		//KILL,
+		//START
 	}
 
 	private class GameTimerTask extends TimerTask {		
@@ -68,20 +68,22 @@ public class GameController extends ObservableGame {
 	 */
 	public void updateGame() {
 		moveBalls();	
-		
+
 		// Check if no ball on game grid
 		if (getGrid().getBalls().isEmpty()) {
 			gameOver();
 		}
-		
+
 		// check if no more bricks left
 		if (getGrid().getBricks().isEmpty()) {
 			winGame();
 		}
-		
+
 		notifyRepaintPlayGrid();
+		
+		notifyNextGameFrame();		
 	}
-	
+
 	public void processMenuInput(MENU_ITEM indexOfMenuItem) {
 		switch (indexOfMenuItem) {
 		case MNU_NEW_GAME:
@@ -102,68 +104,74 @@ public class GameController extends ObservableGame {
 		}		
 	}
 
+	/**
+	 * Set game state to running and start a timer which
+	 * calls updateGame() continuosly.
+	 */
 	public void start() {
 		// timer 
 		resetTimer();
 		timer.scheduleAtFixedRate(task, 0, 10);
 		setState(GAME_STATE.RUNNING);
-		
+
 	}
 
+	/**
+	 * Stop the game timer and display the pause menu.
+	 */
 	public void pause() {
 		cancelTimer();
-		
+
 		setState(GAME_STATE.PAUSED);		
 		notifyGameMenu(new MENU_ITEM[] {MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_CONTINUE, MENU_ITEM.MNU_END},  
 				TextMapping.getTextForIndex(TextMapping.TXT_GAME_PAUSED));
 	}
 
+	/**
+	 * Stop the game timer and display the game over menu.
+	 */
 	public void gameOver() {
 		cancelTimer();
-		
+
 		setState(GAME_STATE.MENU_GAMEOVER);
 		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END},
 				TextMapping.getTextForIndex(TextMapping.TXT_YOU_LOSE));		
 	}
-	
+
+	/**
+	 * Stop the game timer and set game state to killed.
+	 */
 	public void terminate() {
 		cancelTimer();
-		
+
 		setState(GAME_STATE.KILLED);		
 	}
-	
+
+	/**
+	 * Stop the game timer display the game won menu.
+	 */
 	public void winGame() {
-		pause();
+		cancelTimer();
 		setState(GAME_STATE.MENU_WINGAME);
 		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END}, 
 				TextMapping.getTextForIndex(TextMapping.TXT_YOU_WIN));		
 	}
-	
-	
-	
+
+
+
 	/**
 	 * Process interactive user input (e.g. from key hits)
 	 */
 	public void processInput(PLAYER_INPUT input) {
 		switch (input) {
-		case START:
-			start();
-			break;
 		case LEFT:
-			moveSlider(-20);
+			moveSlider(-5);
 			break;
 		case RIGHT:
-			moveSlider(+20);
+			moveSlider(+5);
 			break;
 		case PAUSE:
 			pause();
-			break;
-		case CLOSE:
-			gameOver();
-			break;
-		case KILL:
-			terminate();
-			break;
 		}
 	}
 
@@ -175,7 +183,7 @@ public class GameController extends ObservableGame {
 		int newx = getGrid().getSlider().getX() + delta;
 		if (newx < 0) {
 			return;
-	    } else if (newx > getGrid().getWidth() - getGrid().getSlider().getWidth()) {
+		} else if (newx > getGrid().getWidth() - getGrid().getSlider().getWidth()) {
 			return;
 		} else {
 			getGrid().getSlider().setX(newx);
@@ -222,7 +230,7 @@ public class GameController extends ObservableGame {
 
 
 	}
-	
+
 	protected Timer resetTimer() {
 		task = new GameTimerTask();		
 		timer = new Timer("Game Timer");

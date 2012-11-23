@@ -55,6 +55,16 @@ public class ObservableGame {
 	}
 	
 	/**
+	 * performs an updateGameFrame for all Observers
+	 * which listen to updateGameFrame method
+	 */
+	public void notifyNextGameFrame() {
+		for (IGameObserver obs : observerList) {
+			obs.updateGameFrame();
+		}		
+	}
+	
+	/**
 	 * notify all Observers which listen that game state has changed
 	 * @param state
 	 */

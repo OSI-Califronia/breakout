@@ -8,6 +8,8 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
+import communication.ObservableGame.GAME_STATE;
+
 
 import data.PlayGrid;
 import data.objects.AbstractBrick;
@@ -37,7 +39,23 @@ public class GameView2D extends JPanel {
 		if (mainWindow.getController() == null) {
 			return;
 		}
+		
+		// Paint Running Game
+		if (mainWindow.getController().getState() == GAME_STATE.RUNNING) {
+			paintGame(g);			
+		
+		// Paint Menu
+		} else {			
+			paintMenu(g);			
+		}
+	}
 
+		
+	private void paintMenu(Graphics g) {
+		//TODO
+	}
+	
+	private void paintGame(Graphics g) {
 		PlayGrid grid = mainWindow.controller.getGrid();
 
 		// print Grid
@@ -63,10 +81,7 @@ public class GameView2D extends JPanel {
 		Slider s = grid.getSlider();
 		g.setColor(Color.gray);
 		g.fillRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
-
-
 	}
-
 
 	private void initializeComponents() {
 		this.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));

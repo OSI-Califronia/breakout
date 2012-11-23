@@ -8,5 +8,6 @@ public interface IGameObserver {
 	void updateRepaintPlayGrid();
 	void updateGameState(GAME_STATE state);
 	void updateGameMenu(MENU_ITEM[] menuItems, String title);
+	void updateGameFrame();
 	
 }
