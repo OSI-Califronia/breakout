@@ -3,12 +3,11 @@ package de.luma.breakout.view;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
+import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
 
-
-
-import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.controller.GameController;
 import de.luma.breakout.data.PlayGrid;
 import de.luma.breakout.data.objects.Ball;
@@ -17,8 +16,6 @@ import de.luma.breakout.data.objects.Slider;
 import de.luma.breakout.view.gui.GameView2D;
 import de.luma.breakout.view.gui.MainWindow;
 import de.luma.breakout.view.tui.UITextView;
-
-import junit.framework.TestCase;
 
 public class TestView extends TestCase {
 	

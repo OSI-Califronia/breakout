@@ -18,6 +18,7 @@ public class ObservableGame {
 		MNU_NEW_GAME,
 		MNU_LEVEL_CHOOSE,
 		MNU_CONTINUE,
+		MNU_BACK_MAIN_MENU,
 		MNU_END			
 	}
 	

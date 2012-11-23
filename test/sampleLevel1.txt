@@ -1,4 +1,5 @@
-de.luma.breakout.data.objects.Slider:100,450,100,20
+500,600
+de.luma.breakout.data.objects.Slider:100,470,100,20
 de.luma.breakout.data.objects.Ball:150,200,0.5,2.1,5 
 de.luma.breakout.data.objects.Ball:150,200,0.1,1.4,5 
 de.luma.breakout.data.objects.SimpleBrick:10,10

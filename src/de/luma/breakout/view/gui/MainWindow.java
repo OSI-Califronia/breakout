@@ -2,19 +2,15 @@ package de.luma.breakout.view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.FlowLayout;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
+import java.awt.Image;
+import java.awt.Insets;
+import java.awt.MediaTracker;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.util.HashMap;
+import java.util.Map;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.border.BevelBorder;
-
 
 import de.luma.breakout.communication.IGameObserver;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
@@ -26,34 +22,39 @@ public class MainWindow extends JFrame implements IGameObserver {
 
 	protected GameController controller;
 
+	private MediaTracker mediaTracker;
+	
+	private MENU_ITEM[] menuItems;
+	private String menuTitle;
+	
 	private KeyListener keyListener;
+	
+	private GameView2D bpaGameView;	
 
-	private JPanel bpaButtons;	
-	private JButton btnStart;
-	private JButton btnStop;
-	private GameView2D bpaGameView;
-
+	private boolean leftKeyPressed = false;
+	private boolean rightKeyPressed = false;
+	
+	private final Map<String, Image> mapImages = new HashMap<String, Image>();
+	
 	public MainWindow() {
 		super();
 		initializeComponents();
 	}
 
 	private void initializeComponents() {
-		this.setTitle("Breakout");
-		this.setSize(800, 600);
-		this.setVisible(true);
-		this.add(getBpaButtons(), BorderLayout.NORTH);
+		//this.setUndecorated(true);
+		this.setTitle("Breakout");		
+		this.setVisible(true);		
 		this.add(getBpaGameView2D(), BorderLayout.CENTER);
+		this.setSize(800, 700);
 		this.pack();		
 
 		this.addKeyListener(getGameKeyListener());
 
-		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
+		
+		loadImageResources();
 	}
-
-	private boolean leftKeyPressed = false;
-	private boolean rightKeyPressed = false;
 
 
 	public KeyListener getGameKeyListener() {
@@ -69,6 +70,15 @@ public class MainWindow extends JFrame implements IGameObserver {
 						break;
 					case KeyEvent.VK_ESCAPE:
 						getController().processInput(GameController.PLAYER_INPUT.PAUSE);
+						break;
+					case KeyEvent.VK_UP:
+						getBpaGameView2D().selectPreviousMenuItem();
+						break;
+					case KeyEvent.VK_DOWN:
+						getBpaGameView2D().selectNextMenuItem();
+						break;
+					case KeyEvent.VK_ENTER:
+						getBpaGameView2D().selectCurrentMenuItem();
 						break;
 					}
 				}
@@ -91,62 +101,6 @@ public class MainWindow extends JFrame implements IGameObserver {
 
 	}
 
-	private JPanel getBpaButtons() {
-		if (bpaButtons == null) {
-			bpaButtons = new JPanel();
-			bpaButtons.setBorder(BorderFactory.createBevelBorder(BevelBorder.RAISED));
-			bpaButtons.setLayout(new FlowLayout(FlowLayout.LEFT));
-			//			bpaButtons.add(getBtnStart());
-			//			bpaButtons.add(getBtnStop());
-		}
-		return bpaButtons;
-	}
-
-	protected JButton getGameButton(String text) {
-		JButton btn = new JButton();
-		btn.setPreferredSize(new Dimension(100, 20));
-		btn.setText(text);
-		return btn;
-	}
-
-	//	/**
-	//	 * public because of debugging and testing
-	//	 * @return
-	//	 */
-	//	public JButton getBtnStart() {
-	//		if (btnStart == null) {
-	//			btnStart = getGameButton("New Game");	
-	//			btnStart.addKeyListener(getGameKeyListener());
-	//			btnStart.addActionListener(new ActionListener() {						
-	//				@Override
-	//				public void actionPerformed(ActionEvent e) {
-	//					getController().processInput(GameController.PLAYER_INPUT.START);
-	//				}
-	//			});
-	//		}
-	//
-	//		return btnStart;
-	//	}
-	//	
-	//	/**
-	//	 * public because of debugging and testing
-	//	 * @return
-	//	 */
-	//	public JButton getBtnStop() {
-	//		if (btnStop == null) {
-	//			btnStop = getGameButton("End Game");			
-	//			btnStop.addKeyListener(getGameKeyListener());
-	//			btnStop.addActionListener(new ActionListener() {						
-	//				@Override
-	//				public void actionPerformed(ActionEvent e) {
-	//					getController().processInput(GameController.PLAYER_INPUT.CANCEL_GAME);
-	//				}
-	//			});
-	//		}
-	//
-	//		return btnStop;
-	//	}
-
 
 	private GameView2D getBpaGameView2D() {
 		if (bpaGameView == null) {
@@ -165,15 +119,9 @@ public class MainWindow extends JFrame implements IGameObserver {
 
 
 	@Override
-	public void updateRepaintPlayGrid() {		
-		// check if panel has to resize
-		getBpaGameView2D().setPreferredSize(new Dimension(getController().getGrid().getWidth(),
-				getController().getGrid().getHeight()));
+	public void updateRepaintPlayGrid() {	
 
-
-		getBpaGameView2D().repaint();
-		
-		
+		getBpaGameView2D().repaint();		
 	}
 	
 	@Override
@@ -192,15 +140,71 @@ public class MainWindow extends JFrame implements IGameObserver {
 		if (state == GAME_STATE.MENU_WINGAME) {
 //			JOptionPane.showMessageDialog(this, "You win the Game");
 
+		} else if (state == GAME_STATE.RUNNING) {
+			
+			Insets insets = this.getInsets();
+			this.setSize(new Dimension(insets.left + insets.right + controller.getGrid().getWidth(), 
+					insets.top + insets.bottom + controller.getGrid().getHeight()));
+			this.pack();
+			
+			
 		} else if (state == GAME_STATE.KILLED) {
-			this.dispose();
+			this.dispose();			
 		}
 
 	}
 
 	@Override
 	public void updateGameMenu(MENU_ITEM[] menuItems, String title) {
-		// TODO Auto-generated method stub
-
+		this.menuItems = menuItems;
+		this.menuTitle = title;
+		repaint();
 	}
+	
+	
+	private boolean loadImageResources() {		
+		Image img = null;
+		String[] images = new String[] {
+				"resources/button.png",
+				"resources/button_selected.png",
+				"resources/breakout_logo.png"				
+		};
+		
+		for (String str : images) {
+			img = getToolkit().getImage(str);	
+			mapImages.put(str, img);
+			getMediaTracker().addImage(img, str.hashCode());
+		}
+				
+		try { 
+			getMediaTracker().waitForAll(); 
+			return true;
+		} catch (InterruptedException ex) { 
+			return false;
+		}
+	}
+	
+	private MediaTracker getMediaTracker(){
+		if (mediaTracker == null) {
+			mediaTracker = new MediaTracker(this);
+		}
+		return mediaTracker;
+	}
+
+	public MENU_ITEM[] getMenuItems() {
+		return menuItems;
+	}
+
+	public String getMenuTitle() {
+		return menuTitle;
+	}
+
+	public Map<String, Image> getMapImages() {
+		return mapImages;
+	}
+	
 }
+
+
+
+

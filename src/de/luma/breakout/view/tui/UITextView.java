@@ -63,7 +63,7 @@ public class UITextView implements IGameObserver {
 		Locale.setDefault(new Locale("en", "US"));
 		input = new Scanner(System.in);
 		gameInputThread = new Thread(new GameInput());
-//		gameInputThread.setDaemon(true);
+		gameInputThread.setDaemon(true);
 		gameInputThread.setName("GameInput_Thread");
 		gameInputThread.start();
 	}
@@ -94,7 +94,6 @@ public class UITextView implements IGameObserver {
 	@Override
 	public void updateGameState(GAME_STATE state) {
 		System.out.println("TUI: game state changed: " + state.name());
-		
 	}
 
 	public GameController getController() {

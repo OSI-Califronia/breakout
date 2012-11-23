@@ -5,8 +5,6 @@ import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
 import java.util.LinkedList;
@@ -22,7 +20,7 @@ import de.luma.breakout.data.objects.Slider;
 
 
 
-public class PlayGrid {
+public class PlayGrid implements IDecodable {
 	
 	private int height;
 	private int width;
@@ -83,6 +81,23 @@ public class PlayGrid {
 		return false;		
 	}
 	
+	@Override
+	public void decode(String line) {
+		String[] s = line.split(",");
+		setHeight(Integer.valueOf(s[0]));
+		setWidth(Integer.valueOf(s[1]));	
+	}
+
+	@Override
+	public String encode() {
+		StringBuilder sb = new StringBuilder();
+		sb.append(this.getHeight());
+		sb.append(",");
+		sb.append(this.getWidth());	
+		return sb.toString();
+	}
+	
+	
 	public boolean saveLevel(File f)  {
 		PrintWriter out = null;
 		try {
@@ -92,7 +107,8 @@ public class PlayGrid {
 			
 			out = new PrintWriter(new BufferedWriter(w));
 			
-			// TODO: save playgrid data (size)
+			// save Grid Properties
+			out.print(this.encode());
 				
 			// save bricks
 			for (AbstractBrick brick : this.getBricks()) {
@@ -130,17 +146,20 @@ public class PlayGrid {
 		try {
 			Locale.setDefault(new Locale("en", "US"));
 			Scanner s = new Scanner(f);
+					
+			// decode Grid Properties
+			String line = s.nextLine();			
+			this.decode(line);
 			
 			while (s.hasNextLine()) {
-				String line = s.nextLine();
+				line = s.nextLine();
 				
-				String className = line.substring(0, line.indexOf(':'));
+				String className = line.substring(0, line.indexOf(':'));				
 				Class<?> classObj = this.getClass().getClassLoader().loadClass(className);
 				
 				IDecodable obj = (IDecodable) classObj.newInstance();
 				obj.decode(line.substring(className.length()+1));			
-				
-				
+								
 				if (obj instanceof Ball) {
 					getBalls().add((Ball) obj);
 				} else if (obj instanceof Slider) {
@@ -197,6 +216,8 @@ public class PlayGrid {
 	public void setSlider(Slider slider) {
 		this.slider = slider;
 	}
+
+	
 	
 	
 }

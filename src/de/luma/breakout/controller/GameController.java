@@ -56,6 +56,10 @@ public class GameController extends ObservableGame {
 	}
 
 	public void initialize() {		
+		showMainMenu();
+	}
+	
+	private void showMainMenu() {
 		setState(GAME_STATE.MENU_MAIN);
 		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_LEVEL_CHOOSE, MENU_ITEM.MNU_END},
 				TextMapping.getTextForIndex(TextMapping.TXT_MAIN_MENU));
@@ -99,6 +103,10 @@ public class GameController extends ObservableGame {
 		case MNU_CONTINUE:
 			start();
 			break;
+		case MNU_BACK_MAIN_MENU:
+			if (getState() != GAME_STATE.RUNNING) {
+				showMainMenu();
+			}
 		case MNU_LEVEL_CHOOSE:
 			//TODO
 			break;
@@ -124,7 +132,7 @@ public class GameController extends ObservableGame {
 		cancelTimer();
 
 		setState(GAME_STATE.PAUSED);		
-		notifyGameMenu(new MENU_ITEM[] {MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_CONTINUE, MENU_ITEM.MNU_END},  
+		notifyGameMenu(new MENU_ITEM[] {MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_CONTINUE, MENU_ITEM.MNU_BACK_MAIN_MENU, MENU_ITEM.MNU_END},  
 				TextMapping.getTextForIndex(TextMapping.TXT_GAME_PAUSED));
 	}
 
@@ -172,7 +180,9 @@ public class GameController extends ObservableGame {
 			moveSlider(+5);
 			break;
 		case PAUSE:
-			pause();
+			if (getState() == GAME_STATE.RUNNING) {
+				pause();
+			}
 		}
 	}
 
