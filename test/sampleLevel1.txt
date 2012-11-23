@@ -1,7 +1,7 @@
-data.objects.Slider:100,450,100,20
-data.objects.Ball:150,200,0.5,2.1,5 
-data.objects.Ball:150,200,0.1,1.4,5 
-data.objects.SimpleBrick:10,10
-data.objects.SimpleBrick:60,20
-data.objects.SimpleBrick:110,40
-data.objects.SimpleBrick:160,100
+de.luma.breakout.data.objects.Slider:100,450,100,20
+de.luma.breakout.data.objects.Ball:150,200,0.5,2.1,5 
+de.luma.breakout.data.objects.Ball:150,200,0.1,1.4,5 
+de.luma.breakout.data.objects.SimpleBrick:10,10
+de.luma.breakout.data.objects.SimpleBrick:60,20
+de.luma.breakout.data.objects.SimpleBrick:110,40
+de.luma.breakout.data.objects.SimpleBrick:160,100

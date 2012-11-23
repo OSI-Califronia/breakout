@@ -1,26 +1,24 @@
 package de.luma.breakout.controller;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import junit.framework.TestCase;
-
 
 import org.junit.Before;
 import org.junit.Test;
 
-
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
-import de.luma.breakout.controller.GameController;
 import de.luma.breakout.data.PlayGrid;
 import de.luma.breakout.data.objects.Ball;
 import de.luma.breakout.data.objects.SimpleBrick;
 import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.view.gui.MainWindow;
 import de.luma.breakout.view.tui.UITextView;
 
 public class TestGameController extends TestCase {
 
 	private UITextView view;
+	private MainWindow mainWindow;
 	private GameController controller;
 	private PlayGrid playGrid;
 	
@@ -41,13 +39,19 @@ public class TestGameController extends TestCase {
 		view.setController(controller);		
 		controller.addObserver(view);
 		
+		mainWindow = new MainWindow();
+		mainWindow.setController(controller);
+		controller.addObserver(mainWindow);
+		mainWindow.setVisible(true);		
+		
+		controller.setState(GAME_STATE.RUNNING);
 	}
 	
 	private void resetGrid() {
 		playGrid.clearGrid();
 		playGrid.setSlider(new Slider(playGrid.getWidth() / 2 + 50, playGrid.getHeight() - 25, 100, 20));
 	}
-
+	
 	@Test
 	public void testBrickCollisions() {		
 		
@@ -285,7 +289,7 @@ public class TestGameController extends TestCase {
 			assertEquals(playGrid.getBricks().size(), grid2.getBricks().size());	
 			
 			// test save level FileNotFound
-			assertFalse(controller.getGrid().saveLevel(new File ("bug/testLevelBug.txt")));
+			assertFalse(controller.getGrid().saveLevel(new File ("NonExistingFolder/testLevelBug.txt")));
 	}
 	
 	
@@ -297,7 +301,8 @@ public class TestGameController extends TestCase {
 		controller.pause();
 //		controller.terminate();		
 		controller.removeObserver(view);
-		controller = null;
+		controller.terminate();
+		controller = null;	
 	}
 
 }

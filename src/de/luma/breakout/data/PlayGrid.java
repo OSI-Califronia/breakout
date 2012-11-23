@@ -115,8 +115,7 @@ public class PlayGrid {
 			
 			return true;
 			
-		} catch (FileNotFoundException e) {			
-			e.printStackTrace();
+		} catch (FileNotFoundException e) {					
 			return false;
 		} finally {
 			if (out != null) {
@@ -153,7 +152,7 @@ public class PlayGrid {
 				}
 			}
 		} catch(Exception e) {
-			e.printStackTrace();
+			
 			return false;
 		} 
 		return true;

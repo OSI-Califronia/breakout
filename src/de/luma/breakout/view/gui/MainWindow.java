@@ -190,7 +190,7 @@ public class MainWindow extends JFrame implements IGameObserver {
 	public void updateGameState(GAME_STATE state) {
 
 		if (state == GAME_STATE.MENU_WINGAME) {
-			JOptionPane.showMessageDialog(this, "You win the Game");
+//			JOptionPane.showMessageDialog(this, "You win the Game");
 
 		} else if (state == GAME_STATE.KILLED) {
 			this.dispose();

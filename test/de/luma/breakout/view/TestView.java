@@ -69,8 +69,13 @@ public class TestView extends TestCase {
 			keyListener.keyPressed(event);
 		}		
 		
+		controller.updateGame();
+		
 		assertTrue(controller.getGrid().getSlider().getX() < 20);
 		
+		for (KeyListener keyListener : mainWindow.getKeyListeners()) {
+			keyListener.keyReleased(event);
+		}
 		
 		controller.getGrid().getSlider().setX(20);
 		
@@ -79,7 +84,13 @@ public class TestView extends TestCase {
 			keyListener.keyPressed(event);
 		}		
 		
+		controller.updateGame();
+		
 		assertTrue(controller.getGrid().getSlider().getX() > 20);
+		
+		for (KeyListener keyListener : mainWindow.getKeyListeners()) {
+			keyListener.keyReleased(event);
+		}
 		
 		
 		// click buttons
