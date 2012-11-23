@@ -1,15 +1,15 @@
-package view.tui;
+package de.luma.breakout.view.tui;
 
 import java.util.Locale;
 import java.util.Scanner;
 
-import communication.IGameObserver;
-import communication.ObservableGame.GAME_STATE;
-import communication.ObservableGame.MENU_ITEM;
-import communication.TextMapping;
 
-import controller.GameController;
-import controller.GameController.PLAYER_INPUT;
+import de.luma.breakout.communication.IGameObserver;
+import de.luma.breakout.communication.TextMapping;
+import de.luma.breakout.communication.ObservableGame.GAME_STATE;
+import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
+import de.luma.breakout.controller.GameController;
+import de.luma.breakout.controller.GameController.PLAYER_INPUT;
 
 
 public class UITextView implements IGameObserver {

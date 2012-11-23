@@ -1,6 +1,6 @@
-package communication;
+package de.luma.breakout.communication;
 
-import communication.ObservableGame.MENU_ITEM;
+import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
 public class TextMapping {
 

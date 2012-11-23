@@ -1,4 +1,4 @@
-package view.gui;
+package de.luma.breakout.view.gui;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
@@ -15,11 +15,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-import communication.IGameObserver;
-import communication.ObservableGame.GAME_STATE;
-import communication.ObservableGame.MENU_ITEM;
 
-import controller.GameController;
+import de.luma.breakout.communication.IGameObserver;
+import de.luma.breakout.communication.ObservableGame.GAME_STATE;
+import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
+import de.luma.breakout.controller.GameController;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements IGameObserver {

@@ -1,4 +1,4 @@
-package data.objects;
+package de.luma.breakout.data.objects;
 
 public interface IDecodable {
 

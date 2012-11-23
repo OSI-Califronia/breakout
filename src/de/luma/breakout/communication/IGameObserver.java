@@ -1,7 +1,7 @@
-package communication;
+package de.luma.breakout.communication;
 
-import communication.ObservableGame.GAME_STATE;
-import communication.ObservableGame.MENU_ITEM;
+import de.luma.breakout.communication.ObservableGame.GAME_STATE;
+import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
 public interface IGameObserver {
 	

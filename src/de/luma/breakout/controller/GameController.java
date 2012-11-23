@@ -1,37 +1,36 @@
-package controller;
+package de.luma.breakout.controller;
 
 import java.io.File;
+
 import java.util.Iterator;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import communication.ObservableGame;
-import communication.TextMapping;
 
-import data.PlayGrid;
-import data.objects.AbstractBrick;
-import data.objects.Ball;
-import data.objects.Slider;
+import de.luma.breakout.communication.ObservableGame;
+import de.luma.breakout.communication.TextMapping;
+import de.luma.breakout.data.PlayGrid;
+import de.luma.breakout.data.objects.AbstractBrick;
+import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.Slider;
+
+/**
+ * TODO:
+ * - Nur reagieren wenn Spiel läuft (ProcessInput)
+ * - maximale Ballgeschwindigkeit einführen
+ * - level laden
+ * - neustart ermöglichen
+ * - timer thread richtig beenden
+ */
 
 
 public class GameController extends ObservableGame {	
 
-	/**
-	 * TODO:
-	 * - Nur reagieren wenn Spiel läuft (ProcessInput)
-	 * - maximale Ballgeschwindigkeit einführen
-	 * - level laden
-	 * - neustart ermöglichen
-	 * - timer thread richtig beenden
-	 */
 
 	public enum PLAYER_INPUT {
 		LEFT,
 		RIGHT,
-		//CANCEL_GAME,
 		PAUSE
-		//KILL,
-		//START
 	}
 
 	private class GameTimerTask extends TimerTask {		
@@ -49,6 +48,8 @@ public class GameController extends ObservableGame {
 	private Timer timer;
 	private GameTimerTask task;
 	private GAME_STATE state;
+	
+	public static final double MAX_BALL_SPEED = 10.0;
 
 	public GameController() {
 		super();		

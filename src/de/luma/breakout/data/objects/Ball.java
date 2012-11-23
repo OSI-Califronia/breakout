@@ -1,4 +1,4 @@
-package data.objects;
+package de.luma.breakout.data.objects;
 
 public class Ball implements IDecodable {
 
@@ -67,6 +67,10 @@ public class Ball implements IDecodable {
 	
 	public void inverseSpeedY() {
 		speedY = speedY * (-1);
+	}
+	
+	public double getAbsoluteSpeed() {
+		return Math.sqrt(Math.pow(getSpeedX(), 2) + Math.pow(getSpeedY(), 2));
 	}
 
 	@Override

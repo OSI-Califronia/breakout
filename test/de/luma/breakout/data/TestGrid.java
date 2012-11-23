@@ -1,11 +1,14 @@
-package data;
+package de.luma.breakout.data;
 
 import junit.framework.TestCase;
 
 import org.junit.Before;
 import org.junit.Test;
 
-import data.objects.*;
+import de.luma.breakout.data.PlayGrid;
+import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.SimpleBrick;
+import de.luma.breakout.data.objects.Slider;
 
 public class TestGrid extends TestCase {
 	

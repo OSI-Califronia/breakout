@@ -1,4 +1,4 @@
-package data;
+package de.luma.breakout.data;
 
 
 import java.io.BufferedWriter;
@@ -14,10 +14,10 @@ import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 
-import data.objects.AbstractBrick;
-import data.objects.Ball;
-import data.objects.IDecodable;
-import data.objects.Slider;
+import de.luma.breakout.data.objects.AbstractBrick;
+import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.IDecodable;
+import de.luma.breakout.data.objects.Slider;
 
 
 
@@ -61,16 +61,19 @@ public class PlayGrid {
 		// top
 		if (bally - ballr <= 0) {
 			ball.setSpeedY(ball.getSpeedY() * (-1));
+			ball.setY(ballr + 1);
 		}
 		
 		// left
 		if (ballx - ballr <= 0) {
 			ball.setSpeedX(ball.getSpeedX() * (-1));
+			ball.setX(ballr + 1);
 		}
 		
 		// right
 		if (ballx + ballr >= getWidth()) {
 			ball.setSpeedX(ball.getSpeedX() * (-1));
+			ball.setX(getWidth() - ballr - 1);
 		}
 		
 		// bottom

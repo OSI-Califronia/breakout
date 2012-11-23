@@ -1,4 +1,4 @@
-package view.gui;
+package de.luma.breakout.view.gui;
 
 import java.awt.Color;
 import java.awt.Dimension;
@@ -8,13 +8,13 @@ import javax.swing.BorderFactory;
 import javax.swing.JPanel;
 import javax.swing.border.BevelBorder;
 
-import communication.ObservableGame.GAME_STATE;
 
 
-import data.PlayGrid;
-import data.objects.AbstractBrick;
-import data.objects.Ball;
-import data.objects.Slider;
+import de.luma.breakout.communication.ObservableGame.GAME_STATE;
+import de.luma.breakout.data.PlayGrid;
+import de.luma.breakout.data.objects.AbstractBrick;
+import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.Slider;
 
 
 @SuppressWarnings("serial")

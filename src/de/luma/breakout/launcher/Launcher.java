@@ -1,4 +1,4 @@
-package Launcher;
+package de.luma.breakout.launcher;
 
 
 import java.io.File;
@@ -6,13 +6,13 @@ import java.io.File;
 import org.junit.Test;
 
 import junit.framework.TestCase;
-import controller.GameController;
-import view.UITextView;
-import view.gui.MainWindow;
-import data.PlayGrid;
-import data.objects.Ball;
-import data.objects.SimpleBrick;
-import data.objects.Slider;
+import de.luma.breakout.controller.GameController;
+import de.luma.breakout.data.PlayGrid;
+import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.SimpleBrick;
+import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.view.gui.MainWindow;
+import de.luma.breakout.view.tui.UITextView;
 
 // Kein Test vorgesehen da prinzipiell unbegrenzte Laufzeit
 public class Launcher extends TestCase {
@@ -50,17 +50,15 @@ public class Launcher extends TestCase {
 		// TUI
 		UITextView view = new UITextView();
 		view.setController(controller);
-		controller.addObserver(view);
-		
-		controller.initialize();
+		controller.addObserver(view);		
 		
 //		// GUI
-//		MainWindow mainWindow = new MainWindow();
-//		mainWindow.setController(controller);
-//		controller.addObserver(mainWindow);
+		MainWindow mainWindow = new MainWindow();
+		mainWindow.setController(controller);
+		controller.addObserver(mainWindow);
+		mainWindow.setVisible(true);
 		
-
-		
+		controller.initialize();
 	}
 	
 }
