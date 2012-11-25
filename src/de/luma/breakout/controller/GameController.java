@@ -16,23 +16,26 @@ import de.luma.breakout.data.objects.Slider;
 
 /**
  * TODO:
- * - Nur reagieren wenn Spiel läuft (ProcessInput)
- * - maximale Ballgeschwindigkeit einführen
  * - level laden
- * - neustart ermöglichen
- * - timer thread richtig beenden
+ * - hitcount von bricks irgendwo erhöhen
+ * - konstanten einführen (gewünschte fps usw.)
  */
-
 
 public class GameController extends ObservableGame {	
 
-
+	/**
+	 * Input options while the game is running.
+	 */
 	public enum PLAYER_INPUT {
 		LEFT,
 		RIGHT,
 		PAUSE
 	}
 
+	/**
+	 * This task gets scheduled by start() to make the
+	 * game run with a constant FPS.
+	 */
 	private class GameTimerTask extends TimerTask {		
 		public GameTimerTask() {
 			super();
@@ -48,23 +51,21 @@ public class GameController extends ObservableGame {
 	private Timer timer;
 	private GameTimerTask task;
 	private GAME_STATE state;
+	private boolean isInCreativeMode;
 	
+	/** Maximum absolute speed that a ball can reach */
 	public static final double MAX_BALL_SPEED = 10.0;
 
-	public GameController() {
-		super();		
-	}
-
+	/* #######################################  GAME INFRASTRUCTURE #######################################   */
+	/* ###############################    Basics to make the game a game     ##############################  */
+	
+	/**
+	 *  Initialize the game. Has to be called only one time when the game starts running 
+	 */
 	public void initialize() {		
 		showMainMenu();
 	}
 	
-	private void showMainMenu() {
-		setState(GAME_STATE.MENU_MAIN);
-		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_LEVEL_CHOOSE, MENU_ITEM.MNU_END},
-				TextMapping.getTextForIndex(TextMapping.TXT_MAIN_MENU));
-	}
-
 	/**
 	 * Prepares the next frame of the game:
 	 * - Move balls and do collision tests
@@ -72,8 +73,18 @@ public class GameController extends ObservableGame {
 	 * - Request repaint
 	 */
 	public void updateGame() {
-		moveBalls();	
-
+		
+		// move game objects only when not in creative mode
+		if (!this.isInCreativeMode) {
+			
+			// notify bricks of new frame (e.g. for moving bricks)
+			for (AbstractBrick brick : getGrid().getBricks()) {
+				brick.onNextFrame();
+			}
+			
+			moveBalls();	
+		}
+		
 		// Check if no ball on game grid
 		if (getGrid().getBalls().isEmpty()) {
 			gameOver();
@@ -88,120 +99,7 @@ public class GameController extends ObservableGame {
 		
 		notifyNextGameFrame();		
 	}
-
-	public void processMenuInput(MENU_ITEM indexOfMenuItem) {
-		switch (indexOfMenuItem) {
-		case MNU_NEW_GAME:
-			setGrid(new PlayGrid(500, 500));
-			getGrid().loadLevel(new File("test/sampleLevel1.txt"));
-			this.start();
-			break;
-		case MNU_END:
-			//TODO save level and gameprocess
-			terminate();	
-			break;
-		case MNU_CONTINUE:
-			start();
-			break;
-		case MNU_BACK_MAIN_MENU:
-			if (getState() != GAME_STATE.RUNNING) {
-				showMainMenu();
-			}
-		case MNU_LEVEL_CHOOSE:
-			//TODO
-			break;
-		}		
-	}
-
-	/**
-	 * Set game state to running and start a timer which
-	 * calls updateGame() continuosly.
-	 */
-	public void start() {
-		// timer 
-		resetTimer();
-		timer.scheduleAtFixedRate(task, 0, 10);
-		setState(GAME_STATE.RUNNING);
-
-	}
-
-	/**
-	 * Stop the game timer and display the pause menu.
-	 */
-	public void pause() {
-		cancelTimer();
-
-		setState(GAME_STATE.PAUSED);		
-		notifyGameMenu(new MENU_ITEM[] {MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_CONTINUE, MENU_ITEM.MNU_BACK_MAIN_MENU, MENU_ITEM.MNU_END},  
-				TextMapping.getTextForIndex(TextMapping.TXT_GAME_PAUSED));
-	}
-
-	/**
-	 * Stop the game timer and display the game over menu.
-	 */
-	public void gameOver() {
-		cancelTimer();
-
-		setState(GAME_STATE.MENU_GAMEOVER);
-		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END},
-				TextMapping.getTextForIndex(TextMapping.TXT_YOU_LOSE));		
-	}
-
-	/**
-	 * Stop the game timer and set game state to killed.
-	 */
-	public void terminate() {
-		cancelTimer();
-
-		setState(GAME_STATE.KILLED);		
-	}
-
-	/**
-	 * Stop the game timer display the game won menu.
-	 */
-	public void winGame() {
-		cancelTimer();
-		setState(GAME_STATE.MENU_WINGAME);
-		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END}, 
-				TextMapping.getTextForIndex(TextMapping.TXT_YOU_WIN));		
-	}
-
-
-
-	/**
-	 * Process interactive user input (e.g. from key hits)
-	 */
-	public void processInput(PLAYER_INPUT input) {
-		switch (input) {
-		case LEFT:
-			moveSlider(-5);
-			break;
-		case RIGHT:
-			moveSlider(+5);
-			break;
-		case PAUSE:
-			if (getState() == GAME_STATE.RUNNING) {
-				pause();
-			}
-		}
-	}
-
-	/**
-	 * Control slider movements since slider has no information about the grid.
-	 * @param delta Positive or negative value to move slider.
-	 */
-	private void moveSlider(int delta) {
-		int newx = getGrid().getSlider().getX() + delta;
-		if (newx < 0) {
-			return;
-		} else if (newx > getGrid().getWidth() - getGrid().getSlider().getWidth()) {
-			return;
-		} else {
-			getGrid().getSlider().setX(newx);
-		}
-	}
-
-
+	
 	/**
 	 * Moves all balls, regarding collisions with bricks, the grid borders and the slider.
 	 * Balls and bricks get removed by this method when the grid or a brick signals to do so.
@@ -242,22 +140,167 @@ public class GameController extends ObservableGame {
 
 	}
 
+	/**
+	 * Initialize a new game timer to automatically calculate the
+	 * next game frame.
+	 * @return
+	 */
 	protected Timer resetTimer() {
 		task = new GameTimerTask();		
 		timer = new Timer("Game Timer");
 		return timer;
 	}
 
+	/**
+	 * Stop the game timer. No more frames will be calculated automatically.
+	 */
 	protected void cancelTimer()  {
 		if (timer != null) {
 			timer.cancel();
 		}
 	}
+	
+	/**
+	 * Start or resume the game.
+	 */
+	public void start() {
+		// timer 
+		resetTimer();
+		timer.scheduleAtFixedRate(task, 0, 10);
+		setState(GAME_STATE.RUNNING);
 
+	}
+
+	/**
+	 * Pause the game and display the pause menu.
+	 */
+	public void pause() {
+		cancelTimer();
+
+		setState(GAME_STATE.PAUSED);		
+		notifyGameMenu(new MENU_ITEM[] {MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_CONTINUE, MENU_ITEM.MNU_BACK_MAIN_MENU, MENU_ITEM.MNU_END},  
+				TextMapping.getTextForIndex(TextMapping.TXT_GAME_PAUSED));
+	}
+
+	/**
+	 * Stop the game and display the game over menu.
+	 */
+	public void gameOver() {
+		cancelTimer();
+
+		setState(GAME_STATE.MENU_GAMEOVER);
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END},
+				TextMapping.getTextForIndex(TextMapping.TXT_YOU_LOSE));		
+	}
+
+	/**
+	 * Stop the game and set game state to 'killed'.
+	 */
+	public void terminate() {
+		cancelTimer();
+
+		setState(GAME_STATE.KILLED);		
+	}
+
+	/**
+	 * Stop the game and display the game won menu.
+	 */
+	public void winGame() {
+		cancelTimer();
+		setState(GAME_STATE.MENU_WINGAME);
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END}, 
+				TextMapping.getTextForIndex(TextMapping.TXT_YOU_WIN));		
+	}
+
+
+	/* #######################################  USER INPUT HANDLING #######################################   */
+	/* ###############################          menus & key events      ##############################  */
+
+	/**
+	 * Process interactive user input during the running game (e.g. from key hits)
+	 */
+	public void processGameInput(PLAYER_INPUT input) {
+		switch (input) {
+		case LEFT:
+			moveSlider(-5);
+			break;
+		case RIGHT:
+			moveSlider(+5);
+			break;
+		case PAUSE:
+			if (getState() == GAME_STATE.RUNNING) {
+				pause();
+			}
+		}
+	}
+	
+	/**
+	 * Control slider movements since the slider has no information about the grid.
+	 * @param delta Positive or negative value to move slider.
+	 */
+	private void moveSlider(int delta) {
+		int newx = getGrid().getSlider().getX() + delta;
+		if (newx < 0) {
+			return;
+		} else if (newx > getGrid().getWidth() - getGrid().getSlider().getWidth()) {
+			return;
+		} else {
+			getGrid().getSlider().setX(newx);
+		}
+	}
+	
+	/**
+	 * Display the main game menu.
+	 */
+	private void showMainMenu() {
+		setState(GAME_STATE.MENU_MAIN);
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_LEVEL_CHOOSE, MENU_ITEM.MNU_END},
+				TextMapping.getTextForIndex(TextMapping.TXT_MAIN_MENU));
+	}
+	
+	/**
+	 * Process the given menu input. 
+	 * It is not checked whether the given menu item 
+	 * is valid at the current game status.
+	 * @param indexOfMenuItem one of the menu items that were 
+	 * proposed by notifyGameMenu().
+	 */
+	public void processMenuInput(MENU_ITEM indexOfMenuItem) {
+		switch (indexOfMenuItem) {
+		case MNU_NEW_GAME:
+			setGrid(new PlayGrid(500, 500));
+			// TODO: Richtiges level laden!!!
+			getGrid().loadLevel(new File("test/level_1353863690942.lvl"));
+			this.start();
+			break;
+		case MNU_END:
+			// TODO save level and gameprocess
+			terminate();	
+			break;
+		case MNU_CONTINUE:
+			start();
+			break;
+		case MNU_BACK_MAIN_MENU:
+			if (getState() != GAME_STATE.RUNNING) {
+				showMainMenu();
+			}
+		case MNU_LEVEL_CHOOSE:
+			//TODO
+			break;
+		}		
+	}
+	
+
+	/* #######################################  GETTERS & SETTERS #######################################   */
+	/* ############################   the same procedure as every year...    ###########################  */
+
+	public GameController() {
+		super();		
+	}
+	
 	public PlayGrid getGrid() {
 		return grid;
 	}
-
 
 	public void setGrid(PlayGrid grid) {
 		this.grid = grid;
@@ -270,5 +313,19 @@ public class GameController extends ObservableGame {
 	public void setState(GAME_STATE state) {
 		this.state = state;
 		notifyGameStateChanged(state);
+	}
+
+	
+	public boolean getCreativeMode() {
+		return isInCreativeMode;
+	}
+	
+	/**
+	 * Enable creative mode to display the running game without
+	 * moving the balls.
+	 */
+
+	public void setCreativeMode(boolean enableCreativeMode) {
+		this.isInCreativeMode = enableCreativeMode;
 	}
 }

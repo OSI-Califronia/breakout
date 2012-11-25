@@ -22,6 +22,12 @@ public abstract class AbstractBrick implements IDecodable {
 		setHeight(height);
 		setHitCount(0);
 	}
+	
+	/**
+	 * This method gets called by the game controller
+	 * at every new frame that is calculated.
+	 */
+	public void onNextFrame() {	}
 
 	public int getX() {
 		return x;
@@ -111,9 +117,6 @@ public abstract class AbstractBrick implements IDecodable {
 		int ballx = (int) b.getX();
 		int bally = (int) b.getY();
 		int ballr = (int) b.getRadius();
-		int tolY = 5;
-		int tolX = 5;
-
 
 		// Collision with top border
 		if (matchesXRange(ballx) 

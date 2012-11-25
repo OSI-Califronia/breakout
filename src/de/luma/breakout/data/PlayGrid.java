@@ -108,7 +108,7 @@ public class PlayGrid implements IDecodable {
 			out = new PrintWriter(new BufferedWriter(w));
 			
 			// save Grid Properties
-			out.print(this.encode());
+			out.println(this.encode());
 				
 			// save bricks
 			for (AbstractBrick brick : this.getBricks()) {
@@ -143,9 +143,10 @@ public class PlayGrid implements IDecodable {
 	
 	
 	public boolean loadLevel(File f) {
+		Scanner s = null;
 		try {
 			Locale.setDefault(new Locale("en", "US"));
-			Scanner s = new Scanner(f);
+			s = new Scanner(f);
 					
 			// decode Grid Properties
 			String line = s.nextLine();			
@@ -170,9 +171,12 @@ public class PlayGrid implements IDecodable {
 					throw new IllegalArgumentException("Unknown Game Obj in level " + f.getName());					
 				}
 			}
-		} catch(Exception e) {
 			
+			s.close();
+		} catch(Exception e) {
 			return false;
+		} finally {
+			s.close();
 		} 
 		return true;
 	}

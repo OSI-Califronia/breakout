@@ -7,6 +7,7 @@ import java.awt.Insets;
 import java.awt.MediaTracker;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
+import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -49,8 +50,6 @@ public class MainWindow extends JFrame implements IGameObserver {
 		this.setSize(800, 700);
 		this.pack();		
 
-		this.addKeyListener(getGameKeyListener());
-
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		loadImageResources();
@@ -69,7 +68,7 @@ public class MainWindow extends JFrame implements IGameObserver {
 						rightKeyPressed = true;
 						break;
 					case KeyEvent.VK_ESCAPE:
-						getController().processInput(GameController.PLAYER_INPUT.PAUSE);
+						getController().processGameInput(GameController.PLAYER_INPUT.PAUSE);
 						break;
 					case KeyEvent.VK_UP:
 						getBpaGameView2D().selectPreviousMenuItem();
@@ -91,6 +90,12 @@ public class MainWindow extends JFrame implements IGameObserver {
 					case KeyEvent.VK_RIGHT:
 						rightKeyPressed = false;
 						break;
+					case KeyEvent.VK_C: 
+						// switch creative mode
+						getController().setCreativeMode(!getController().getCreativeMode());
+					case KeyEvent.VK_SHIFT:
+						// save level
+						getController().getGrid().saveLevel(new File("test/level_" + System.currentTimeMillis() + ".lvl"));
 					}
 				}
 
@@ -127,10 +132,10 @@ public class MainWindow extends JFrame implements IGameObserver {
 	@Override
 	public void updateGameFrame() {
 		if (leftKeyPressed) {
-			getController().processInput(GameController.PLAYER_INPUT.LEFT);
+			getController().processGameInput(GameController.PLAYER_INPUT.LEFT);
 		}
 		if (rightKeyPressed) {
-			getController().processInput(GameController.PLAYER_INPUT.RIGHT);
+			getController().processGameInput(GameController.PLAYER_INPUT.RIGHT);
 		}
 	}
 

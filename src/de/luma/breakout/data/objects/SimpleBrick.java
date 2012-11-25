@@ -1,9 +1,17 @@
 package de.luma.breakout.data.objects;
 
-
-
-
 public class SimpleBrick extends AbstractBrick {
+	
+	private int frameCounter = 0;
+	
+	@Override
+	public void onNextFrame() {
+		super.onNextFrame();
+		
+		frameCounter = (frameCounter + 1) % 300;
+		double factor = frameCounter / 300.0 * 2 * Math.PI;
+		this.setX(this.getX() + (int) (Math.sin(factor) * 2));
+	}
 
 	public SimpleBrick() {
 		super(0, 0, 50, 20);

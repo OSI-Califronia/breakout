@@ -237,24 +237,24 @@ public class TestGameController extends TestCase {
 		
 		// test slider movements
 		controller.getGrid().getSlider().setX(50);
-		controller.processInput(GameController.PLAYER_INPUT.LEFT);
+		controller.processGameInput(GameController.PLAYER_INPUT.LEFT);
 		assertTrue(controller.getGrid().getSlider().getX() < 50);
-		controller.processInput(GameController.PLAYER_INPUT.RIGHT);
-		controller.processInput(GameController.PLAYER_INPUT.RIGHT);
+		controller.processGameInput(GameController.PLAYER_INPUT.RIGHT);
+		controller.processGameInput(GameController.PLAYER_INPUT.RIGHT);
 		assertTrue(controller.getGrid().getSlider().getX() > 50);
 		
 		// test invalid user input
 		controller.getGrid().getSlider().setX(0);
-		controller.processInput(GameController.PLAYER_INPUT.LEFT);
+		controller.processGameInput(GameController.PLAYER_INPUT.LEFT);
 		assertTrue(controller.getGrid().getSlider().getX() == 0);
 		
 		int max_x = controller.getGrid().getWidth() - controller.getGrid().getSlider().getWidth();
 		controller.getGrid().getSlider().setX(max_x);
-		controller.processInput(GameController.PLAYER_INPUT.RIGHT);
+		controller.processGameInput(GameController.PLAYER_INPUT.RIGHT);
 		assertTrue(controller.getGrid().getSlider().getX() <= max_x);
 		
 		
-		controller.processInput(GameController.PLAYER_INPUT.PAUSE);
+		controller.processGameInput(GameController.PLAYER_INPUT.PAUSE);
 		assertTrue(controller.getState() == GAME_STATE.PAUSED);
 		
 //		controller.processInput(GameController.PLAYER_INPUT.CANCEL_GAME);

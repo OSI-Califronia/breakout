@@ -13,14 +13,12 @@ import de.luma.breakout.data.PlayGrid;
 import de.luma.breakout.data.objects.Ball;
 import de.luma.breakout.data.objects.SimpleBrick;
 import de.luma.breakout.data.objects.Slider;
-import de.luma.breakout.view.gui.GameView2D;
 import de.luma.breakout.view.gui.MainWindow;
 import de.luma.breakout.view.tui.UITextView;
 
 public class TestView extends TestCase {
 	
 	private UITextView viewText;
-	private GameView2D view2D;
 	private GameController controller;
 	private PlayGrid playGrid;
 	private MainWindow mainWindow;
@@ -42,7 +40,6 @@ public class TestView extends TestCase {
 		
 		mainWindow = new MainWindow();
 		mainWindow.setController(controller);
-		view2D = new GameView2D(mainWindow);
 		
 		
 		controller.addObserver(viewText);

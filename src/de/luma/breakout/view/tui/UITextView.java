@@ -28,11 +28,11 @@ public class UITextView implements IGameObserver {
 				if (controller.getState() == GAME_STATE.RUNNING) {
 					
 					if (strInput.equals("a")) {
-						controller.processInput(PLAYER_INPUT.LEFT);
+						controller.processGameInput(PLAYER_INPUT.LEFT);
 					} else if (strInput.equals("d")) {
-						controller.processInput(PLAYER_INPUT.RIGHT);
+						controller.processGameInput(PLAYER_INPUT.RIGHT);
 					} else if (strInput.equals("p")) {
-						controller.processInput(PLAYER_INPUT.PAUSE);
+						controller.processGameInput(PLAYER_INPUT.PAUSE);
 					}
 
 
