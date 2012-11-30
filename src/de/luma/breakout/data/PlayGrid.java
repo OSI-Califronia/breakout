@@ -7,6 +7,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Locale;
@@ -14,7 +15,10 @@ import java.util.Scanner;
 
 import de.luma.breakout.data.objects.AbstractBrick;
 import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.HardBrick;
 import de.luma.breakout.data.objects.IDecodable;
+import de.luma.breakout.data.objects.MovingBrick;
+import de.luma.breakout.data.objects.SimpleBrick;
 import de.luma.breakout.data.objects.Slider;
 
 
@@ -179,6 +183,18 @@ public class PlayGrid implements IDecodable {
 			s.close();
 		} 
 		return true;
+	}
+	
+	/**
+	 * Return a list of Instances of all available bricks.
+	 * @return
+	 */
+	public List<AbstractBrick> getBrickClasses() {
+		List<AbstractBrick> retVal =  new ArrayList<AbstractBrick>();		
+		retVal.add(new MovingBrick());
+		retVal.add(new SimpleBrick());
+		retVal.add(new HardBrick());
+		return retVal;
 	}
 
 	public int getHeight() {

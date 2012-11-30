@@ -1,26 +1,34 @@
 package de.luma.breakout.data.objects;
 
+import java.util.Properties;
+
 
 
 public abstract class AbstractBrick implements IDecodable {
 
+	public static final String PROP_COLOR = "color";
+	public static final String PROP_IMG_PATH = "imgPath";
+	
 	private int x;
 	private int y;
 	private int width;
 	private int height;
 	private int hitCount;
+	
+	private Properties properties;
 
 	public AbstractBrick() {
 		super();
+		properties = new Properties();
 	}
 
 	public AbstractBrick(int x, int y, int width, int height) {
-		super();
-		setX(x);
-		setY(y);
-		setWidth(width);
-		setHeight(height);
-		setHitCount(0);
+		this();
+		this.x = x;
+		this.y = y;
+		this.width = width;
+		this.height = height;
+	    this.hitCount = 0;
 	}
 	
 	/**
@@ -74,8 +82,24 @@ public abstract class AbstractBrick implements IDecodable {
 	public void setHitCount(int hitCount) {
 		this.hitCount = hitCount;
 	}	
+	
+	protected boolean isBrickDead() {
+		// is deleted by one hit of the ball
+		if (getHitCount() >= 1) {
+			return true;
+		}
+		return false;
+	}
 
-	public abstract boolean tryCollision(Ball b);
+	public boolean tryCollision(Ball b) {		
+		// increase hit counter if brick was hit by a ball
+		if (tryCollisionRectangle(b)) {
+			setHitCount(getHitCount()+1);
+		}
+		
+		return isBrickDead();
+	}
+
 
 	/**
 	 * This mthod return ture if a balls X is Between left and right border of this brick
@@ -162,29 +186,40 @@ public abstract class AbstractBrick implements IDecodable {
 		return isHit; 
 	}
 
-	/**
-	 * Default brick->string encoder.
-	 * Override if custom brick properties need to be encoded.
-	 */
-	public String encode() {
-		return AbstractBrick.encodeBasic(this).toString();
-	}
 
 	/**
 	 * Encodes the basic parameters of a brick (x, y, width, height) as a string.
 	 * 
-	 * @param b Brick to be encoded as a string.
 	 * @return Returns a string builder that can be used to append custom 
 	 * brick properties. No comma is inserted at the end of the string.
 	 */
-	public static StringBuilder encodeBasic(AbstractBrick b) {
+	protected StringBuilder encodeBasic() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%d,", b.getX()));
-		sb.append(String.format("%d,", b.getY()));
-		sb.append(String.format("%d,", b.getWidth()));
-		sb.append(String.format("%d", b.getHeight()));
+		sb.append(String.format("%d,", this.getX()));
+		sb.append(String.format("%d,", this.getY()));
+		sb.append(String.format("%d,", this.getWidth()));
+		sb.append(String.format("%d", this.getHeight()));
 
 		return sb;
+	}
+	
+	/**
+	 * Decodes the basic parametres of a brick (x, y, width, height) from a string.
+	 * 
+	 * @return Returns the line in parametre splited by , into String[]
+	 */
+	protected String[] decodeBasic(String line) {
+		String[] s = line.split(",");
+		setX(Integer.valueOf(s[0]));
+		setY(Integer.valueOf(s[1]));
+		setWidth(Integer.valueOf(s[2]));
+		setHeight(Integer.valueOf(s[3]));	
+		
+		return s;
+	}
+
+	public Properties getProperties() {
+		return properties;
 	}
 
 }

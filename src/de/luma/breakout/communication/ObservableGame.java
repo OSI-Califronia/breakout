@@ -17,6 +17,7 @@ public class ObservableGame {
 	public enum MENU_ITEM {
 		MNU_NEW_GAME,
 		MNU_LEVEL_CHOOSE,
+		MNU_LEVEL_EDITOR,
 		MNU_CONTINUE,
 		MNU_BACK_MAIN_MENU,
 		MNU_END			

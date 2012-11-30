@@ -35,9 +35,8 @@ public class Launcher extends TestCase {
 		controller.addObserver(view);		
 		
 		// GUI
-		MainWindow mainWindow = new MainWindow();
-		mainWindow.setController(controller);
-		controller.addObserver(mainWindow);
+		MainWindow mainWindow = new MainWindow(controller);		
+		controller.addObserver(mainWindow.getBpaGameView2D());
 		mainWindow.setVisible(true);
 		
 		controller.initialize();

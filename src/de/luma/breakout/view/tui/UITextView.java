@@ -20,7 +20,7 @@ public class UITextView implements IGameObserver {
 		public void run() {	
 			
 			// exit condition for thread
-			while (controller.getState() != GAME_STATE.KILLED) {
+			while (controller.getState() != GAME_STATE.KILLED && input.hasNextLine()) {
 				
 				String strInput = input.nextLine();
 

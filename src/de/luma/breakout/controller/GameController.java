@@ -1,11 +1,10 @@
 package de.luma.breakout.controller;
 
 import java.io.File;
-
 import java.util.Iterator;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
-
 
 import de.luma.breakout.communication.ObservableGame;
 import de.luma.breakout.communication.TextMapping;
@@ -55,6 +54,8 @@ public class GameController extends ObservableGame {
 	
 	/** Maximum absolute speed that a ball can reach */
 	public static final double MAX_BALL_SPEED = 10.0;
+	
+	public static final String LEVEL_PATH = "levels\\";
 
 	/* #######################################  GAME INFRASTRUCTURE #######################################   */
 	/* ###############################    Basics to make the game a game     ##############################  */
@@ -77,27 +78,30 @@ public class GameController extends ObservableGame {
 		// move game objects only when not in creative mode
 		if (!this.isInCreativeMode) {
 			
-			// notify bricks of new frame (e.g. for moving bricks)
-			for (AbstractBrick brick : getGrid().getBricks()) {
-				brick.onNextFrame();
-			}
+
 			
-			moveBalls();	
+			moveBalls();				
+			
+			// Check if no ball on game grid
+			if (getGrid().getBalls().isEmpty()) {
+				gameOver();
+			}
+
+			// check if no more bricks left
+			if (getGrid().getBricks().isEmpty()) {
+				winGame();
+			}
+		}
+			
+		// notify bricks of new frame (e.g. for moving bricks)
+		for (AbstractBrick brick : getGrid().getBricks()) {
+			brick.onNextFrame();
 		}
 		
-		// Check if no ball on game grid
-		if (getGrid().getBalls().isEmpty()) {
-			gameOver();
-		}
-
-		// check if no more bricks left
-		if (getGrid().getBricks().isEmpty()) {
-			winGame();
-		}
-
+		notifyNextGameFrame();
 		notifyRepaintPlayGrid();
 		
-		notifyNextGameFrame();		
+		
 	}
 	
 	/**
@@ -254,7 +258,7 @@ public class GameController extends ObservableGame {
 	 */
 	private void showMainMenu() {
 		setState(GAME_STATE.MENU_MAIN);
-		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_LEVEL_CHOOSE, MENU_ITEM.MNU_END},
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_LEVEL_CHOOSE, MENU_ITEM.MNU_LEVEL_EDITOR, MENU_ITEM.MNU_END},
 				TextMapping.getTextForIndex(TextMapping.TXT_MAIN_MENU));
 	}
 	
@@ -268,9 +272,10 @@ public class GameController extends ObservableGame {
 	public void processMenuInput(MENU_ITEM indexOfMenuItem) {
 		switch (indexOfMenuItem) {
 		case MNU_NEW_GAME:
+			this.setCreativeMode(false);
 			setGrid(new PlayGrid(500, 500));
 			// TODO: Richtiges level laden!!!
-			getGrid().loadLevel(new File("test/level_1353863690942.lvl"));
+			getGrid().loadLevel(new File("test/sampleLevel1.txt"));
 			this.start();
 			break;
 		case MNU_END:
@@ -286,6 +291,11 @@ public class GameController extends ObservableGame {
 			}
 		case MNU_LEVEL_CHOOSE:
 			//TODO
+			break;
+		case MNU_LEVEL_EDITOR: 
+			setGrid(new PlayGrid(500, 500));
+			this.setCreativeMode(true);
+			this.start();
 			break;
 		}		
 	}
@@ -315,7 +325,6 @@ public class GameController extends ObservableGame {
 		notifyGameStateChanged(state);
 	}
 
-	
 	public boolean getCreativeMode() {
 		return isInCreativeMode;
 	}
@@ -328,4 +337,14 @@ public class GameController extends ObservableGame {
 	public void setCreativeMode(boolean enableCreativeMode) {
 		this.isInCreativeMode = enableCreativeMode;
 	}
+	
+	public List<AbstractBrick> getBrickClasses() {
+		return getGrid().getBrickClasses();
+	}
+	
+	public void saveLevel() {		
+		getGrid().saveLevel(new File(LEVEL_PATH + "userLevel" + System.nanoTime() + ".lvl"));
+	}
+
+	
 }

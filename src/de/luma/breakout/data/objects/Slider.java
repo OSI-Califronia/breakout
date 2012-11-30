@@ -3,8 +3,6 @@ package de.luma.breakout.data.objects;
 import de.luma.breakout.controller.GameController;
 
 
-
-
 public class Slider extends AbstractBrick {
 	
 	public Slider() {
@@ -29,11 +27,12 @@ public class Slider extends AbstractBrick {
 
 	@Override
 	public void decode(String line) {
-		String[] s = line.split(",");
-		setX(Integer.valueOf(s[0]));
-		setY(Integer.valueOf(s[1]));	
-		setWidth(Integer.valueOf(s[2]));
-		setHeight(Integer.valueOf(s[3]));
+		super.decodeBasic(line);
+	}
+
+	@Override
+	public String encode() {		
+		return super.encodeBasic().toString();
 	}
 
 
