@@ -3,18 +3,14 @@ package de.luma.breakout.view.gui;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.Image;
-import java.awt.MediaTracker;
 import java.awt.Rectangle;
 import java.awt.RenderingHints;
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
-import java.util.HashMap;
-import java.util.Map;
 
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
@@ -24,11 +20,8 @@ import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.controller.IGameController;
-import de.luma.breakout.data.PlayGrid;
 import de.luma.breakout.data.objects.AbstractBrick;
 import de.luma.breakout.data.objects.Ball;
-import de.luma.breakout.data.objects.IDecodable;
-import de.luma.breakout.data.objects.SimpleBrick;
 import de.luma.breakout.data.objects.Slider;
 
 
@@ -44,6 +37,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 			if (e.getX() > gridSize.getWidth() || e.getY() > gridSize.getHeight()) {
 				return;
 			}
+			
+			GameView2D.this.requestFocusInWindow();
 
 			if (getController().getState() == GAME_STATE.RUNNING && getController().getCreativeMode()) {
 
@@ -181,7 +176,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 	// Grafikal components
 	private BpaEditorToolbar bpaEditorComps;
-
+	private BpaLevelSelection bpaLevelSelect;
 	private IGuiManager guiManager;
 
 
@@ -193,11 +188,14 @@ public class GameView2D extends JPanel implements IGameObserver {
 	}
 
 	private void initializeComponents() {		
-		//		this.setPreferredSize(new Dimension(800, 800));
+		this.setPreferredSize(new Dimension(800, 800));
 		this.addKeyListener(getGameKeyListener());
 		MouseInputAdapter mouseHandler = new GameView2DMouseListener();
 		this.addMouseListener(mouseHandler);
 		this.addMouseMotionListener(mouseHandler);	
+		this.setLayout(new BorderLayout());			
+		
+		this.newBrickClassName =getController().getBrickClasses().get(0).getClass().getName();
 	}
 
 
@@ -221,6 +219,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 		// remove editor toolbar if still there
 		removeEditorToolbar();
+		removeLevelSelection();
 
 		switch (state) {
 		case MENU_GAMEOVER:
@@ -229,6 +228,11 @@ public class GameView2D extends JPanel implements IGameObserver {
 		case PAUSED:
 			this.setPreferredSize(new Dimension(800, 800));
 			guiManager.updateLayout();
+			break;
+		case MENU_LEVEL_SEL:
+			this.setPreferredSize(new Dimension(800, 800));
+			guiManager.updateLayout();
+			startLevelSelection();
 			break;
 		case RUNNING:
 			// editor mode
@@ -241,6 +245,11 @@ public class GameView2D extends JPanel implements IGameObserver {
 			guiManager.kill();		
 			break;
 		}
+	}
+	
+	private void startLevelSelection() {
+		addBpaLevelSelection();
+		bpaLevelSelect.loadLevels();
 	}
 	
 	private void startEditorMode() {
@@ -272,7 +281,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 	 */
 	@Override
 	public void paintComponents(Graphics g) {
-		//super.paintComponents(g);
+
 
 		if (!this.isFocusOwner() && !getController().getCreativeMode()) {
 			this.requestFocusInWindow();
@@ -294,7 +303,9 @@ public class GameView2D extends JPanel implements IGameObserver {
 			}			
 
 			// Paint Menu
-		} else {			
+		} else if (getController().getState() == GAME_STATE.MENU_LEVEL_SEL) {	
+			super.paintComponents(g);
+		} else {
 			paintMenu(g2d);			
 		}
 
@@ -447,7 +458,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 	private void addEditorToolbar() {
 		if (bpaEditorComps == null) {
 			bpaEditorComps = new BpaEditorToolbar(guiManager, this);
-			this.setLayout(new BorderLayout());			
+			
 		}
 		this.add(bpaEditorComps, BorderLayout.EAST);
 	}
@@ -466,13 +477,24 @@ public class GameView2D extends JPanel implements IGameObserver {
 	public void updateOnResize() {
 		Dimension viewSize = getController().getGridSize();
 		if (getController().getCreativeMode()) {
-			viewSize.setSize(viewSize.getWidth() + 200, viewSize.getHeight());
+			viewSize.setSize(viewSize.getWidth() + 220, viewSize.getHeight());
 		}
 		this.setPreferredSize(viewSize);
 		guiManager.updateLayout();
 	}
 
+	public void addBpaLevelSelection() {
+		if (bpaLevelSelect == null) {
+			bpaLevelSelect = new BpaLevelSelection(this, guiManager);
+		}
+		this.add(bpaLevelSelect, BorderLayout.CENTER);
+	}
 	
+	private void removeLevelSelection() {
+		if (bpaLevelSelect != null) {
+			this.remove(bpaLevelSelect);
+		}
+	}
 
 
 }

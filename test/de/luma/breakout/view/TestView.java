@@ -9,7 +9,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import de.luma.breakout.controller.GameController;
-import de.luma.breakout.data.PlayGrid;
 import de.luma.breakout.data.objects.Ball;
 import de.luma.breakout.data.objects.SimpleBrick;
 import de.luma.breakout.data.objects.Slider;
@@ -19,31 +18,26 @@ import de.luma.breakout.view.tui.UITextView;
 public class TestView extends TestCase {
 	
 	private UITextView viewText;
-	private GameController controller;
-	private PlayGrid playGrid;
+	private GameController controller;	
 	private MainWindow mainWindow;
 	
 	@Before
 	public void setUp() throws Exception {
-				
-		// create data model
-		playGrid = new PlayGrid(400, 600);	
-		
 		
 		// create controller
 		controller = new GameController();
-		controller.setGrid(playGrid);
+		controller.clearGrid();
+		controller.setGridSize(400, 600);		
 		
 		// create view
 		viewText = new UITextView();
 		viewText.setController(controller);
-//		
-//		mainWindow = new MainWindow();
-//		mainWindow.setController(controller);
-//		
-//		
-//		controller.addObserver(viewText);
-//		controller.addObserver(mainWindow);
+		
+		mainWindow = new MainWindow(controller);	
+		
+		controller.addObserver(mainWindow.getBpaGameView2D());
+		controller.addObserver(viewText);
+		
 	}
 	
 	
@@ -51,9 +45,9 @@ public class TestView extends TestCase {
 	public void testMainWindow() {
 		mainWindow.setVisible(true);
 		
-		controller.getGrid().addBrick(new SimpleBrick());
-		controller.getGrid().addBall(new Ball(10, 10, 0, 0, 1));
-		controller.getGrid().setSlider(new Slider(20, 50, 10, 10));
+		controller.addBrick(new SimpleBrick());
+		controller.addBall(new Ball(10, 10, 0, 0, 1));
+		controller.setSlider(new Slider(20, 50, 10, 10));
 		
 		controller.updateGame();
 		
@@ -65,13 +59,13 @@ public class TestView extends TestCase {
 		
 		controller.updateGame();
 		
-		assertTrue(controller.getGrid().getSlider().getX() < 20);
+		assertTrue(controller.getSlider().getX() < 20);
 		
 		for (KeyListener keyListener : mainWindow.getKeyListeners()) {
 			keyListener.keyReleased(event);
 		}
 		
-		controller.getGrid().getSlider().setX(20);
+		controller.getSlider().setX(20);
 		
 		event = new KeyEvent(mainWindow, 0, 0L, 0, KeyEvent.VK_RIGHT, ' ');
 		for (KeyListener keyListener : mainWindow.getKeyListeners()) {
@@ -80,7 +74,7 @@ public class TestView extends TestCase {
 		
 		controller.updateGame();
 		
-		assertTrue(controller.getGrid().getSlider().getX() > 20);
+		assertTrue(controller.getSlider().getX() > 20);
 		
 		for (KeyListener keyListener : mainWindow.getKeyListeners()) {
 			keyListener.keyReleased(event);

@@ -8,6 +8,7 @@ public class ObservableGame implements IObservableGame {
 	public enum GAME_STATE {
 		RUNNING,
 		PAUSED,		
+		MENU_LEVEL_SEL,
 		MENU_GAMEOVER,
 		MENU_WINGAME,
 		MENU_MAIN,

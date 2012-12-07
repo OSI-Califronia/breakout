@@ -1,18 +1,22 @@
 package de.luma.breakout.controller;
 
 import java.awt.Dimension;
+import java.awt.geom.Path2D;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Locale;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import javax.naming.spi.DirectoryManager;
 
 import de.luma.breakout.communication.ObservableGame;
 import de.luma.breakout.communication.TextMapping;
@@ -44,7 +48,7 @@ public class GameController extends ObservableGame implements IGameController {
 		public void run() {
 			updateGame();			
 		}		
-	}
+	}	
 
 	private PlayGrid grid;	
 	private Timer timer;
@@ -53,6 +57,14 @@ public class GameController extends ObservableGame implements IGameController {
 	private boolean isInCreativeMode;
 	
 	public static final String LEVEL_PATH = "levels\\";
+	
+	/**
+	 * Default Constructor
+	 */
+	public GameController() {
+		super();		
+	}
+
 
 	/* #######################################  GAME INFRASTRUCTURE #######################################   */
 	/* ###############################    Basics to make the game a game     ##############################  */
@@ -60,6 +72,7 @@ public class GameController extends ObservableGame implements IGameController {
 	/**
 	 *  Initialize the game. Has to be called only one time when the game starts running 
 	 */
+	@Override
 	public void initialize() {		
 		showMainMenu();
 	}
@@ -70,12 +83,11 @@ public class GameController extends ObservableGame implements IGameController {
 	 * - Check game rules (game over etc.)
 	 * - Request repaint
 	 */
+	@Override
 	public void updateGame() {
 		
 		// move game objects only when not in creative mode
 		if (!this.isInCreativeMode) {
-			
-
 			
 			moveBalls();				
 			
@@ -164,7 +176,7 @@ public class GameController extends ObservableGame implements IGameController {
 	/**
 	 * Start or resume the game.
 	 */
-	public void start() {
+	private void start() {
 		// timer 
 		resetTimer();
 		timer.scheduleAtFixedRate(task, 0, 10);
@@ -175,7 +187,7 @@ public class GameController extends ObservableGame implements IGameController {
 	/**
 	 * Pause the game and display the pause menu.
 	 */
-	public void pause() {
+	private void pause() {
 		cancelTimer();
 
 		setState(GAME_STATE.PAUSED);		
@@ -186,7 +198,7 @@ public class GameController extends ObservableGame implements IGameController {
 	/**
 	 * Stop the game and display the game over menu.
 	 */
-	public void gameOver() {
+	private void gameOver() {
 		cancelTimer();
 
 		setState(GAME_STATE.MENU_GAMEOVER);
@@ -197,7 +209,7 @@ public class GameController extends ObservableGame implements IGameController {
 	/**
 	 * Stop the game and set game state to 'killed'.
 	 */
-	public void terminate() {
+	private void terminate() {
 		cancelTimer();
 
 		setState(GAME_STATE.KILLED);		
@@ -206,7 +218,7 @@ public class GameController extends ObservableGame implements IGameController {
 	/**
 	 * Stop the game and display the game won menu.
 	 */
-	public void winGame() {
+	private void winGame() {
 		cancelTimer();
 		setState(GAME_STATE.MENU_WINGAME);
 		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END}, 
@@ -220,6 +232,7 @@ public class GameController extends ObservableGame implements IGameController {
 	/**
 	 * Process interactive user input during the running game (e.g. from key hits)
 	 */
+	@Override
 	public void processGameInput(PLAYER_INPUT input) {
 		switch (input) {
 		case LEFT:
@@ -266,13 +279,12 @@ public class GameController extends ObservableGame implements IGameController {
 	 * @param indexOfMenuItem one of the menu items that were 
 	 * proposed by notifyGameMenu().
 	 */
+	@Override
 	public void processMenuInput(MENU_ITEM indexOfMenuItem) {
 		switch (indexOfMenuItem) {
 		case MNU_NEW_GAME:
-			this.setCreativeMode(false);
-			setGrid(new PlayGrid(500, 500));
-			// TODO: Richtiges level laden!!!
-			loadLevel(new File("levels/sampleLevel1.txt"));
+			this.setCreativeMode(false);			
+			loadLevel(new File(getLevelList().get(0)));
 			this.start();
 			break;
 		case MNU_END:
@@ -286,26 +298,30 @@ public class GameController extends ObservableGame implements IGameController {
 			if (getState() != GAME_STATE.RUNNING) {
 				showMainMenu();
 			}
+			break;
 		case MNU_LEVEL_CHOOSE:
-			//TODO
+			this.setState(GAME_STATE.MENU_LEVEL_SEL);			
 			break;
 		case MNU_LEVEL_EDITOR: 
-			setGrid(new PlayGrid(500, 500));
 			this.setCreativeMode(true);
-			this.start();
+			clearGrid();
+			setGridSize(500, 500);			
+			this.start();			
 			break;
 		}		
 	}
 	
+	@Override
 	public GAME_STATE getState() {
 		return state;
 	}
-
-	public void setState(GAME_STATE state) {
+	
+	private void setState(GAME_STATE state) {
 		this.state = state;
 		notifyGameStateChanged(state);
 	}
 
+	@Override
 	public boolean getCreativeMode() {
 		return isInCreativeMode;
 	}
@@ -315,16 +331,18 @@ public class GameController extends ObservableGame implements IGameController {
 	 * moving the balls.
 	 */
 
-	public void setCreativeMode(boolean enableCreativeMode) {
+	private void setCreativeMode(boolean enableCreativeMode) {
 		this.isInCreativeMode = enableCreativeMode;
 	}
 	
 	/* #######################################  LEVEL HANDLING #######################################   */
 	
+	@Override
 	public void saveLevel() {		
 		saveLevel(new File(LEVEL_PATH + "userLevel" + System.nanoTime() + ".lvl"));
 	}	
 	
+	@Override
 	public boolean saveLevel(File f)  {
 		PrintWriter out = null;
 		try {
@@ -367,6 +385,13 @@ public class GameController extends ObservableGame implements IGameController {
 		}		
 	}
 	
+	@SuppressWarnings("unused")
+	private boolean loadLevel() {
+		//TODO load next level after win game z.b.
+		return false;
+	}
+	
+	@Override
 	public boolean loadLevel(File f) {
 		Scanner s = null;
 		try {
@@ -407,19 +432,36 @@ public class GameController extends ObservableGame implements IGameController {
 		return true;
 	}
 	
+	/**
+	 * Get a list of file paths of available levels.
+	 * @return
+	 */
+	@Override
+	public List<String> getLevelList() {
+		File f = new File(LEVEL_PATH);
+		List<String> retVal = new ArrayList<String>();
+		
+		for (String s : f.list()) {
+			if (s.endsWith(".lvl")) {
+				retVal.add(f.getPath() + "\\" + s);
+			}
+		}
+		return retVal;
+	}
 	
 	/* #######################################  GRID ACCESS HANDLING #######################################   */
 	/* ############################   the same procedure as every year...    ###########################  */
 
-	public GameController() {
-		super();		
-	}
+
 	
-	public PlayGrid getGrid() {
+	private PlayGrid getGrid() {
+		if (grid == null) {
+			grid = new PlayGrid(500, 500);
+		}
 		return grid;
 	}
 
-	public void setGrid(PlayGrid grid) {
+	private void setGrid(PlayGrid grid) {
 		this.grid = grid;
 	}
 	
@@ -427,8 +469,16 @@ public class GameController extends ObservableGame implements IGameController {
 	 * Change play grid size.
 	 */
 	public void setGridSize(int width, int height) {
+		// set grid size
 		getGrid().setWidth(width);
 		getGrid().setHeight(height);
+		
+		// fit slider position to new size
+		if (getSlider() != null) {
+			getSlider().setY(height - getSlider().getHeight() -5);
+			getSlider().setX(0);
+		}
+		
 		notifyOnResize();
 	}
 	
@@ -471,7 +521,8 @@ public class GameController extends ObservableGame implements IGameController {
 
 	@Override
 	public void clearGrid() {
-		getGrid().clearGrid();		
+		getGrid().clearGrid();	
+		
 	}
 
 	

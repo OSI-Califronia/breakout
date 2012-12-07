@@ -31,6 +31,12 @@ public interface IGameController extends IObservableGame {
 	public void initialize();
 	
 	/**
+	 * Calculates the next Game Frame.
+	 *  (only specified for testing)
+	 */
+	public void updateGame();
+	
+	/**
 	 * Process interactive user input during the running game (e.g. from key hits)
 	 */
 	public void processGameInput(PLAYER_INPUT input);
@@ -57,6 +63,11 @@ public interface IGameController extends IObservableGame {
 
 	/* #######################################  LEVEL HANDLING #######################################   */
 	
+	/**
+	 * Loads level with specified location.
+	 */
+	public boolean loadLevel(File f);
+	
 	
 	/**
 	 * Save level with default filename and location.
@@ -67,6 +78,12 @@ public interface IGameController extends IObservableGame {
 	 * Save level to the specified location.
 	 */
 	public boolean saveLevel(File f);
+	
+	/**
+	 * Get a list of file paths of available levels.
+	 * @return
+	 */
+	public List<String> getLevelList();
 	
 
 	/* #######################################  GRID ACCESS HANDLING #######################################   */

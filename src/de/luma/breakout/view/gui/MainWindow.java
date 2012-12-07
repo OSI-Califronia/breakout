@@ -33,7 +33,7 @@ public class MainWindow extends JFrame implements IGuiManager {
 		this.setVisible(true);		
 		this.add(getBpaGameView2D(), BorderLayout.CENTER);
 		this.pack();		
-		this.setResizable(false);
+//		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		loadImageResources();
@@ -74,7 +74,8 @@ public class MainWindow extends JFrame implements IGuiManager {
 				"resources/button.png",
 				"resources/button_selected.png",
 				"resources/breakout_logo.png",		
-				"resources/menu_background.png"
+				"resources/menu_background.png",
+				"resources/levelbutton.png"
 		};
 
 		for (String str : images) {
