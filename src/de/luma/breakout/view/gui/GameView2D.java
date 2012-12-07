@@ -23,7 +23,7 @@ import de.luma.breakout.communication.IGameObserver;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.communication.TextMapping;
-import de.luma.breakout.controller.GameController;
+import de.luma.breakout.controller.IGameController;
 import de.luma.breakout.data.PlayGrid;
 import de.luma.breakout.data.objects.AbstractBrick;
 import de.luma.breakout.data.objects.Ball;
@@ -40,7 +40,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// ignore mouse actions outside the game area
-			if (e.getX() > guiManager.getGameController().getGrid().getWidth() || e.getY() > guiManager.getGameController().getGrid().getHeight()) {
+			Dimension gridSize = getController().getGridSize();
+			if (e.getX() > gridSize.getWidth() || e.getY() > gridSize.getHeight()) {
 				return;
 			}
 
@@ -57,7 +58,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 				case MouseEvent.BUTTON3:		// right mouse, create ball
 					if (createdBall == null) {
 						createdBall = new Ball(e.getX(), e.getY(), 0, 0, 5);
-						guiManager.getGameController().getGrid().addBall(createdBall);
+						getController().addBall(createdBall);
 					}
 					break;
 				}
@@ -96,7 +97,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 						obj.setWidth(brickPreview.width);
 						obj.setHeight(brickPreview.height);
 
-						guiManager.getGameController().getGrid().addBrick(obj);
+						getController().addBrick(obj);
 						brickPreview = null;
 
 					} catch (ClassNotFoundException e1) {
@@ -126,7 +127,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 				rightKeyPressed = true;
 				break;
 			case KeyEvent.VK_ESCAPE:
-				getController().processGameInput(GameController.PLAYER_INPUT.PAUSE);
+				getController().processGameInput(IGameController.PLAYER_INPUT.PAUSE);
 				break;
 			case KeyEvent.VK_UP:
 				selectPreviousMenuItem();
@@ -208,10 +209,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 	@Override
 	public void updateGameFrame() {
 		if (leftKeyPressed) {
-			getController().processGameInput(GameController.PLAYER_INPUT.LEFT);
+			getController().processGameInput(IGameController.PLAYER_INPUT.LEFT);
 		}
 		if (rightKeyPressed) {
-			getController().processGameInput(GameController.PLAYER_INPUT.RIGHT);
+			getController().processGameInput(IGameController.PLAYER_INPUT.RIGHT);
 		}
 	}
 
@@ -230,18 +231,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 			guiManager.updateLayout();
 			break;
 		case RUNNING:
-			// normal game
-			if (!guiManager.getGameController().getCreativeMode()) {
-				this.setPreferredSize(new Dimension(guiManager.getGameController().getGrid().getWidth(), guiManager.getGameController().getGrid().getHeight()));
-				guiManager.updateLayout();
-
-
-				// editor game
-			} else {
+			// editor mode
+			if (getController().getCreativeMode()) {
 				startEditorMode();
 			}
-
-
 			break;
 
 		case KILLED:
@@ -255,13 +248,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 		addEditorToolbar();
 		
 		// create new Slider
-		guiManager.getGameController().getGrid().clearGrid();
-		guiManager.getGameController().getGrid().setSlider(new Slider(220, 470, 100, 30));
-
-		// resize window
-		this.setPreferredSize(new Dimension(guiManager.getGameController().getGrid().getWidth() + 200, 						
-				guiManager.getGameController().getGrid().getHeight()));
-		guiManager.updateLayout();
+		getController().clearGrid();
+		getController().setSlider(new Slider(220, 470, 100, 30));
 	}
 
 	@Override
@@ -286,7 +274,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 	public void paintComponents(Graphics g) {
 		//super.paintComponents(g);
 
-		if (!this.isFocusOwner() && !guiManager.getGameController().getCreativeMode()) {
+		if (!this.isFocusOwner() && !getController().getCreativeMode()) {
 			this.requestFocusInWindow();
 		}
 
@@ -373,14 +361,14 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 
 	private void paintGame(Graphics2D g) {
-		PlayGrid grid = guiManager.getGameController().getGrid();
-
+	
 		// print Grid
 		g.setColor(Color.black);
-		g.fillRect(0, 0, grid.getWidth(), grid.getHeight());
+		Dimension gridSize = getController().getGridSize();
+		g.fillRect(0, 0, (int) gridSize.getWidth(), (int) gridSize.getHeight());
 
 		// print balls
-		for (Ball b : grid.getBalls()) {
+		for (Ball b : getController().getBalls()) {
 
 			// if in creative mode, display ball speed vector
 			if (getController().getCreativeMode()) {
@@ -398,7 +386,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		}
 
 		// print bricks
-		for (AbstractBrick b : grid.getBricks()) {			
+		for (AbstractBrick b : getController().getBricks()) {			
 
 
 			// print Image if one is defined			
@@ -414,7 +402,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		}
 
 		// print slider
-		Slider s = grid.getSlider();
+		Slider s = getController().getSlider();
 		if (s != null) {
 			g.setColor(Color.gray);
 			g.fillRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());
@@ -452,7 +440,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 	}
 
-	public GameController getController() {
+	public IGameController getController() {
 		return guiManager.getGameController();
 	}
 
@@ -472,6 +460,16 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 	public void setNewBrickClassName(String newBrickClassName) {
 		this.newBrickClassName = newBrickClassName;
+	}
+
+	@Override
+	public void updateOnResize() {
+		Dimension viewSize = getController().getGridSize();
+		if (getController().getCreativeMode()) {
+			viewSize.setSize(viewSize.getWidth() + 200, viewSize.getHeight());
+		}
+		this.setPreferredSize(viewSize);
+		guiManager.updateLayout();
 	}
 
 	

@@ -8,20 +8,20 @@ import java.util.Map;
 
 import javax.swing.JFrame;
 
-import de.luma.breakout.controller.GameController;
+import de.luma.breakout.controller.IGameController;
 
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements IGuiManager {	
 
 	private GameView2D bpaGameView;	
-	private GameController controller;
+	private IGameController controller;
 
 	// store image ressources
 	private MediaTracker mediaTracker;
 	private final Map<String, Image> mapImages = new HashMap<String, Image>();
 
 
-	public MainWindow(GameController controller) {
+	public MainWindow(IGameController controller) {
 		super();
 		this.controller = controller;
 		initializeComponents();
@@ -120,7 +120,7 @@ public class MainWindow extends JFrame implements IGuiManager {
 	}
 
 	@Override
-	public GameController getGameController() {
+	public IGameController getGameController() {
 		return controller;
 	}
 

@@ -39,9 +39,9 @@ public class TestGameController extends TestCase {
 		view.setController(controller);		
 		controller.addObserver(view);
 		
-		mainWindow = new MainWindow();
-		mainWindow.setController(controller);
-		controller.addObserver(mainWindow);
+//		mainWindow = new MainWindow();
+//		mainWindow.setController(controller);
+//		controller.addObserver(mainWindow);
 		mainWindow.setVisible(true);		
 		
 		controller.setState(GAME_STATE.RUNNING);
@@ -265,33 +265,33 @@ public class TestGameController extends TestCase {
 		GameController.PLAYER_INPUT.valueOf(GameController.PLAYER_INPUT.values()[0].name());
 	}
 	
-	@Test
-	public void testLoadLevel() {
-		playGrid.loadLevel(new File("test/sampleLevel1.txt"));
-		
-		assertFalse(playGrid.getBricks().isEmpty());
-		
-		// test invald game object						
-		assertFalse(playGrid.loadLevel(new File("test/sampleLevelBug.txt")));	
-		
-		// test invalid file path
-		assertFalse(playGrid.loadLevel(new File("test/notValidPath.txt")));		
-	}
-	
-	@Test
-	public void testSaveLevel() {
-			testLoadLevel();
-			assertTrue(controller.getGrid().saveLevel(new File ("test/sampleLevel1_out.txt")));
-			
-			PlayGrid grid2 = new PlayGrid(500, 500);
-			grid2.loadLevel(new File("test/sampleLevel1_out.txt"));
-			assertEquals(playGrid.getBalls().size(), grid2.getBalls().size());
-			assertEquals(playGrid.getBricks().size(), grid2.getBricks().size());	
-			
-			// test save level FileNotFound
-			assertFalse(controller.getGrid().saveLevel(new File ("NonExistingFolder/testLevelBug.txt")));
-	}
-	
+//	@Test
+//	public void testLoadLevel() {
+//		playGrid.loadLevel(new File("test/sampleLevel1.txt"));
+//		
+//		assertFalse(playGrid.getBricks().isEmpty());
+//		
+//		// test invald game object						
+//		assertFalse(playGrid.loadLevel(new File("test/sampleLevelBug.txt")));	
+//		
+//		// test invalid file path
+//		assertFalse(playGrid.loadLevel(new File("test/notValidPath.txt")));		
+//	}
+//	
+//	@Test
+//	public void testSaveLevel() {
+//			testLoadLevel();
+//			assertTrue(controller.getGrid().saveLevel(new File ("test/sampleLevel1_out.txt")));
+//			
+//			PlayGrid grid2 = new PlayGrid(500, 500);
+//			grid2.loadLevel(new File("test/sampleLevel1_out.txt"));
+//			assertEquals(playGrid.getBalls().size(), grid2.getBalls().size());
+//			assertEquals(playGrid.getBricks().size(), grid2.getBricks().size());	
+//			
+//			// test save level FileNotFound
+//			assertFalse(controller.getGrid().saveLevel(new File ("NonExistingFolder/testLevelBug.txt")));
+//	}
+//	
 	
 	
 	@Override

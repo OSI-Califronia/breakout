@@ -8,8 +8,8 @@ import de.luma.breakout.communication.IGameObserver;
 import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
-import de.luma.breakout.controller.GameController;
-import de.luma.breakout.controller.GameController.PLAYER_INPUT;
+import de.luma.breakout.controller.IGameController;
+import de.luma.breakout.controller.IGameController.PLAYER_INPUT;
 
 
 public class UITextView implements IGameObserver {
@@ -54,7 +54,7 @@ public class UITextView implements IGameObserver {
 	}
 
 
-	protected GameController controller;
+	protected IGameController controller;
 	private Scanner input;
 	private Thread gameInputThread;	
 
@@ -96,11 +96,11 @@ public class UITextView implements IGameObserver {
 		System.out.println("TUI: game state changed: " + state.name());
 	}
 
-	public GameController getController() {
+	public IGameController getController() {
 		return controller;
 	}
 
-	public void setController(GameController controller) {
+	public void setController(IGameController controller) {
 		this.controller = controller;
 	}
 
@@ -117,6 +117,12 @@ public class UITextView implements IGameObserver {
 	@Override
 	public void updateGameFrame() {
 		// not used yet
+	}
+
+	@Override
+	public void updateOnResize() {
+		// TODO Auto-generated method stub
+		
 	}
 
 

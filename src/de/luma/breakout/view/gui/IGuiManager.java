@@ -4,7 +4,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.Image;
 
-import de.luma.breakout.controller.GameController;
+import de.luma.breakout.controller.IGameController;
 
 public interface IGuiManager {
 	// Default values for Text
@@ -21,5 +21,5 @@ public interface IGuiManager {
 	
 	public void kill();
 	
-	public GameController getGameController();
+	public IGameController getGameController();
 }

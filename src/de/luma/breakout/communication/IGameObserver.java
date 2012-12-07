@@ -9,5 +9,6 @@ public interface IGameObserver {
 	void updateGameState(GAME_STATE state);
 	void updateGameMenu(MENU_ITEM[] menuItems, String title);
 	void updateGameFrame();
+	void updateOnResize();
 	
 }

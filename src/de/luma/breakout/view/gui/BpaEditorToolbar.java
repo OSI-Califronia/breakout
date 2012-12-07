@@ -31,6 +31,7 @@ public class BpaEditorToolbar extends JPanel {
 	private JPanel bpaButtons;
 
 	private ActionListener btnBricksActionListener;
+	private ActionListener resizeActionListener;
 	
 	public BpaEditorToolbar(IGuiManager guiManager, GameView2D gameView) {
 		super();
@@ -59,19 +60,21 @@ public class BpaEditorToolbar extends JPanel {
 			// width textbox
 			JLabel lblWidth = new JLabel("Width");
 			lblWidth.setPreferredSize(new Dimension(80, 20));
-			JTextField tfiWidth = new JTextField();
+			tfiWidth = new JTextField();
 			tfiWidth.setPreferredSize(new Dimension(80, 20));
 			setColors(lblWidth);
 			setColors(tfiWidth);
+			tfiWidth.addActionListener(getResizeActionListener());
 			
 			
 			// height textbox
 			JLabel lblHeight = new JLabel("Height");
 			lblHeight.setPreferredSize(new Dimension(80, 20));
-			JTextField tfiHeight = new JTextField();
+			tfiHeight = new JTextField();
 			tfiHeight.setPreferredSize(new Dimension(80, 20));
 			setColors(lblHeight);
-			setColors(tfiHeight);			
+			setColors(tfiHeight);		
+			tfiHeight.addActionListener(getResizeActionListener());
 			
 			bpaSize.add(lblHeight);
 			bpaSize.add(lblWidth);
@@ -160,6 +163,18 @@ public class BpaEditorToolbar extends JPanel {
 			};			
 		}
 		return btnBricksActionListener;
+	}
+	
+	private ActionListener getResizeActionListener() {
+		if (resizeActionListener == null) {
+			resizeActionListener = new ActionListener() {				
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					guiManager.getGameController().setGridSize(Integer.valueOf(getTfiWidth().getText()), Integer.valueOf(getTfiHeight().getText()));				
+				}		
+			};
+		}
+		return resizeActionListener;		
 	}
 	
 	private void setColors(JComponent c) {

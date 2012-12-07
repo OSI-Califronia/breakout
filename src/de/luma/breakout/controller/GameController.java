@@ -1,8 +1,16 @@
 package de.luma.breakout.controller;
 
+import java.awt.Dimension;
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Locale;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -11,6 +19,7 @@ import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.data.PlayGrid;
 import de.luma.breakout.data.objects.AbstractBrick;
 import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.IDecodable;
 import de.luma.breakout.data.objects.Slider;
 
 /**
@@ -20,16 +29,7 @@ import de.luma.breakout.data.objects.Slider;
  * - konstanten einführen (gewünschte fps usw.)
  */
 
-public class GameController extends ObservableGame {	
-
-	/**
-	 * Input options while the game is running.
-	 */
-	public enum PLAYER_INPUT {
-		LEFT,
-		RIGHT,
-		PAUSE
-	}
+public class GameController extends ObservableGame implements IGameController {	
 
 	/**
 	 * This task gets scheduled by start() to make the
@@ -51,9 +51,6 @@ public class GameController extends ObservableGame {
 	private GameTimerTask task;
 	private GAME_STATE state;
 	private boolean isInCreativeMode;
-	
-	/** Maximum absolute speed that a ball can reach */
-	public static final double MAX_BALL_SPEED = 10.0;
 	
 	public static final String LEVEL_PATH = "levels\\";
 
@@ -275,7 +272,7 @@ public class GameController extends ObservableGame {
 			this.setCreativeMode(false);
 			setGrid(new PlayGrid(500, 500));
 			// TODO: Richtiges level laden!!!
-			getGrid().loadLevel(new File("test/sampleLevel1.txt"));
+			loadLevel(new File("levels/sampleLevel1.txt"));
 			this.start();
 			break;
 		case MNU_END:
@@ -300,22 +297,6 @@ public class GameController extends ObservableGame {
 		}		
 	}
 	
-
-	/* #######################################  GETTERS & SETTERS #######################################   */
-	/* ############################   the same procedure as every year...    ###########################  */
-
-	public GameController() {
-		super();		
-	}
-	
-	public PlayGrid getGrid() {
-		return grid;
-	}
-
-	public void setGrid(PlayGrid grid) {
-		this.grid = grid;
-	}
-
 	public GAME_STATE getState() {
 		return state;
 	}
@@ -338,13 +319,161 @@ public class GameController extends ObservableGame {
 		this.isInCreativeMode = enableCreativeMode;
 	}
 	
+	/* #######################################  LEVEL HANDLING #######################################   */
+	
+	public void saveLevel() {		
+		saveLevel(new File(LEVEL_PATH + "userLevel" + System.nanoTime() + ".lvl"));
+	}	
+	
+	public boolean saveLevel(File f)  {
+		PrintWriter out = null;
+		try {
+			Locale.setDefault(new Locale("en", "US"));			
+			OutputStreamWriter w;			
+			w = new OutputStreamWriter(new FileOutputStream(f));
+			
+			out = new PrintWriter(new BufferedWriter(w));
+			
+			// save Grid Properties
+			out.println(getGrid().encode());
+				
+			// save bricks
+			for (AbstractBrick brick : getGrid().getBricks()) {
+				out.print(brick.getClass().getName());
+				out.print(':');
+				out.println(brick.encode());
+			}
+			
+			// save balls
+			for (Ball b : getGrid().getBalls()) {
+				out.print(b.getClass().getName());
+				out.print(':');
+				out.println(b.encode());
+			}
+			
+			// save slider - last object, no newline at the end!
+			out.print(getGrid().getSlider().getClass().getName());
+			out.print(':');
+			out.print(getGrid().getSlider().encode());
+			
+			return true;
+			
+		} catch (FileNotFoundException e) {					
+			return false;
+		} finally {
+			if (out != null) {
+				out.close();
+			}
+		}		
+	}
+	
+	public boolean loadLevel(File f) {
+		Scanner s = null;
+		try {
+			Locale.setDefault(new Locale("en", "US"));
+			s = new Scanner(f);
+					
+			// decode Grid Properties
+			String line = s.nextLine();			
+			this.getGrid().decode(line);
+			
+			while (s.hasNextLine()) {
+				line = s.nextLine();
+				
+				String className = line.substring(0, line.indexOf(':'));				
+				Class<?> classObj = this.getClass().getClassLoader().loadClass(className);
+				
+				IDecodable obj = (IDecodable) classObj.newInstance();
+				obj.decode(line.substring(className.length()+1));			
+								
+				if (obj instanceof Ball) {
+					getGrid().getBalls().add((Ball) obj);
+				} else if (obj instanceof Slider) {
+					getGrid().setSlider((Slider) obj);
+				} else if (obj instanceof AbstractBrick) {
+					getGrid().getBricks().add((AbstractBrick) obj);
+				} else {
+					throw new IllegalArgumentException("Unknown Game Obj in level " + f.getName());					
+				}
+			}
+			
+			notifyOnResize();			
+			
+		} catch(Exception e) {
+			return false;
+		} finally {
+			s.close();
+		} 
+		return true;
+	}
+	
+	
+	/* #######################################  GRID ACCESS HANDLING #######################################   */
+	/* ############################   the same procedure as every year...    ###########################  */
+
+	public GameController() {
+		super();		
+	}
+	
+	public PlayGrid getGrid() {
+		return grid;
+	}
+
+	public void setGrid(PlayGrid grid) {
+		this.grid = grid;
+	}
+	
+	/**
+	 * Change play grid size.
+	 */
+	public void setGridSize(int width, int height) {
+		getGrid().setWidth(width);
+		getGrid().setHeight(height);
+		notifyOnResize();
+	}
+	
+	public Dimension getGridSize() {
+		return new Dimension(getGrid().getWidth(), getGrid().getHeight());
+	}
+
+	
+	
 	public List<AbstractBrick> getBrickClasses() {
 		return getGrid().getBrickClasses();
 	}
 	
-	public void saveLevel() {		
-		getGrid().saveLevel(new File(LEVEL_PATH + "userLevel" + System.nanoTime() + ".lvl"));
+	
+	
+
+	public List<Ball> getBalls() {	
+		return getGrid().getBalls();
 	}
 
+	public void addBall(Ball ball) {
+		getGrid().addBall(ball);		
+	}
+
+	public List<AbstractBrick> getBricks() {
+		return getGrid().getBricks();
+	}
+
+	public void addBrick(AbstractBrick brick) {
+		getGrid().addBrick(brick);
+	}
+
+	public Slider getSlider() {
+		return getGrid().getSlider();
+	}
+
+	public void setSlider(Slider slider) {
+		getGrid().setSlider(slider);
+	}
+
+	@Override
+	public void clearGrid() {
+		getGrid().clearGrid();		
+	}
+
+	
 	
 }

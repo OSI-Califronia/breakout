@@ -2,6 +2,9 @@ package de.luma.breakout.data.objects;
 
 public class Ball implements IDecodable {
 
+	/** Maximum absolute speed that a ball can reach */
+	public static final double MAX_BALL_SPEED = 10.0;
+	
 	private double x;
 	private double y;
 	private double speedX;

@@ -88,6 +88,7 @@ public class PlayGrid implements IDecodable {
 	@Override
 	public void decode(String line) {
 		String[] s = line.split(",");
+		
 		setHeight(Integer.valueOf(s[0]));
 		setWidth(Integer.valueOf(s[1]));	
 	}
@@ -102,89 +103,7 @@ public class PlayGrid implements IDecodable {
 	}
 	
 	
-	public boolean saveLevel(File f)  {
-		PrintWriter out = null;
-		try {
-			Locale.setDefault(new Locale("en", "US"));			
-			OutputStreamWriter w;			
-			w = new OutputStreamWriter(new FileOutputStream(f));
-			
-			out = new PrintWriter(new BufferedWriter(w));
-			
-			// save Grid Properties
-			out.println(this.encode());
-				
-			// save bricks
-			for (AbstractBrick brick : this.getBricks()) {
-				out.print(brick.getClass().getName());
-				out.print(':');
-				out.println(brick.encode());
-			}
-			
-			// save balls
-			for (Ball b : this.getBalls()) {
-				out.print(b.getClass().getName());
-				out.print(':');
-				out.println(b.encode());
-			}
-			
-			// save slider - last object, no newline at the end!
-			out.print(this.getSlider().getClass().getName());
-			out.print(':');
-			out.print(this.getSlider().encode());
-			
-			return true;
-			
-		} catch (FileNotFoundException e) {					
-			return false;
-		} finally {
-			if (out != null) {
-				out.close();
-			}
-		}		
-	}
-	
-	
-	
-	public boolean loadLevel(File f) {
-		Scanner s = null;
-		try {
-			Locale.setDefault(new Locale("en", "US"));
-			s = new Scanner(f);
-					
-			// decode Grid Properties
-			String line = s.nextLine();			
-			this.decode(line);
-			
-			while (s.hasNextLine()) {
-				line = s.nextLine();
-				
-				String className = line.substring(0, line.indexOf(':'));				
-				Class<?> classObj = this.getClass().getClassLoader().loadClass(className);
-				
-				IDecodable obj = (IDecodable) classObj.newInstance();
-				obj.decode(line.substring(className.length()+1));			
-								
-				if (obj instanceof Ball) {
-					getBalls().add((Ball) obj);
-				} else if (obj instanceof Slider) {
-					setSlider((Slider) obj);
-				} else if (obj instanceof AbstractBrick) {
-					getBricks().add((AbstractBrick) obj);
-				} else {
-					throw new IllegalArgumentException("Unknown Game Obj in level " + f.getName());					
-				}
-			}
-			
-			s.close();
-		} catch(Exception e) {
-			return false;
-		} finally {
-			s.close();
-		} 
-		return true;
-	}
-	
+
 	/**
 	 * Return a list of Instances of all available bricks.
 	 * @return

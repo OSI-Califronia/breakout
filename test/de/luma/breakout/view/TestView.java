@@ -37,13 +37,13 @@ public class TestView extends TestCase {
 		// create view
 		viewText = new UITextView();
 		viewText.setController(controller);
-		
-		mainWindow = new MainWindow();
-		mainWindow.setController(controller);
-		
-		
-		controller.addObserver(viewText);
-		controller.addObserver(mainWindow);
+//		
+//		mainWindow = new MainWindow();
+//		mainWindow.setController(controller);
+//		
+//		
+//		controller.addObserver(viewText);
+//		controller.addObserver(mainWindow);
 	}
 	
 	

@@ -1,9 +1,12 @@
 package de.luma.breakout.launcher;
 
 
-import org.junit.Test;
 import junit.framework.TestCase;
+
+import org.junit.Test;
+
 import de.luma.breakout.controller.GameController;
+import de.luma.breakout.controller.IGameController;
 import de.luma.breakout.view.gui.MainWindow;
 import de.luma.breakout.view.tui.UITextView;
 
@@ -27,7 +30,7 @@ public class Launcher extends TestCase {
 		
 		// create controller
 		
-		GameController controller = new GameController();		
+		IGameController controller = new GameController();		
 		
 		// TUI
 		UITextView view = new UITextView();
