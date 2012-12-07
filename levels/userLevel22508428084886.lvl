@@ -1,0 +1,7 @@
+500,500
+de.luma.breakout.data.objects.SimpleBrick:81,138,50,20
+de.luma.breakout.data.objects.SimpleBrick:134,139,50,20
+de.luma.breakout.data.objects.SimpleBrick:206,139,50,20
+de.luma.breakout.data.objects.SimpleBrick:256,140,50,20
+de.luma.breakout.data.objects.SimpleBrick:303,140,50,20
+de.luma.breakout.data.objects.Ball:179.000,219.000,0.000,0.000,5.000
