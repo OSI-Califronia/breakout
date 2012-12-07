@@ -46,9 +46,12 @@ public class BpaLevelSelection extends JPanel {
 	public void loadLevels() {
 		buttonsPanel.removeAll();
 		
+		int i = 1;
 		for (String filepath : guiManager.getGameController().getLevelList()) {
 			BtnLevelSelection btn = new BtnLevelSelection(filepath, guiManager);
 			btn.addActionListener(getLevelButtonListener());
+			btn.setText(String.valueOf(i));
+			i++;
 			buttonsPanel.add(btn);
 		}
 	}

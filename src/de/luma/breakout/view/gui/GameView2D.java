@@ -227,12 +227,15 @@ public class GameView2D extends JPanel implements IGameObserver {
 		case MENU_WINGAME:
 		case PAUSED:
 			this.setPreferredSize(new Dimension(800, 800));
+			this.invalidate();
 			guiManager.updateLayout();
 			break;
 		case MENU_LEVEL_SEL:
 			this.setPreferredSize(new Dimension(800, 800));
-			guiManager.updateLayout();
 			startLevelSelection();
+			this.invalidate();
+			guiManager.updateLayout();
+			
 			break;
 		case RUNNING:
 			// editor mode
@@ -480,6 +483,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 			viewSize.setSize(viewSize.getWidth() + 220, viewSize.getHeight());
 		}
 		this.setPreferredSize(viewSize);
+		this.invalidate();
 		guiManager.updateLayout();
 	}
 

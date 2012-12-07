@@ -337,11 +337,17 @@ public class GameController extends ObservableGame implements IGameController {
 	
 	/* #######################################  LEVEL HANDLING #######################################   */
 	
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#saveLevel()
+	 */
 	@Override
 	public void saveLevel() {		
 		saveLevel(new File(LEVEL_PATH + "userLevel" + System.nanoTime() + ".lvl"));
 	}	
 	
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#saveLevel(java.io.File)
+	 */
 	@Override
 	public boolean saveLevel(File f)  {
 		PrintWriter out = null;
@@ -385,18 +391,25 @@ public class GameController extends ObservableGame implements IGameController {
 		}		
 	}
 	
-	@SuppressWarnings("unused")
+	/**
+	 * Load next available level.
+	 */
 	private boolean loadLevel() {
 		//TODO load next level after win game z.b.
 		return false;
 	}
 	
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#loadLevel(java.io.File)
+	 */
 	@Override
 	public boolean loadLevel(File f) {
 		Scanner s = null;
 		try {
 			Locale.setDefault(new Locale("en", "US"));
 			s = new Scanner(f);
+			
+			clearGrid();
 					
 			// decode Grid Properties
 			String line = s.nextLine();			
@@ -452,8 +465,6 @@ public class GameController extends ObservableGame implements IGameController {
 	/* #######################################  GRID ACCESS HANDLING #######################################   */
 	/* ############################   the same procedure as every year...    ###########################  */
 
-
-	
 	private PlayGrid getGrid() {
 		if (grid == null) {
 			grid = new PlayGrid(500, 500);
@@ -465,8 +476,9 @@ public class GameController extends ObservableGame implements IGameController {
 		this.grid = grid;
 	}
 	
-	/**
-	 * Change play grid size.
+
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#setGridSize(int, int)
 	 */
 	public void setGridSize(int width, int height) {
 		// set grid size
@@ -482,49 +494,69 @@ public class GameController extends ObservableGame implements IGameController {
 		notifyOnResize();
 	}
 	
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#getGridSize()
+	 */
 	public Dimension getGridSize() {
 		return new Dimension(getGrid().getWidth(), getGrid().getHeight());
 	}
 
-	
-	
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#getBrickClasses()
+	 */
 	public List<AbstractBrick> getBrickClasses() {
 		return getGrid().getBrickClasses();
 	}
-	
-	
-	
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#getBalls()
+	 */
 	public List<Ball> getBalls() {	
 		return getGrid().getBalls();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#addBall(de.luma.breakout.data.objects.Ball)
+	 */
 	public void addBall(Ball ball) {
 		getGrid().addBall(ball);		
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#getBricks()
+	 */
 	public List<AbstractBrick> getBricks() {
 		return getGrid().getBricks();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#addBrick(de.luma.breakout.data.objects.AbstractBrick)
+	 */
 	public void addBrick(AbstractBrick brick) {
 		getGrid().addBrick(brick);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#getSlider()
+	 */
 	public Slider getSlider() {
 		return getGrid().getSlider();
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#setSlider(de.luma.breakout.data.objects.Slider)
+	 */
 	public void setSlider(Slider slider) {
 		getGrid().setSlider(slider);
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#clearGrid()
+	 */
 	@Override
 	public void clearGrid() {
 		getGrid().clearGrid();	
 		
 	}
 
-	
-	
 }
