@@ -1,26 +1,16 @@
 package de.luma.breakout.launcher;
 
 
-import junit.framework.TestCase;
-
-import org.junit.Test;
-
 import de.luma.breakout.controller.GameController;
 import de.luma.breakout.controller.IGameController;
 import de.luma.breakout.view.gui.MainWindow;
 import de.luma.breakout.view.tui.UITextView;
 
 // Kein Test vorgesehen da prinzipiell unbegrenzte Laufzeit
-public class Launcher extends TestCase {
+public class Launcher {
 	
 	public Launcher() {
 		super();
-	}
-	
-	@Test
-	public void testLauncher() {
-		main(null);
-		assertEquals(true, true);
 	}
 	
 	/**
