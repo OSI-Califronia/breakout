@@ -18,10 +18,10 @@ import java.util.TimerTask;
 import de.luma.breakout.communication.ObservableGame;
 import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.data.PlayGrid;
-import de.luma.breakout.data.objects.AbstractBrick;
-import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.IBall;
+import de.luma.breakout.data.objects.IBrick;
 import de.luma.breakout.data.objects.IDecodable;
-import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.data.objects.impl.Slider;
 
 /**
  * TODO:
@@ -98,7 +98,7 @@ public class GameController extends ObservableGame implements IGameController {
 		}
 			
 		// notify bricks of new frame (e.g. for moving bricks)
-		for (AbstractBrick brick : getGrid().getBricks()) {
+		for (IBrick brick : getGrid().getBricks()) {
 			brick.onNextFrame();
 		}
 		
@@ -113,10 +113,10 @@ public class GameController extends ObservableGame implements IGameController {
 	 * Balls and bricks get removed by this method when the grid or a brick signals to do so.
 	 */
 	private void moveBalls() {
-		Iterator<AbstractBrick> itbrick;
-		Iterator<Ball> itball;
-		AbstractBrick currentBrick; 
-		Ball currentBall;
+		Iterator<IBrick> itbrick;
+		Iterator<IBall> itball;
+		IBrick currentBrick; 
+		IBall currentBall;
 
 		itball = getGrid().getBalls().iterator();
 		while (itball.hasNext()){ 
@@ -137,7 +137,7 @@ public class GameController extends ObservableGame implements IGameController {
 			}			
 
 			// check for collisions with slider (and change direction)
-			Slider s = getGrid().getSlider();
+			IBrick s = getGrid().getSlider();
 			if (s != null) {
 				s.tryCollision(currentBall);
 			}
@@ -364,14 +364,14 @@ public class GameController extends ObservableGame implements IGameController {
 			out.println(getGrid().encode());
 				
 			// save bricks
-			for (AbstractBrick brick : getGrid().getBricks()) {
+			for (IBrick brick : getGrid().getBricks()) {
 				out.print(brick.getClass().getName());
 				out.print(':');
 				out.println(brick.encode());
 			}
 			
 			// save balls
-			for (Ball b : getGrid().getBalls()) {
+			for (IBall b : getGrid().getBalls()) {
 				out.print(b.getClass().getName());
 				out.print(':');
 				out.println(b.encode());
@@ -419,12 +419,12 @@ public class GameController extends ObservableGame implements IGameController {
 				IDecodable obj = (IDecodable) classObj.newInstance();
 				obj.decode(line.substring(className.length()+1));			
 								
-				if (obj instanceof Ball) {
-					getGrid().getBalls().add((Ball) obj);
+				if (obj instanceof IBall) {
+					getGrid().getBalls().add((IBall) obj);
 				} else if (obj instanceof Slider) {
 					getGrid().setSlider((Slider) obj);
-				} else if (obj instanceof AbstractBrick) {
-					getGrid().getBricks().add((AbstractBrick) obj);
+				} else if (obj instanceof IBrick) {
+					getGrid().getBricks().add((IBrick) obj);
 				}
 			}
 			
@@ -498,49 +498,49 @@ public class GameController extends ObservableGame implements IGameController {
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getBrickClasses()
 	 */
-	public List<AbstractBrick> getBrickClasses() {
+	public List<IBrick> getBrickClasses() {
 		return getGrid().getBrickClasses();
 	}
 
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getBalls()
 	 */
-	public List<Ball> getBalls() {	
+	public List<IBall> getBalls() {	
 		return getGrid().getBalls();
 	}
 
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#addBall(de.luma.breakout.data.objects.Ball)
 	 */
-	public void addBall(Ball ball) {
+	public void addBall(IBall ball) {
 		getGrid().addBall(ball);		
 	}
 
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getBricks()
 	 */
-	public List<AbstractBrick> getBricks() {
+	public List<IBrick> getBricks() {
 		return getGrid().getBricks();
 	}
 
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#addBrick(de.luma.breakout.data.objects.AbstractBrick)
 	 */
-	public void addBrick(AbstractBrick brick) {
+	public void addBrick(IBrick brick) {
 		getGrid().addBrick(brick);
 	}
 
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getSlider()
 	 */
-	public Slider getSlider() {
+	public IBrick getSlider() {
 		return getGrid().getSlider();
 	}
 
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#setSlider(de.luma.breakout.data.objects.Slider)
 	 */
-	public void setSlider(Slider slider) {
+	public void setSlider(IBrick slider) {
 		getGrid().setSlider(slider);
 	}
 

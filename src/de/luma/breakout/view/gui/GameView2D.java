@@ -20,9 +20,10 @@ import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.controller.IGameController;
-import de.luma.breakout.data.objects.AbstractBrick;
-import de.luma.breakout.data.objects.Ball;
-import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.data.objects.IBall;
+import de.luma.breakout.data.objects.IBrick;
+import de.luma.breakout.data.objects.impl.Ball;
+import de.luma.breakout.data.objects.impl.Slider;
 
 
 @SuppressWarnings("serial")
@@ -85,7 +86,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 					Class<?> classObj;
 					try {
 						classObj = this.getClass().getClassLoader().loadClass(newBrickClassName);
-						AbstractBrick obj = (AbstractBrick) classObj.newInstance();
+						IBrick obj = (IBrick) classObj.newInstance();
 
 						obj.setX(brickPreview.x);
 						obj.setY(brickPreview.y);
@@ -163,7 +164,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 	// brick or ball that is being created while in level editor mode
 	private Rectangle brickPreview;
 	private String newBrickClassName;
-	private Ball createdBall;
+	private IBall createdBall;
 
 	// length of ball speed vector
 	private final static int VECTOR_LENGTH = 20;
@@ -381,7 +382,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		g.fillRect(0, 0, (int) gridSize.getWidth(), (int) gridSize.getHeight());
 
 		// print balls
-		for (Ball b : getController().getBalls()) {
+		for (IBall b : getController().getBalls()) {
 
 			// if in creative mode, display ball speed vector
 			if (getController().getCreativeMode()) {
@@ -399,23 +400,23 @@ public class GameView2D extends JPanel implements IGameObserver {
 		}
 
 		// print bricks
-		for (AbstractBrick b : getController().getBricks()) {			
+		for (IBrick b : getController().getBricks()) {			
 
 
 			// print Image if one is defined			
-			Image brickImg = guiManager.getGameImage(b.getProperties().getProperty(AbstractBrick.PROP_IMG_PATH, ""));			
+			Image brickImg = guiManager.getGameImage(b.getProperties().getProperty(IBrick.PROP_IMG_PATH, ""));			
 			if (brickImg != null) {								
 				g.drawImage(brickImg, b.getX(), b.getY(), b.getWidth(), b.getHeight(), Color.black, null);
 
 				// print simple rectangle with color	
 			}  else {
-				g.setColor(Color.getColor(b.getProperties().getProperty(AbstractBrick.PROP_COLOR, Color.blue.toString())));			
+				g.setColor(Color.getColor(b.getProperties().getProperty(IBrick.PROP_COLOR, Color.blue.toString())));			
 				g.fillRect(b.getX(), b.getY(), b.getWidth(), b.getHeight());
 			}
 		}
 
 		// print slider
-		Slider s = getController().getSlider();
+		IBrick s = getController().getSlider();
 		if (s != null) {
 			g.setColor(Color.gray);
 			g.fillRect(s.getX(), s.getY(), s.getWidth(), s.getHeight());

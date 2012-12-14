@@ -6,14 +6,15 @@ import java.awt.RenderingHints;
 
 import javax.swing.JButton;
 
-import de.luma.breakout.data.objects.AbstractBrick;
+import de.luma.breakout.data.objects.IBrick;
 
+@SuppressWarnings("serial")
 public class BtnEditorBrick extends JButton {
 
 	private IGuiManager guiManager;
-	private AbstractBrick brickInstance;
+	private IBrick brickInstance;
 	
-	public BtnEditorBrick(IGuiManager guiManager, AbstractBrick brickInstance) {
+	public BtnEditorBrick(IGuiManager guiManager, IBrick brickInstance) {
 		super();
 		this.guiManager = guiManager;
 		this.brickInstance = brickInstance;
@@ -24,11 +25,11 @@ public class BtnEditorBrick extends JButton {
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 		
-		String imgPath = brickInstance.getProperties().getProperty(AbstractBrick.PROP_IMG_PATH, "");
+		String imgPath = brickInstance.getProperties().getProperty(IBrick.PROP_IMG_PATH, "");
 		g2d.drawImage(guiManager.getGameImage(imgPath), 0, 0, getWidth(), getHeight(), this);
 	}
 
-	public AbstractBrick getBrickInstance() {
+	public IBrick getBrickInstance() {
 		return brickInstance;
 	}
 	

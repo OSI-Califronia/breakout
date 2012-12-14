@@ -13,8 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import de.luma.breakout.data.objects.AbstractBrick;
-import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.data.objects.IBrick;
+import de.luma.breakout.data.objects.impl.Slider;
 
 @SuppressWarnings("serial")
 public class BpaEditorToolbar extends JPanel {
@@ -146,7 +146,7 @@ public class BpaEditorToolbar extends JPanel {
 			bpaBricks.setBorder(BorderFactory.createLineBorder(IGuiManager.TEXT_COLOR));
 
 			BtnEditorBrick btn = null;
-			for (AbstractBrick brick : guiManager.getGameController().getBrickClasses()) {				
+			for (IBrick brick : guiManager.getGameController().getBrickClasses()) {				
 				btn = new BtnEditorBrick(guiManager, brick);
 				btn.setPreferredSize(new Dimension(50, 20));
 				btn.addActionListener(getBtnBrickActionListener());

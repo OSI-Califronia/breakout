@@ -10,9 +10,10 @@ import org.junit.Test;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.controller.IGameController.PLAYER_INPUT;
-import de.luma.breakout.data.objects.Ball;
-import de.luma.breakout.data.objects.SimpleBrick;
-import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.data.objects.IBall;
+import de.luma.breakout.data.objects.impl.Ball;
+import de.luma.breakout.data.objects.impl.SimpleBrick;
+import de.luma.breakout.data.objects.impl.Slider;
 import de.luma.breakout.view.tui.UITextView;
 
 public class TestGameController extends TestCase {
@@ -138,19 +139,19 @@ public class TestGameController extends TestCase {
 		
 		// border Collision					
 		// right border
-		Ball ball1 = new Ball(controller.getGridSize().width -1, 20, 1, 0, 1);		
+		IBall ball1 = new Ball(controller.getGridSize().width -1, 20, 1, 0, 1);		
 		controller.addBall(ball1);	
 		
 		// left border
-		Ball ball2 = new Ball(1, 20, -1, 0, 1);		
+		IBall ball2 = new Ball(1, 20, -1, 0, 1);		
 		controller.addBall(ball2);
 		
 		// top border
-		Ball ball3 = new Ball(20, 1, 0, -1, 1);
+		IBall ball3 = new Ball(20, 1, 0, -1, 1);
 		controller.addBall(ball3);		
 		
 		// bottom
-		Ball ball4 = new Ball(20, controller.getGridSize().height, 0, 1, 1);
+		IBall ball4 = new Ball(20, controller.getGridSize().height, 0, 1, 1);
 		controller.addBall(ball4);
 		
 		controller.updateGame();
@@ -213,7 +214,7 @@ public class TestGameController extends TestCase {
 		// terminate
 		SimpleBrick brick = new SimpleBrick(100, 100);
 		controller.addBrick(brick);
-		Ball ball = new Ball(50, 50, 0, 1, 3);
+		IBall ball = new Ball(50, 50, 0, 1, 3);
 		controller.addBall(ball);	
 		
 		controller.getBalls().remove(ball);

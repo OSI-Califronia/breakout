@@ -1,4 +1,6 @@
-package de.luma.breakout.data.objects;
+package de.luma.breakout.data.objects.impl;
+
+import de.luma.breakout.data.objects.IBall;
 
 
 
@@ -13,9 +15,9 @@ public class Slider extends AbstractBrick {
 	}
 
 	@Override
-	public boolean tryCollision(Ball b) {
+	public boolean tryCollision(IBall b) {
 		boolean ret = tryCollisionRectangle(b);
-		if (ret && b.getAbsoluteSpeed() < Ball.MAX_BALL_SPEED) {
+		if (ret && b.getAbsoluteSpeed() < IBall.MAX_BALL_SPEED) {
 			double delta = b.getX() - (this.getX() + this.getWidth() / 2);
 			double diversionFactor = delta / this.getWidth();  // -0.5  to 0.5
 			b.setSpeedX(b.getSpeedX() + 3 * Math.sin(diversionFactor));

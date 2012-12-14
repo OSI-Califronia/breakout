@@ -1,6 +1,7 @@
-package de.luma.breakout.data.objects;
+package de.luma.breakout.data.objects.impl;
 
 import java.awt.Color;
+
 
 public class SimpleBrick extends AbstractBrick {	
 	

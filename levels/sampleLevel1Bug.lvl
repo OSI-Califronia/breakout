@@ -1,4 +1,4 @@
 500,600
 de.luma.breakout.data.objects.InvalidObject:100,470,100,20
-de.luma.breakout.data.objects.Ball:150,200,0.5,2.1,5 
-de.luma.breakout.data.objects.SimpleBrick:10,10,0,0
+de.luma.breakout.data.objects.impl.Ball:150,200,0.5,2.1,5 
+de.luma.breakout.data.objects.impl.SimpleBrick:10,10,0,0

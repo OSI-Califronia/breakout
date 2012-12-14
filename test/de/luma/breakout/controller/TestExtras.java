@@ -1,13 +1,13 @@
 package de.luma.breakout.controller;
 
+import junit.framework.TestCase;
+
 import org.junit.Before;
 import org.junit.Test;
 
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.controller.IGameController.PLAYER_INPUT;
-import de.luma.breakout.view.tui.UITextView;
-import junit.framework.TestCase;
 
 public class TestExtras extends TestCase {
 

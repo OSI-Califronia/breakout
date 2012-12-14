@@ -1,14 +1,13 @@
-package de.luma.breakout.data.objects;
+package de.luma.breakout.data.objects.impl;
 
 import java.util.Properties;
 
+import de.luma.breakout.data.objects.IBall;
+import de.luma.breakout.data.objects.IBrick;
 
 
-public abstract class AbstractBrick implements IDecodable {
+public abstract class AbstractBrick implements IBrick {
 
-	public static final String PROP_COLOR = "color";
-	public static final String PROP_IMG_PATH = "imgPath";
-	
 	private int x;
 	private int y;
 	private int width;
@@ -31,40 +30,72 @@ public abstract class AbstractBrick implements IDecodable {
 	    this.hitCount = 0;
 	}
 	
-	/**
-	 * This method gets called by the game controller
-	 * at every new frame that is calculated.
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#onNextFrame()
 	 */
+	@Override
 	public void onNextFrame() {	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#getX()
+	 */
+	@Override
 	public int getX() {
 		return x;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#setX(int)
+	 */
+	@Override
 	public void setX(int x) {
 		this.x = x;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#getY()
+	 */
+	@Override
 	public int getY() {
 		return y;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#setY(int)
+	 */
+	@Override
 	public void setY(int y) {
 		this.y = y;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#getWidth()
+	 */
+	@Override
 	public int getWidth() {
 		return width;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#setWidth(int)
+	 */
+	@Override
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#getHeight()
+	 */
+	@Override
 	public int getHeight() {
 		return height;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#setHeight(int)
+	 */
+	@Override
 	public void setHeight(int height) {
 		this.height = height;
 	}
@@ -94,7 +125,11 @@ public abstract class AbstractBrick implements IDecodable {
 		return false;
 	}
 
-	public boolean tryCollision(Ball b) {		
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#tryCollision(de.luma.breakout.data.objects.IBall)
+	 */
+	@Override
+	public boolean tryCollision(IBall b) {		
 		// increase hit counter if brick was hit by a ball
 		if (tryCollisionRectangle(b)) {
 			setHitCount(getHitCount()+1);
@@ -139,7 +174,7 @@ public abstract class AbstractBrick implements IDecodable {
 	 * @param b
 	 * @return True if ball was hit, false if not.
 	 */
-	protected boolean tryCollisionRectangle(Ball b) {
+	protected boolean tryCollisionRectangle(IBall b) {
 		boolean isHit = false;
 		int ballx = (int) b.getX();
 		int bally = (int) b.getY();
@@ -221,6 +256,10 @@ public abstract class AbstractBrick implements IDecodable {
 		return s;
 	}
 
+	/* (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IBrick#getProperties()
+	 */
+	@Override
 	public Properties getProperties() {
 		return properties;
 	}

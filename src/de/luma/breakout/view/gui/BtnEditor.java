@@ -6,6 +6,7 @@ import java.awt.RenderingHints;
 
 import javax.swing.JButton;
 
+@SuppressWarnings("serial")
 public class BtnEditor extends JButton {
 	
 	private IGuiManager guiManager;

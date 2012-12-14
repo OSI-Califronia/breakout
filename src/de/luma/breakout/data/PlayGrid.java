@@ -5,12 +5,11 @@ import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import de.luma.breakout.data.objects.AbstractBrick;
-import de.luma.breakout.data.objects.Ball;
+import de.luma.breakout.data.objects.IBall;
+import de.luma.breakout.data.objects.IBrick;
 import de.luma.breakout.data.objects.IDecodable;
-import de.luma.breakout.data.objects.MovingBrick;
-import de.luma.breakout.data.objects.SimpleBrick;
-import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.data.objects.impl.MovingBrick;
+import de.luma.breakout.data.objects.impl.SimpleBrick;
 
 
 public class PlayGrid implements IDecodable {
@@ -18,16 +17,15 @@ public class PlayGrid implements IDecodable {
 	private int height;
 	private int width;
 	
-	private List<Ball> balls;
-	private List<AbstractBrick> bricks;
-	
-	private Slider slider;
+	private List<IBall> balls;
+	private List<IBrick> bricks;
+	private IBrick slider;
 	
 	public PlayGrid(int height, int width) {
 		super();
 		
-		balls = new LinkedList<Ball>();		
-		bricks = new LinkedList<AbstractBrick>();
+		balls = new LinkedList<IBall>();		
+		bricks = new LinkedList<IBrick>();
 		
 		setHeight(height);
 		setWidth(width);
@@ -44,7 +42,7 @@ public class PlayGrid implements IDecodable {
 	 * @param ball
 	 * @return True if ball has left the grid, false otherwise
 	 */
-	public boolean tryCollision(Ball ball) {
+	public boolean tryCollision(IBall ball) {
 		int ballx = (int) ball.getX();
 		int bally = (int) ball.getY();
 		int ballr = (int) ball.getRadius();
@@ -97,8 +95,8 @@ public class PlayGrid implements IDecodable {
 	 * Return a list of Instances of all available bricks.
 	 * @return
 	 */
-	public List<AbstractBrick> getBrickClasses() {
-		List<AbstractBrick> retVal =  new ArrayList<AbstractBrick>();		
+	public List<IBrick> getBrickClasses() {
+		List<IBrick> retVal =  new ArrayList<IBrick>();		
 		retVal.add(new MovingBrick());
 		retVal.add(new SimpleBrick());
 		return retVal;
@@ -120,27 +118,27 @@ public class PlayGrid implements IDecodable {
 		this.width = width;
 	}
 
-	public List<Ball> getBalls() {	
+	public List<IBall> getBalls() {	
 		return balls;
 	}
 
-	public void addBall(Ball ball) {
+	public void addBall(IBall ball) {
 		getBalls().add(ball);		
 	}
 
-	public List<AbstractBrick> getBricks() {
+	public List<IBrick> getBricks() {
 		return bricks;
 	}
 
-	public void addBrick(AbstractBrick brick) {
+	public void addBrick(IBrick brick) {
 		getBricks().add(brick);
 	}
 
-	public Slider getSlider() {
+	public IBrick getSlider() {
 		return slider;
 	}
 
-	public void setSlider(Slider slider) {
+	public void setSlider(IBrick slider) {
 		this.slider = slider;
 	}
 

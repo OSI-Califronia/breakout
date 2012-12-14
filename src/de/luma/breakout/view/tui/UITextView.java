@@ -10,9 +10,8 @@ import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.controller.IGameController;
 import de.luma.breakout.controller.IGameController.PLAYER_INPUT;
-import de.luma.breakout.data.objects.AbstractBrick;
-import de.luma.breakout.data.objects.Ball;
-import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.data.objects.IBall;
+import de.luma.breakout.data.objects.IBrick;
 
 
 public class UITextView implements IGameObserver {
@@ -100,15 +99,15 @@ public class UITextView implements IGameObserver {
 	 */
 	@Override
 	public void updateRepaintPlayGrid() {	
-				for (AbstractBrick brick : getController().getBricks()) {
+				for (IBrick brick : getController().getBricks()) {
 					System.out.printf("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
 				}
-				Slider s = getController().getSlider();
+				IBrick s = getController().getSlider();
 				if (s != null) {
 					System.out.printf("TUI: slider (%d, %d)\n", s.getX(), s.getY());
 				}
 		
-				for (Ball ball : getController().getBalls()) {
+				for (IBall ball : getController().getBalls()) {
 					System.out.printf("TUI: ball (%.1f, %.1f)  speed: (%.1f, %.1f) \n---\n", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
 				}		
 	}

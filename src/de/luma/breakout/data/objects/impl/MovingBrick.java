@@ -1,6 +1,8 @@
-package de.luma.breakout.data.objects;
+package de.luma.breakout.data.objects.impl;
 
 import java.awt.Color;
+
+import de.luma.breakout.data.objects.IBall;
 
 public class MovingBrick extends AbstractBrick {
 
@@ -36,7 +38,7 @@ public class MovingBrick extends AbstractBrick {
 	}
 
 	@Override
-	public boolean tryCollision(Ball b) {
+	public boolean tryCollision(IBall b) {
 		return super.tryCollisionRectangle(b);
 	}
 	

@@ -7,9 +7,8 @@ import java.util.List;
 import de.luma.breakout.communication.IObservableGame;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
-import de.luma.breakout.data.objects.AbstractBrick;
-import de.luma.breakout.data.objects.Ball;
-import de.luma.breakout.data.objects.Slider;
+import de.luma.breakout.data.objects.IBall;
+import de.luma.breakout.data.objects.IBrick;
 
 public interface IGameController extends IObservableGame {
 	
@@ -94,37 +93,37 @@ public interface IGameController extends IObservableGame {
 	 * Return a list with an instance of every known brick type.
 	 * @return
 	 */
-	public List<AbstractBrick> getBrickClasses();
+	public List<IBrick> getBrickClasses();
 	
 	/**
 	 * Get a list of all balls.
 	 */
-	public List<Ball> getBalls();
+	public List<IBall> getBalls();
 
 	/**
 	 * Get a list of all bricks.
 	 */
-	public List<AbstractBrick> getBricks();
+	public List<IBrick> getBricks();
 
 	/**
 	 * Get the slider.
 	 */
-	public Slider getSlider();
+	public IBrick getSlider();
 
 	/**
 	 * Set the slider.
 	 */
-	public void setSlider(Slider slider);
+	public void setSlider(IBrick slider);
 
 	/**
 	 * Add a brick to the grid.
 	 */
-	public void addBrick(AbstractBrick brick);
+	public void addBrick(IBrick brick);
 	
 	/**
 	 * Add a ball to the grid.
 	 */
-	public void addBall(Ball ball);
+	public void addBall(IBall ball);
 	
 	
 	/**
