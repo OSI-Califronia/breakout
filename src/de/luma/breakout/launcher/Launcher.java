@@ -1,7 +1,9 @@
 package de.luma.breakout.launcher;
 
 
-import de.luma.breakout.controller.GameController;
+import com.google.inject.Guice;
+import com.google.inject.Injector;
+
 import de.luma.breakout.controller.IGameController;
 import de.luma.breakout.view.gui.MainWindow;
 import de.luma.breakout.view.tui.UITextView;
@@ -18,9 +20,9 @@ public class Launcher {
 	 */
 	public static void main(String[] args) {
 		
-		// create controller
-		
-		IGameController controller = new GameController();		
+		// create controller by dependency injection
+		Injector injector = Guice.createInjector(new DefaultModule());
+		IGameController controller = injector.getInstance(IGameController.class);	
 		
 		// TUI
 		UITextView view = new UITextView();
