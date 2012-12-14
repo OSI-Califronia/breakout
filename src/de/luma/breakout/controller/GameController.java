@@ -440,10 +440,12 @@ public class GameController extends ObservableGame implements IGameController {
 			notifyOnResize();			
 			
 		} catch(Exception e) {
-			e.printStackTrace();
+			//e.printStackTrace();
 			return false;
 		} finally {
-			s.close();
+			if (s != null) { // in case of exception
+				s.close();
+			}
 		} 
 		return true;
 	}

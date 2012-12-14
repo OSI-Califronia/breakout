@@ -286,7 +286,7 @@ public class TestGameController extends TestCase {
 		
 		assertFalse(controller.getBricks().isEmpty());
 		
-		// test invald game object						
+		// test invalid game object						
 		assertFalse(controller.loadLevel(new File("levels/sampleLevelBug.lvl")));	
 		
 		// test invalid file path
