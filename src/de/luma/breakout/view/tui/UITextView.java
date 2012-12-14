@@ -1,13 +1,13 @@
 package de.luma.breakout.view.tui;
 
+import java.io.InputStream;
 import java.util.Locale;
 import java.util.Scanner;
 
-
 import de.luma.breakout.communication.IGameObserver;
-import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
+import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.controller.IGameController;
 import de.luma.breakout.controller.IGameController.PLAYER_INPUT;
 import de.luma.breakout.data.objects.AbstractBrick;
@@ -66,14 +66,32 @@ public class UITextView implements IGameObserver {
 	private Thread gameInputThread;	
 
 	public UITextView() {
+		this(System.in);
+	}
+	
+	public UITextView(InputStream inputSource) {
 		super();
 		Locale.setDefault(new Locale("en", "US"));
-		input = new Scanner(System.in);
+		input = new Scanner(inputSource);
+		
+		startGameDaemon();
+	}
+	
+	public UITextView(String inputSource) {
+		super();
+		Locale.setDefault(new Locale("en", "US"));
+		input = new Scanner(inputSource);
+		
+		startGameDaemon();
+	}
+	
+	private void startGameDaemon() {
 		gameInputThread = new Thread(new GameInput());
 		gameInputThread.setDaemon(true);
 		gameInputThread.setName("GameInput_Thread");
 		gameInputThread.start();
 	}
+	
 
 	
 	/*

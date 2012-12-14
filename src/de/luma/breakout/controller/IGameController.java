@@ -71,8 +71,9 @@ public interface IGameController extends IObservableGame {
 	
 	/**
 	 * Save level with default filename and location.
+	 * Returns the filepath of the saved level or null in case of failure.
 	 */
-	public void saveLevel();
+	public String saveLevel();
 	
 	/**
 	 * Save level to the specified location.

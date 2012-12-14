@@ -1,7 +1,6 @@
 package de.luma.breakout.controller;
 
 import java.awt.Dimension;
-import java.awt.geom.Path2D;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -16,8 +15,6 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import javax.naming.spi.DirectoryManager;
-
 import de.luma.breakout.communication.ObservableGame;
 import de.luma.breakout.communication.TextMapping;
 import de.luma.breakout.data.PlayGrid;
@@ -28,8 +25,6 @@ import de.luma.breakout.data.objects.Slider;
 
 /**
  * TODO:
- * - level laden
- * - hitcount von bricks irgendwo erhöhen
  * - konstanten einführen (gewünschte fps usw.)
  */
 
@@ -343,8 +338,13 @@ public class GameController extends ObservableGame implements IGameController {
 	 * @see de.luma.breakout.controller.IGameController#saveLevel()
 	 */
 	@Override
-	public void saveLevel() {		
-		saveLevel(new File(LEVEL_PATH + "userLevel" + System.nanoTime() + ".lvl"));
+	public String saveLevel() {		
+		String filepath = LEVEL_PATH + "userLevel" + System.nanoTime() + ".lvl";
+		if (saveLevel(new File(filepath))) {
+			return filepath;
+		} else {
+			return null;
+		}
 	}	
 	
 	/* (non-Javadoc)
@@ -393,14 +393,7 @@ public class GameController extends ObservableGame implements IGameController {
 		}		
 	}
 	
-	/**
-	 * Load next available level.
-	 */
-	private boolean loadLevel() {
-		//TODO load next level after win game z.b.
-		return false;
-	}
-	
+
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#loadLevel(java.io.File)
 	 */
@@ -432,11 +425,11 @@ public class GameController extends ObservableGame implements IGameController {
 					getGrid().setSlider((Slider) obj);
 				} else if (obj instanceof AbstractBrick) {
 					getGrid().getBricks().add((AbstractBrick) obj);
-				} else {
-					throw new IllegalArgumentException("Unknown Game Obj in level " + f.getName());					
 				}
 			}
 			
+			// for full coverage
+			setGridSize(getGrid().getWidth(), getGrid().getHeight());
 			notifyOnResize();			
 			
 		} catch(Exception e) {
@@ -477,10 +470,6 @@ public class GameController extends ObservableGame implements IGameController {
 		return grid;
 	}
 
-	private void setGrid(PlayGrid grid) {
-		this.grid = grid;
-	}
-	
 
 	/* (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#setGridSize(int, int)

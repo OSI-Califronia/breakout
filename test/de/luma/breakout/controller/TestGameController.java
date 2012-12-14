@@ -10,11 +10,9 @@ import org.junit.Test;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.controller.IGameController.PLAYER_INPUT;
-import de.luma.breakout.data.PlayGrid;
 import de.luma.breakout.data.objects.Ball;
 import de.luma.breakout.data.objects.SimpleBrick;
 import de.luma.breakout.data.objects.Slider;
-import de.luma.breakout.view.gui.MainWindow;
 import de.luma.breakout.view.tui.UITextView;
 
 public class TestGameController extends TestCase {
@@ -233,6 +231,8 @@ public class TestGameController extends TestCase {
 		controller.updateGame();
 		
 		assertTrue(controller.getState() == GAME_STATE.MENU_WINGAME);
+		
+	
 	}
 	
 	@Test
@@ -282,7 +282,7 @@ public class TestGameController extends TestCase {
 	
 	@Test
 	public void testLoadLevel() {
-		controller.loadLevel(new File("levels/sampleLevel1.lvl"));
+		assertTrue(controller.loadLevel(new File("levels/sampleLevel1.lvl")));
 		
 		assertFalse(controller.getBricks().isEmpty());
 		
@@ -307,6 +307,12 @@ public class TestGameController extends TestCase {
 			
 			// test save level FileNotFound
 			assertFalse(controller.saveLevel(new File ("NonExistingFolder/testLevelBug.lvl")));
+			
+			// automatic save
+			String filepath = controller.saveLevel();
+			File file = new File(filepath);
+			assertTrue(file.exists());
+			file.delete();
 	}
 	
 	

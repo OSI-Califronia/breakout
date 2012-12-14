@@ -83,6 +83,9 @@ public abstract class AbstractBrick implements IDecodable {
 		this.hitCount = hitCount;
 	}	
 	
+	/**
+	 * Returns true if this brick can be deleted in the next game frame.
+	 */
 	protected boolean isBrickDead() {
 		// is deleted by one hit of the ball
 		if (getHitCount() >= 1) {

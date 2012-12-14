@@ -29,8 +29,8 @@ public class MovingBrick extends AbstractBrick {
 	@Override
 	public String encode() {
 		StringBuilder sb = super.encodeBasic();
-		sb.append(String.format("%d,", this.getFrameCounter()));
-		sb.append(String.format("%d,", this.getMovingRangeX()));
+		sb.append(String.format(",%d,", this.getFrameCounter()));  // comma at start
+		sb.append(String.format("%d", this.getMovingRangeX())); // no comma at end
 		
 		return sb.toString();
 	}
