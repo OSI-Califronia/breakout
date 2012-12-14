@@ -28,7 +28,7 @@ public class Ball implements IDecodable {
 		return x;
 	}
 
-	public void setX(double x) {
+	public final void setX(double x) {
 		this.x = x;
 	}
 
@@ -36,7 +36,7 @@ public class Ball implements IDecodable {
 		return y;
 	}
 
-	public void setY(double y) {
+	public final void setY(double y) {
 		this.y = y;
 	}
 
@@ -44,7 +44,7 @@ public class Ball implements IDecodable {
 		return speedX;
 	}
 
-	public void setSpeedX(double speedX) {
+	public final void setSpeedX(double speedX) {
 		this.speedX = speedX;
 	}
 
@@ -52,7 +52,7 @@ public class Ball implements IDecodable {
 		return speedY;
 	}
 
-	public void setSpeedY(double speedY) {
+	public final void setSpeedY(double speedY) {
 		this.speedY = speedY;
 	}
 	
@@ -60,7 +60,7 @@ public class Ball implements IDecodable {
 		return radius;
 	}
 
-	public void setRadius(double radius) {
+	public final void setRadius(double radius) {
 		this.radius = radius;
 	}
 	
@@ -89,11 +89,11 @@ public class Ball implements IDecodable {
 	@Override
 	public String encode() {
 		StringBuilder sb = new StringBuilder();
-		sb.append(String.format("%.3f,", this.getX()));
-		sb.append(String.format("%.3f,", this.getY()));
-		sb.append(String.format("%.3f,", this.getSpeedX()));
-		sb.append(String.format("%.3f,", this.getSpeedY()));
-		sb.append(String.format("%.3f", this.getRadius()));
+		sb.append(String.format(IDecodable.FloatFormatString + ",", this.getX()));
+		sb.append(String.format(IDecodable.FloatFormatString + ",", this.getY()));
+		sb.append(String.format(IDecodable.FloatFormatString + ",", this.getSpeedX()));
+		sb.append(String.format(IDecodable.FloatFormatString + ",", this.getSpeedY()));
+		sb.append(String.format(IDecodable.FloatFormatString, this.getRadius()));
 		
 		return sb.toString();
 	}

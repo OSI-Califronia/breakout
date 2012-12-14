@@ -24,7 +24,7 @@ public class ObservableGame implements IObservableGame {
 		MNU_END			
 	}
 	
-	protected List<IGameObserver> observerList = new LinkedList<IGameObserver>();
+	private List<IGameObserver> observerList = new LinkedList<IGameObserver>();
 	
 	public ObservableGame() {
 		super();

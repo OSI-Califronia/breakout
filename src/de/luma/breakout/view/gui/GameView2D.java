@@ -96,11 +96,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 						brickPreview = null;
 
 					} catch (ClassNotFoundException e1) {
-						e1.printStackTrace();
+						System.out.println("Could not create brick: class not found!");
 					} catch (InstantiationException e1) {
-						e1.printStackTrace();
+						System.out.println("Could not create brick: class not creatable!");
 					} catch (IllegalAccessException e1) {
-						e1.printStackTrace();
 					}						
 				}
 				break;
@@ -187,7 +186,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		initializeComponents();
 	}
 
-	private void initializeComponents() {		
+	private final void initializeComponents() {		
 		this.setPreferredSize(new Dimension(800, 800));
 		this.addKeyListener(getGameKeyListener());
 		MouseInputAdapter mouseHandler = new GameView2DMouseListener();
@@ -266,7 +265,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 	@Override
 	public void updateGameMenu(MENU_ITEM[] menuItems, String title) {
-		this.menuItems = menuItems;
+		this.menuItems = menuItems.clone();  // make checkstyle happy
 		this.menuTitle = title;
 		repaint();
 	}
@@ -428,14 +427,16 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 
 	public void selectNextMenuItem() {
-		if (selectedItem + 1 < menuItems.length)
+		if (selectedItem + 1 < menuItems.length) {
 			selectedItem++;
+		}
 		this.repaint();
 	}
 
 	public void selectPreviousMenuItem() {
-		if (selectedItem - 1 >= 0)
+		if (selectedItem - 1 >= 0) {
 			selectedItem--;
+		}
 		this.repaint();
 	}
 

@@ -27,7 +27,7 @@ public class MainWindow extends JFrame implements IGuiManager {
 		initializeComponents();
 	}
 
-	private void initializeComponents() {
+	private final void initializeComponents() {
 		//this.setUndecorated(true);
 		this.setTitle("Breakout");		
 		this.setVisible(true);		

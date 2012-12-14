@@ -14,7 +14,7 @@ public class BtnLevelSelection extends JButton {
 
 	private String filePath;
 	private IGuiManager guiManager;
-	Rectangle2D stringDimension;
+	private Rectangle2D stringDimension;
 	
 	public BtnLevelSelection(String filepath, IGuiManager guiMgr) {
 		super();

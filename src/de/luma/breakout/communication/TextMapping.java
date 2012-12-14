@@ -3,6 +3,9 @@ package de.luma.breakout.communication;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
 public class TextMapping {
+	
+	// prevent TextMapping from instantiation
+	private TextMapping() {}
 
 	public static final int TXT_YOU_LOSE = 1;
 	public static final int TXT_YOU_WIN = 2;
