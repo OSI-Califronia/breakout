@@ -143,7 +143,9 @@ public class GameController extends ObservableGame implements IGameController {
 
 			// check for collisions with slider (and change direction)
 			Slider s = getGrid().getSlider();
-			s.tryCollision(currentBall);
+			if (s != null) {
+				s.tryCollision(currentBall);
+			}
 
 			// move balls
 			currentBall.setX(currentBall.getX() + currentBall.getSpeedX());
@@ -438,6 +440,7 @@ public class GameController extends ObservableGame implements IGameController {
 			notifyOnResize();			
 			
 		} catch(Exception e) {
+			e.printStackTrace();
 			return false;
 		} finally {
 			s.close();

@@ -20,9 +20,9 @@ import de.luma.breakout.view.tui.UITextView;
 public class TestGameController extends TestCase {
 
 	private UITextView view;
-	private MainWindow mainWindow;
+//	private MainWindow mainWindow;
 	private GameController controller;
-	private PlayGrid playGrid;
+//	private PlayGrid playGrid;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -39,15 +39,11 @@ public class TestGameController extends TestCase {
 		view.setController(controller);		
 		controller.addObserver(view);
 		
-		mainWindow = new MainWindow(controller);
-		controller.addObserver(mainWindow.getBpaGameView2D());
-		mainWindow.setVisible(true);		
+//		mainWindow = new MainWindow(controller);
+//		controller.addObserver(mainWindow.getBpaGameView2D());
+//		mainWindow.setVisible(true);		
 	}
 	
-	private void resetGrid() {
-		playGrid.clearGrid();
-		playGrid.setSlider(new Slider(playGrid.getWidth() / 2 + 50, playGrid.getHeight() - 25, 100, 20));
-	}
 	
 	@Test
 	public void testBrickCollisions() {		
@@ -56,58 +52,70 @@ public class TestGameController extends TestCase {
 		
 		// ############################    COLLISION TESTING ############################
 		
-		
+				
 		// head ----------------------------------------------------------------------------------
+		// this brick will not be removed to prevent game from changing to game_won state
+		controller.addBrick(new SimpleBrick(0, 0));
 		controller.addBrick(new SimpleBrick(100, 100));
 		controller.addBall(new Ball(110, 97, 0, 1, 3));	
 		
-		assertTrue(controller.getBricks().size() == 1); // one brick in game
+		assertTrue(controller.getBricks().size() == 2); // two bricks in game
 		assertTrue(controller.getBalls().size() == 1); // one ball in game
 				
 		controller.updateGame();
 		
-		assertTrue(controller.getBricks().size() == 0); // no bricks left
+		assertTrue(controller.getBricks().size() == 1); // only one brick left
 		assertTrue(controller.getBalls().get(0).getSpeedY() == -1); // speedY -1
 		
 		
 		
 		// bottom ----------------------------------------------------------------------------------
-		resetGrid();
+		controller.clearGrid();
+		// this brick will not be removed to prevent game from changing to game_won state
+	    controller.addBrick(new SimpleBrick(0, 0));
+				
+		
 		controller.addBrick(new SimpleBrick(100, 100));
 		controller.addBall(new Ball(110, 123, 0, -1, 3));
 				
 		controller.updateGame();		
 		
-		assertTrue(controller.getBricks().size() == 0); // no bricks left
+		assertTrue(controller.getBricks().size() == 1); // only one brick left
 		assertTrue(controller.getBalls().get(0).getSpeedY() == 1); // speedY 1
 		
 		
 		
 		// left ----------------------------------------------------------------------------------
-		resetGrid();
+		controller.clearGrid();
+		// this brick will not be removed to prevent game from changing to game_won state
+	    controller.addBrick(new SimpleBrick(0, 0));
+	    
 		controller.addBrick(new SimpleBrick(100, 100));
 		controller.addBall(new Ball(97, 110, 1, 0, 3));
 				
 		controller.updateGame();
 		
-		assertTrue(controller.getBricks().size() == 0); // no bricks left
+		assertTrue(controller.getBricks().size() == 1); // only one brick left
 		assertTrue(controller.getBalls().get(0).getSpeedX() == -1); // speedY 1
 				
 		
 		// right ----------------------------------------------------------------------------------
-		resetGrid();
+		controller.clearGrid();
+		// this brick will not be removed to prevent game from changing to game_won state
+	    controller.addBrick(new SimpleBrick(0, 0));
+	    
 		controller.addBrick(new SimpleBrick(100, 100));
 		controller.addBall(new Ball(153, 110, -1, 0, 3));		
 			
 		controller.updateGame();
 		
-		assertTrue(controller.getBricks().size() == 0); // no bricks left
+		assertTrue(controller.getBricks().size() == 1); // only one brick left
 		assertTrue(controller.getBalls().get(0).getSpeedX() == 1); // speedY 1
 		
 		
 		// test slider collision ------------------------------------------------------------------
 		
-		resetGrid(); 
+		controller.clearGrid();
 		controller.addBall(new Ball(55, 50, 0, 1, 1));
 		System.out.println(controller.getBalls().size());
 		controller.setSlider(new Slider(50, 52, 10, 10));
@@ -165,25 +173,26 @@ public class TestGameController extends TestCase {
 		
 		System.out.println("testGridCollisions()\n");
 		
+		controller.clearGrid();
 		int gWidth = controller.getGridSize().width;
 		int gheight = controller.getGridSize().height;
 		
 				
 		System.out.printf("ball vs. left side\n");
-		resetGrid();
+		
 		controller.addBall(new Ball(5, 10, -1, 0, 3));	
 		
 		controller.processMenuInput(MENU_ITEM.MNU_NEW_GAME);
 		Thread.sleep(500);
 		
 		System.out.printf("ball vs. right side\n");
-		resetGrid();
+		controller.clearGrid();
 		controller.addBall(new Ball(gWidth-5, 10, 1, 0, 3));	
 		
 		Thread.sleep(500);
 		
 		System.out.printf("ball vs. top side\n");
-		resetGrid();
+		controller.clearGrid();
 		controller.addBall(new Ball(50, 5, 0, -1, 3));	
 		
 		
@@ -192,7 +201,7 @@ public class TestGameController extends TestCase {
 		// prepare game over
 		
 		System.out.printf("ball vs. bottom side\n");
-		resetGrid();
+		controller.clearGrid();
 		controller.addBall(new Ball(50, gheight-5, 0, 1, 3));	
 		
 		Thread.sleep(500);
@@ -230,7 +239,7 @@ public class TestGameController extends TestCase {
 	public void testUserInput() throws InterruptedException {
 		controller.addBall(new Ball(50, 50, 0, 1, 3));	
 		controller.addBrick(new SimpleBrick(100, 100));
-//		controller.processInput(GameController.PLAYER_INPUT.START);
+		controller.setSlider(new Slider(0, 0, 1, 1));
 		
 		// test slider movements
 		controller.getSlider().setX(50);
@@ -240,7 +249,7 @@ public class TestGameController extends TestCase {
 		controller.processGameInput(GameController.PLAYER_INPUT.RIGHT);
 		assertTrue(controller.getSlider().getX() > 50);
 		
-		// test invalid user input
+		// test invalid slider movements
 		controller.getSlider().setX(0);
 		controller.processGameInput(GameController.PLAYER_INPUT.LEFT);
 		assertTrue(controller.getSlider().getX() == 0);
@@ -250,9 +259,18 @@ public class TestGameController extends TestCase {
 		controller.processGameInput(GameController.PLAYER_INPUT.RIGHT);
 		assertTrue(controller.getSlider().getX() <= max_x);
 		
+		// test menu input
+		controller.processMenuInput(MENU_ITEM.MNU_NEW_GAME);
+		assertTrue(controller.getState() == GAME_STATE.RUNNING);
 		
 		controller.processGameInput(GameController.PLAYER_INPUT.PAUSE);
 		assertTrue(controller.getState() == GAME_STATE.PAUSED);
+		
+		controller.processMenuInput(MENU_ITEM.MNU_CONTINUE);
+		assertTrue(controller.getState() == GAME_STATE.RUNNING);
+		
+		
+		
 		
 //		controller.processInput(GameController.PLAYER_INPUT.CANCEL_GAME);
 //		assertTrue(controller.getState() == GAME_STATE.MENU_GAMEOVER);
@@ -264,29 +282,31 @@ public class TestGameController extends TestCase {
 	
 	@Test
 	public void testLoadLevel() {
-		controller.loadLevel(new File("test/sampleLevel1.txt"));
+		controller.loadLevel(new File("levels/sampleLevel1.lvl"));
 		
-		assertFalse(playGrid.getBricks().isEmpty());
+		assertFalse(controller.getBricks().isEmpty());
 		
 		// test invald game object						
-		assertFalse(controller.loadLevel(new File("test/sampleLevelBug.txt")));	
+		assertFalse(controller.loadLevel(new File("levels/sampleLevelBug.lvl")));	
 		
 		// test invalid file path
-		assertFalse(controller.loadLevel(new File("test/notValidPath.txt")));		
+		assertFalse(controller.loadLevel(new File("levels/notValidPath.lvl")));		
 	}
 	
 	@Test
 	public void testSaveLevel() {
 			testLoadLevel();
-			assertTrue(controller.saveLevel(new File ("test/sampleLevel1_out.txt")));
+			int oldBrickCount = controller.getBricks().size();
+			int oldBallCount = controller.getBalls().size();
 			
-			PlayGrid grid2 = new PlayGrid(500, 500);
-			controller.loadLevel(new File("test/sampleLevel1_out.txt"));
-			assertEquals(playGrid.getBalls().size(), grid2.getBalls().size());
-			assertEquals(playGrid.getBricks().size(), grid2.getBricks().size());	
+			assertTrue(controller.saveLevel(new File ("levels/sampleLevel1_out.lvl")));
+			
+			controller.loadLevel(new File("test/sampleLevel1_out.lvl"));
+			assertEquals(controller.getBalls().size(), oldBallCount);
+			assertEquals(controller.getBricks().size(), oldBrickCount);	
 			
 			// test save level FileNotFound
-			assertFalse(controller.saveLevel(new File ("NonExistingFolder/testLevelBug.txt")));
+			assertFalse(controller.saveLevel(new File ("NonExistingFolder/testLevelBug.lvl")));
 	}
 	
 	

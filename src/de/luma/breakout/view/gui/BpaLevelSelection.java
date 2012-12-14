@@ -4,11 +4,8 @@ import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.List;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
@@ -17,7 +14,7 @@ import javax.swing.JScrollPane;
 @SuppressWarnings("serial")
 public class BpaLevelSelection extends JPanel {
 	
-	private GameView2D gameView;
+	//private GameView2D gameView;
 	private IGuiManager guiManager;
 	private JScrollPane scrollPane;
 	private JPanel buttonsPanel;
@@ -25,7 +22,7 @@ public class BpaLevelSelection extends JPanel {
 
 	public BpaLevelSelection(GameView2D gView, IGuiManager guiMgr) {
 		super();
-		this.gameView = gView;
+		//this.gameView = gView;
 		this.guiManager = guiMgr;
 		initializeComponents();
 	}

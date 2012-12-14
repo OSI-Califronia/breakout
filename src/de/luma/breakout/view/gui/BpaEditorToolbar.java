@@ -16,6 +16,7 @@ import javax.swing.JTextField;
 import de.luma.breakout.data.objects.AbstractBrick;
 import de.luma.breakout.data.objects.Slider;
 
+@SuppressWarnings("serial")
 public class BpaEditorToolbar extends JPanel {
 
 	private JTextField tfiWidth;
