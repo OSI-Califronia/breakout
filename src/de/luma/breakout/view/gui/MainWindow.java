@@ -10,6 +10,11 @@ import javax.swing.JFrame;
 
 import de.luma.breakout.controller.IGameController;
 
+/**
+ * Main GUI window to hold the game view.
+ * @author mabausch
+ *
+ */
 @SuppressWarnings("serial")
 public class MainWindow extends JFrame implements IGuiManager {	
 
@@ -20,7 +25,7 @@ public class MainWindow extends JFrame implements IGuiManager {
 	private MediaTracker mediaTracker;
 	private final Map<String, Image> mapImages = new HashMap<String, Image>();
 
-
+    /** */
 	public MainWindow(IGameController controller) {
 		super();
 		this.controller = controller;
@@ -98,10 +103,16 @@ public class MainWindow extends JFrame implements IGuiManager {
 		return mediaTracker;
 	}
 
+	/**
+	 * Return the image by file path. Has to be loaded first.
+	 */
 	public Map<String, Image> getMapImages() {
 		return mapImages;
 	}
 
+	/**
+	 * Return the game view hold by this window.
+	 */
 	public GameView2D getBpaGameView2D() {
 		if (bpaGameView == null) {
 			bpaGameView = new GameView2D(this);			
@@ -109,16 +120,28 @@ public class MainWindow extends JFrame implements IGuiManager {
 		return bpaGameView;
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.view.gui.IGuiManager#updateLayout()
+	 */
 	@Override
 	public void updateLayout() {
 		this.pack();
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.view.gui.IGuiManager#kill()
+	 */
 	@Override
 	public void kill() {
 		this.dispose();	
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.view.gui.IGuiManager#getGameController()
+	 */
 	@Override
 	public IGameController getGameController() {
 		return controller;

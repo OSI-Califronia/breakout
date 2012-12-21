@@ -1,5 +1,10 @@
 package de.luma.breakout.data.objects;
 
+/**
+ * lalalala
+ * @author mabausch
+ *
+ */
 public interface IDecodable {
 	
 	static final String FloatFormatString = "%.3f";

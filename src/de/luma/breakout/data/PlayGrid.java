@@ -12,6 +12,14 @@ import de.luma.breakout.data.objects.impl.MovingBrick;
 import de.luma.breakout.data.objects.impl.SimpleBrick;
 
 
+/**
+ * Playgrid which stores 
+ *   - balls
+ *   - bricks
+ *   - slider
+ * @author mabausch
+ *
+ */
 public class PlayGrid implements IDecodable {
 	
 	private int height;

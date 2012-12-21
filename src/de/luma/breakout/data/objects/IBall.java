@@ -1,5 +1,10 @@
 package de.luma.breakout.data.objects;
 
+/**
+ * Interface for Ball
+ * @author mabausch
+ *
+ */
 public interface IBall extends IDecodable {
 
 	/** Maximum absolute speed that a ball can reach */

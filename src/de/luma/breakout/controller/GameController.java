@@ -363,7 +363,7 @@ public class GameController extends ObservableGame implements IGameController {
 	
 	/* #######################################  LEVEL HANDLING #######################################   */
 	
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#saveLevel()
 	 */
 	@Override
@@ -376,7 +376,7 @@ public class GameController extends ObservableGame implements IGameController {
 		}
 	}	
 	
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#saveLevel(java.io.File)
 	 */
 	@Override

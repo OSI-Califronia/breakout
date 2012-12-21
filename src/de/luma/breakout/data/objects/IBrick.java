@@ -2,6 +2,11 @@ package de.luma.breakout.data.objects;
 
 import java.util.Properties;
 
+/**
+ * Interface for Brick.
+ * @author mabausch
+ *
+ */
 public interface IBrick extends IDecodable {
 
 	static final String PROP_COLOR = "color";

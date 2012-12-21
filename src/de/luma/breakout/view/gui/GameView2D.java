@@ -26,6 +26,11 @@ import de.luma.breakout.data.objects.IBrick;
 import de.luma.breakout.data.objects.impl.Ball;
 
 
+/**
+ * Class to Display normal Game and Editor Gamegrid.
+ * @author mabausch
+ *
+ */
 @SuppressWarnings("serial")
 public class GameView2D extends JPanel implements IGameObserver {	
 
@@ -34,6 +39,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 		private static final int DEFAULT_BRICK_WIDTH = 50;
 		private static final int DEFAULT_BRICK_HEIGHT = 20;
 
+		/**
+		 * (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mousePressed(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mousePressed(MouseEvent e) {
 			// ignore mouse actions outside the game area
@@ -64,6 +73,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 			}
 		}
 
+		/**
+		 * (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mouseDragged(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mouseDragged(MouseEvent e) {
 			super.mouseDragged(e);
@@ -80,6 +93,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 			}
 		}
 
+		/**
+		 * (non-Javadoc)
+		 * @see java.awt.event.MouseAdapter#mouseReleased(java.awt.event.MouseEvent)
+		 */
 		@Override
 		public void mouseReleased(MouseEvent e) {
 			// creating new game object is finished
@@ -116,6 +133,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 	}
 
 	private class GameView2DKeyListener implements KeyListener {
+		/**
+		 * (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyPressed(java.awt.event.KeyEvent)
+		 */
 		public void keyPressed(KeyEvent e) {				
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
@@ -139,6 +160,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 			}
 		}
 
+		/**
+		 * (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyReleased(java.awt.event.KeyEvent)
+		 */
 		public void keyReleased(KeyEvent e) {  
 			switch (e.getKeyCode()) {
 			case KeyEvent.VK_LEFT:
@@ -150,6 +175,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 			}
 		}
 
+		/**
+		 * (non-Javadoc)
+		 * @see java.awt.event.KeyListener#keyTyped(java.awt.event.KeyEvent)
+		 */
 		public void keyTyped(KeyEvent e) { 	}
 	}
 
@@ -178,7 +207,9 @@ public class GameView2D extends JPanel implements IGameObserver {
 	private BpaLevelSelection bpaLevelSelect;
 	private IGuiManager guiManager;
 
-
+	/**
+	 * 
+	 */
 	public GameView2D(IGuiManager resources) {
 		super();		
 		this.guiManager = resources;
@@ -198,11 +229,19 @@ public class GameView2D extends JPanel implements IGameObserver {
 	}
 
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.communication.IGameObserver#updateRepaintPlayGrid()
+	 */
 	@Override
 	public void updateRepaintPlayGrid() {	
 		repaint();		
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.communication.IGameObserver#updateGameFrame()
+	 */
 	@Override
 	public void updateGameFrame() {
 		if (leftKeyPressed) {
@@ -213,6 +252,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 		}
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.communication.IGameObserver#updateGameState(de.luma.breakout.communication.ObservableGame.GAME_STATE)
+	 */
 	@Override
 	public void updateGameState(GAME_STATE state) {
 
@@ -266,6 +309,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 		}
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.communication.IGameObserver#updateGameMenu(de.luma.breakout.communication.ObservableGame.MENU_ITEM[], java.lang.String)
+	 */
 	@Override
 	public void updateGameMenu(MENU_ITEM[] menuItems, String title) {
 		this.selectedItem = 0;
@@ -274,6 +321,10 @@ public class GameView2D extends JPanel implements IGameObserver {
 		repaint();
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see javax.swing.JComponent#paint(java.awt.Graphics)
+	 */
 	@Override
 	public void paint(Graphics g) {
 		this.paintComponents(g);
@@ -281,7 +332,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		this.paintChildren(g);
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see javax.swing.JComponent#paint(java.awt.Graphics)
 	 */
@@ -427,9 +478,9 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 	}
 
-
-
-
+	/**
+	 *  selects the next Menu
+	 */
 	public void selectNextMenuItem() {
 		if (selectedItem + 1 < menuItems.length) {
 			selectedItem++;
@@ -437,6 +488,9 @@ public class GameView2D extends JPanel implements IGameObserver {
 		this.repaint();
 	}
 
+	/**
+	 * select the previous Menu
+	 */
 	public void selectPreviousMenuItem() {
 		if (selectedItem - 1 >= 0) {
 			selectedItem--;
@@ -444,13 +498,15 @@ public class GameView2D extends JPanel implements IGameObserver {
 		this.repaint();
 	}
 
+	/**
+	 * select the current Menu
+	 */
 	public void selectCurrentMenuItem() {
 		getController().processMenuInput(menuItems[selectedItem]);
 	}
 
 
-
-
+	/** */
 	public KeyListener getGameKeyListener() {
 		if (keyListener == null) {
 			keyListener = new GameView2DKeyListener();
@@ -459,6 +515,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 	}
 
+	/** */
 	public IGameController getController() {
 		return guiManager.getGameController();
 	}
@@ -480,10 +537,18 @@ public class GameView2D extends JPanel implements IGameObserver {
 		}
 	}
 
+	/** 
+	 * Set class name of the brick type that will be created
+	 * in level editing mode.
+	 */
 	public void setNewBrickClassName(String newBrickClassName) {
 		this.newBrickClassName = newBrickClassName;
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.communication.IGameObserver#updateOnResize()
+	 */
 	@Override
 	public void updateOnResize() {
 		Dimension viewSize = getController().getGridSize();
@@ -495,6 +560,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		guiManager.updateLayout();
 	}
 
+	/** */
 	public void addBpaLevelSelection() {
 		if (bpaLevelSelect == null) {
 			bpaLevelSelect = new BpaLevelSelection(guiManager);

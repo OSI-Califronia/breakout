@@ -9,6 +9,9 @@ import java.awt.geom.Rectangle2D;
 
 import javax.swing.JButton;
 
+/**
+ * Button extension to connect the button to a level file.
+ */
 @SuppressWarnings("serial")
 public class BtnLevelSelection extends JButton {
 
@@ -16,6 +19,7 @@ public class BtnLevelSelection extends JButton {
 	private IGuiManager guiManager;
 	private Rectangle2D stringDimension;
 	
+	/** */
 	public BtnLevelSelection(String filepath, IGuiManager guiMgr) {
 		super();
 		this.filePath = filepath;
@@ -23,6 +27,7 @@ public class BtnLevelSelection extends JButton {
 		this.setPreferredSize(new Dimension(80, 80));
 	}
 	
+	/** */
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
@@ -44,6 +49,9 @@ public class BtnLevelSelection extends JButton {
 				(int) (this.getHeight() - stringDimension.getHeight()) / 2 + fm.getAscent());	
 	}
 	
+	/**
+	 * Returns the level file path associated with this button.
+	 */
 	public String getFilePath() {
 		return this.filePath;
 	}

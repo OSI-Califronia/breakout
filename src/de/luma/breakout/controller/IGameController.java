@@ -10,6 +10,11 @@ import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.data.objects.IBall;
 import de.luma.breakout.data.objects.IBrick;
 
+/**
+ * Interface for Gamecontroller
+ * @author mabausch
+ *
+ */
 public interface IGameController extends IObservableGame {
 	
 	/**

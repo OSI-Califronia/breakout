@@ -13,6 +13,9 @@ import javax.swing.JScrollPane;
 
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
+/**
+ * Panel to hold a button for each loadable level.
+ */
 @SuppressWarnings("serial")
 public class BpaLevelSelection extends JPanel {	
 
@@ -21,11 +24,13 @@ public class BpaLevelSelection extends JPanel {
 	private JPanel buttonsPanel;
 	private ActionListener lvlBtnListener;
 
+	/** */
 	public BpaLevelSelection(IGuiManager guiMgr) {
 		super();		
 		this.guiManager = guiMgr;
 		initializeComponents();
 	}
+	
 	
 	private void initializeComponents() {
 		this.setBackground(Color.BLACK);
@@ -40,6 +45,9 @@ public class BpaLevelSelection extends JPanel {
 		this.add(scrollPane, BorderLayout.CENTER);
 	}
 	
+	/**
+	 * Create a button for each loadable level.
+	 */
 	public void loadLevels() {
 		buttonsPanel.removeAll();
 		
@@ -57,6 +65,7 @@ public class BpaLevelSelection extends JPanel {
 		if (lvlBtnListener == null) {
 			lvlBtnListener = new ActionListener() {
 				
+				/** */
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() instanceof BtnLevelSelection) {
