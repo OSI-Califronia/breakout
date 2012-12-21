@@ -17,6 +17,13 @@
 					<target />
 				</configuration>
 			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<configuration>
+					<excludes>**/gui/**/*</excludes>
+				</configuration>
+			</plugin>
 		</plugins>
 	</build>
 	<dependencies>
@@ -33,29 +40,5 @@
 		</dependency>
 	</dependencies>
 
-	<reporting>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>**/gui/**/*</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javancss-plugin</artifactId>
-				<configuration>
-					<excludes>
-						<exclude>**/gui/**/*</exclude>
-					</excludes>
-				</configuration>
-			</plugin>
-
-
-		</plugins>
-	</reporting>
 
 </project>
