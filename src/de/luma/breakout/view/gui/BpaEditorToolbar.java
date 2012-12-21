@@ -16,6 +16,13 @@ import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 import de.luma.breakout.data.objects.IBrick;
 import de.luma.breakout.data.objects.impl.Slider;
 
+/**
+ * Toolbar for save load and reset
+ *         for resizeing
+ *         for choosing bricks.
+ * @author mabausch
+ *
+ */
 @SuppressWarnings("serial")
 public class BpaEditorToolbar extends JPanel {
 	
@@ -38,7 +45,12 @@ public class BpaEditorToolbar extends JPanel {
 
 	private ActionListener btnBricksActionListener;
 	private ActionListener resizeActionListener;
-
+	
+	/**
+	 * Constructor
+	 * @param guiManager
+	 * @param gameView
+	 */
 	public BpaEditorToolbar(IGuiManager guiManager, GameView2D gameView) {
 		super();
 		this.guiManager = guiManager;

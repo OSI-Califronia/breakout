@@ -14,7 +14,11 @@ import de.luma.breakout.controller.IGameController.PLAYER_INPUT;
 import de.luma.breakout.data.objects.IBall;
 import de.luma.breakout.data.objects.IBrick;
 
-
+/**
+ * TUI for Game.
+ * @author mabausch
+ *
+ */
 public class UITextView implements IGameObserver {
 
 	private class GameInput implements Runnable {
@@ -22,8 +26,11 @@ public class UITextView implements IGameObserver {
 		private static final String CHAR_MOVE_LEFT = "a";
 		private static final String CHAR_MOVE_RIGHT = "d";
 		private static final String CHAR_PAUSE_GAME = "p";
-		
-			
+					
+		/**
+		 * (non-Javadoc)
+		 * @see java.lang.Runnable#run()
+		 */
 		@Override
 		public void run() {	
 			
@@ -65,10 +72,17 @@ public class UITextView implements IGameObserver {
 	private Scanner input;
 	private Thread gameInputThread;	
 
+	/**
+	 * Consturctor
+	 */
 	public UITextView() {
 		this(System.in);
 	}
 	
+	/**
+	 * Constructor with inputstream were to write to.
+	 * @param inputSource
+	 */
 	public UITextView(InputStream inputSource) {
 		super();
 		Locale.setDefault(new Locale("en", "US"));
@@ -77,6 +91,10 @@ public class UITextView implements IGameObserver {
 		startGameDaemon();
 	}
 	
+	/**
+	 * Consturctor
+	 * @param inputSource
+	 */
 	public UITextView(String inputSource) {
 		super();
 		Locale.setDefault(new Locale("en", "US"));
@@ -92,9 +110,7 @@ public class UITextView implements IGameObserver {
 		gameInputThread.start();
 	}
 	
-
-	
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see communication.IGameObserver#updateRepaintPlayGrid()
 	 */
@@ -117,7 +133,7 @@ public class UITextView implements IGameObserver {
 		}
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see communication.IGameObserver#updateGameState(communication.ObservableGame.GAME_STATE)
 	 */
@@ -126,14 +142,20 @@ public class UITextView implements IGameObserver {
 		printMsg("TUI: game state changed: " + state.name());
 	}
 
+	/** */
 	public IGameController getController() {
 		return controller;
 	}
 
+	/** */
 	public void setController(IGameController controller) {
 		this.controller = controller;
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.communication.IGameObserver#updateGameMenu(de.luma.breakout.communication.ObservableGame.MENU_ITEM[], java.lang.String)
+	 */
 	@Override
 	public void updateGameMenu(MENU_ITEM[] menuItems, String title) {		
 
@@ -144,11 +166,19 @@ public class UITextView implements IGameObserver {
 
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.communication.IGameObserver#updateGameFrame()
+	 */
 	@Override
 	public void updateGameFrame() {
 		// not used yet
 	}
 
+	/**
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.communication.IGameObserver#updateOnResize()
+	 */
 	@Override
 	public void updateOnResize() {
 		// TODO Auto-generated method stub

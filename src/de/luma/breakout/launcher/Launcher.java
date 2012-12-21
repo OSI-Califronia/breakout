@@ -8,7 +8,16 @@ import de.luma.breakout.controller.IGameController;
 import de.luma.breakout.view.gui.MainWindow;
 import de.luma.breakout.view.tui.UITextView;
 
-// Kein Test vorgesehen da prinzipiell unbegrenzte Laufzeit
+/**
+ * Launcher 
+ * starts 
+ *   - Model
+ *   - Controller
+ *   - GUI1
+ *   - GUI2     
+ * @author mabausch
+ *
+ */
 public final class Launcher {
 	
 	private Launcher() {

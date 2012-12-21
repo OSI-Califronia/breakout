@@ -2,6 +2,12 @@ package de.luma.breakout.communication;
 
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
+/**
+ * Class to map text to id and menuitem.
+ *   TODO unicode in other language.
+ * @author mabausch
+ *
+ */
 public final class TextMapping {
 	
 	// prevent TextMapping from instantiation

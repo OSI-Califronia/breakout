@@ -8,12 +8,23 @@ import javax.swing.JButton;
 
 import de.luma.breakout.data.objects.IBrick;
 
+/**
+ * Btn for a Brick to Choose.
+ *   saves an Instance of the represented brick.
+ * @author mabausch
+ *
+ */
 @SuppressWarnings("serial")
 public class BtnEditorBrick extends JButton {
 
 	private IGuiManager guiManager;
 	private IBrick brickInstance;
 	
+	/**
+	 * Constructor
+	 * @param guiManager
+	 * @param brickInstance
+	 */
 	public BtnEditorBrick(IGuiManager guiManager, IBrick brickInstance) {
 		super();
 		this.guiManager = guiManager;

@@ -3,6 +3,11 @@ package de.luma.breakout.communication;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * Observer for GUI information interaction with game Controller.
+ * @author mabausch
+ *
+ */
 public class ObservableGame implements IObservableGame {
 	
 	/**
@@ -47,6 +52,7 @@ public class ObservableGame implements IObservableGame {
 	
 	private List<IGameObserver> observerList = new LinkedList<IGameObserver>();
 	
+	/** */
 	public ObservableGame() {
 		super();
 	}

@@ -35,10 +35,15 @@ public class GameController extends ObservableGame implements IGameController {
 	 * game run with a constant FPS.
 	 */
 	private class GameTimerTask extends TimerTask {		
+		/** */
 		public GameTimerTask() {
 			super();
 		}		
 
+		/**
+		 * (non-Javadoc)
+		 * @see java.util.TimerTask#run()
+		 */
 		@Override
 		public void run() {
 			updateGame();			

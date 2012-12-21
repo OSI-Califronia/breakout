@@ -6,11 +6,20 @@ import java.awt.RenderingHints;
 
 import javax.swing.JButton;
 
+/**
+ * Btn with imageDesign.
+ * @author mabausch
+ *
+ */
 @SuppressWarnings("serial")
 public class BtnEditor extends JButton {
 	
 	private IGuiManager guiManager;
 	
+	/**
+	 * Constructor
+	 * @param guiManager
+	 */
 	public BtnEditor(IGuiManager guiManager) {
 		super();
 		this.guiManager = guiManager;
