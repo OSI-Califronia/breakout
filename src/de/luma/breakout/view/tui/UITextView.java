@@ -102,15 +102,15 @@ public class UITextView implements IGameObserver {
 	public void updateRepaintPlayGrid() {	
 		try {
 				for (IBrick brick : getController().getBricks()) {
-					System.out.printf("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
+					printMsg("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
 				}
 				IBrick s = getController().getSlider();
 				if (s != null) {
-					System.out.printf("TUI: slider (%d, %d)\n", s.getX(), s.getY());
+					printMsg("TUI: slider (%d, %d)\n", s.getX(), s.getY());
 				}
 		
 				for (IBall ball : getController().getBalls()) {
-					System.out.printf("TUI: ball (%.1f, %.1f)  speed: (%.1f, %.1f) \n---\n", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
+					printMsg("TUI: ball (%.1f, %.1f)  speed: (%.1f, %.1f) \n---\n", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
 				}	
 		} catch (ConcurrentModificationException ex) {
 			// fuck
@@ -123,7 +123,7 @@ public class UITextView implements IGameObserver {
 	 */
 	@Override
 	public void updateGameState(GAME_STATE state) {
-		System.out.println("TUI: game state changed: " + state.name());
+		printMsg("TUI: game state changed: " + state.name());
 	}
 
 	public IGameController getController() {
@@ -137,9 +137,9 @@ public class UITextView implements IGameObserver {
 	@Override
 	public void updateGameMenu(MENU_ITEM[] menuItems, String title) {		
 
-		System.out.println("MENU: -----  " + title + " ----- ");
+		printMsg("MENU: -----  " + title + " ----- ");
 		for (MENU_ITEM m : menuItems) {
-			System.out.printf("[%d] %s\n", m.ordinal(), TextMapping.getTextForMenuEnum(m));
+			printMsg("[%d] %s\n", m.ordinal(), TextMapping.getTextForMenuEnum(m));
 		}
 
 	}
@@ -153,6 +153,10 @@ public class UITextView implements IGameObserver {
 	public void updateOnResize() {
 		// TODO Auto-generated method stub
 		
+	}
+	
+	private void printMsg(String format, Object... b) {
+		System.out.printf(format, b);
 	}
 
 
