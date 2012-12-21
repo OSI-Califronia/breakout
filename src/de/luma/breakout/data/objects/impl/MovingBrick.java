@@ -4,6 +4,11 @@ import java.awt.Color;
 
 import de.luma.breakout.data.objects.IBall;
 
+/**
+ * Data class for a Moving brick.
+ * @author mabausch
+ *
+ */
 public class MovingBrick extends AbstractBrick {
 
 	private static final int DEFAULT_MOVING_RANGE = 300;
@@ -11,6 +16,9 @@ public class MovingBrick extends AbstractBrick {
 	private int frameCounter = 0;
 	private int movingRangeX;
 	
+	/**
+	 * Default constructor
+	 */
 	public MovingBrick() {
 		super();
 		movingRangeX = DEFAULT_MOVING_RANGE;
@@ -19,6 +27,10 @@ public class MovingBrick extends AbstractBrick {
 		getProperties().setProperty(PROP_IMG_PATH, "resources\\movingBrick.png");
 	}	
 	
+	/*
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IDecodable#decode(java.lang.String)
+	 */
 	@Override
 	public void decode(String line) {
 		String[] s = decodeBasic(line);
@@ -28,6 +40,10 @@ public class MovingBrick extends AbstractBrick {
 	
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IDecodable#encode()
+	 */
 	@Override
 	public String encode() {
 		StringBuilder sb = super.encodeBasic();
@@ -37,11 +53,19 @@ public class MovingBrick extends AbstractBrick {
 		return sb.toString();
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.impl.AbstractBrick#tryCollision(de.luma.breakout.data.objects.IBall)
+	 */
 	@Override
 	public boolean tryCollision(IBall b) {
 		return super.tryCollisionRectangle(b);
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.impl.AbstractBrick#onNextFrame()
+	 */
 	@Override
 	public void onNextFrame() {
 		super.onNextFrame();
@@ -51,19 +75,22 @@ public class MovingBrick extends AbstractBrick {
 		this.setX(this.getX() + (int) (Math.sin(factor) * 2));
 	}
 	
-
+	/** */
 	public int getFrameCounter() {
 		return frameCounter;
 	}
 
+	/** */
 	public void setFrameCounter(int frameCounter) {
 		this.frameCounter = frameCounter;
 	}
 
+	/** */
 	public int getMovingRangeX() {
 		return movingRangeX;
 	}
 
+	/** */
 	public void setMovingRangeX(int movingRangeX) {
 		this.movingRangeX = movingRangeX;
 	}

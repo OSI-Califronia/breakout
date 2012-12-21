@@ -3,6 +3,11 @@ package de.luma.breakout.data.objects.impl;
 import de.luma.breakout.data.objects.IBall;
 import de.luma.breakout.data.objects.IDecodable;
 
+/**
+ * Data class for Ball Component
+ * @author mabausch
+ *
+ */
 public class Ball implements IBall {
 
 	private double x;
@@ -11,10 +16,21 @@ public class Ball implements IBall {
 	private double speedY;
 	private double radius;
 	
+	/**
+	 * Default Constructor
+	 */
 	public Ball() {
 		super();
 	}
 
+	/**
+	 * constructor with all arguments
+	 * @param x
+	 * @param y
+	 * @param speedX
+	 * @param speedY
+	 * @param radius
+	 */
 	public Ball(double x, double y, double speedX, double speedY, double radius) {
 		super();
 		setX(x);

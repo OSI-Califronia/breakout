@@ -5,7 +5,11 @@ import java.util.Properties;
 import de.luma.breakout.data.objects.IBall;
 import de.luma.breakout.data.objects.IBrick;
 
-
+/**
+ * Class for ground component of Game
+ * @author mabausch
+ *
+ */
 public abstract class AbstractBrick implements IBrick {
 
 	private int x;
@@ -16,11 +20,21 @@ public abstract class AbstractBrick implements IBrick {
 	
 	private Properties properties;
 
+	/**
+	 * Default constructor
+	 */
 	public AbstractBrick() {
 		super();
 		properties = new Properties();
 	}
 
+	/**
+	 * constructor with all arguments
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
 	public AbstractBrick(int x, int y, int width, int height) {
 		this();
 		this.x = x;
