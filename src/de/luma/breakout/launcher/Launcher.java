@@ -11,7 +11,7 @@ import de.luma.breakout.view.tui.UITextView;
 // Kein Test vorgesehen da prinzipiell unbegrenzte Laufzeit
 public class Launcher {
 	
-	public Launcher() {
+	private Launcher() {
 		super();
 	}
 	

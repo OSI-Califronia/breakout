@@ -27,13 +27,12 @@ public class MainWindow extends JFrame implements IGuiManager {
 		initializeComponents();
 	}
 
-	private final void initializeComponents() {
-		//this.setUndecorated(true);
+	private final void initializeComponents() {		
 		this.setTitle("Breakout");		
 		this.setVisible(true);		
 		this.add(getBpaGameView2D(), BorderLayout.CENTER);
-		this.pack();		
-//		this.setResizable(false);
+		this.pack();	
+
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);	
 		
 		loadImageResources();

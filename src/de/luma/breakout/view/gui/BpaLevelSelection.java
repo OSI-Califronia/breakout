@@ -8,24 +8,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
 @SuppressWarnings("serial")
-public class BpaLevelSelection extends JPanel {
-	
-	//private GameView2D gameView;
+public class BpaLevelSelection extends JPanel {	
+
 	private IGuiManager guiManager;
 	private JScrollPane scrollPane;
 	private JPanel buttonsPanel;
 	private ActionListener lvlBtnListener;
 
-	public BpaLevelSelection(GameView2D gView, IGuiManager guiMgr) {
-		super();
-		//this.gameView = gView;
+	public BpaLevelSelection(IGuiManager guiMgr) {
+		super();		
 		this.guiManager = guiMgr;
 		initializeComponents();
 	}
@@ -67,8 +64,6 @@ public class BpaLevelSelection extends JPanel {
 						
 						guiManager.getGameController().loadLevel(new File(btn.getFilePath()));
 						guiManager.getGameController().processMenuInput(MENU_ITEM.MNU_CONTINUE);
-						
-//						JOptionPane.showMessageDialog(BpaLevelSelection.this, btn.getFilePath());
 					}
 				}
 			};

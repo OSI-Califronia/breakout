@@ -2,7 +2,7 @@ package de.luma.breakout.communication;
 
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
-public class TextMapping {
+public final class TextMapping {
 	
 	// prevent TextMapping from instantiation
 	private TextMapping() {}

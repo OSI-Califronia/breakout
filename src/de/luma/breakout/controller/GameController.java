@@ -449,8 +449,7 @@ public class GameController extends ObservableGame implements IGameController {
 			setGridSize(getGrid().getWidth(), getGrid().getHeight());
 			notifyOnResize();			
 			
-		} catch(Exception e) {
-			//e.printStackTrace();
+		} catch(Exception e) {			
 			return false;
 		} finally {
 			if (s != null) { // in case of exception

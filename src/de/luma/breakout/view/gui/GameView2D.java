@@ -12,6 +12,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 import java.awt.event.MouseEvent;
 
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.event.MouseInputAdapter;
 
@@ -97,9 +98,9 @@ public class GameView2D extends JPanel implements IGameObserver {
 						brickPreview = null;
 
 					} catch (ClassNotFoundException e1) {
-						System.out.println("Could not create brick: class not found!");
+						JOptionPane.showMessageDialog(GameView2D.this, "Could not create brick: class not found!");					
 					} catch (InstantiationException e1) {
-						System.out.println("Could not create brick: class not creatable!");
+						JOptionPane.showMessageDialog(GameView2D.this, "Could not create brick: class not creatable!");						
 					} catch (IllegalAccessException e1) {
 					}						
 				}
@@ -144,12 +145,6 @@ public class GameView2D extends JPanel implements IGameObserver {
 			case KeyEvent.VK_RIGHT:
 				rightKeyPressed = false;
 				break;
-			case KeyEvent.VK_C: 
-				// switch creative mode
-				//				getController().setCreativeMode(!getController().getCreativeMode());
-			case KeyEvent.VK_SHIFT:
-				// save level
-				//				getController().getGrid().saveLevel(new File("test/level_" + System.currentTimeMillis() + ".lvl"));
 			}
 		}
 
@@ -498,7 +493,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 	public void addBpaLevelSelection() {
 		if (bpaLevelSelect == null) {
-			bpaLevelSelect = new BpaLevelSelection(this, guiManager);
+			bpaLevelSelect = new BpaLevelSelection(guiManager);
 		}
 		this.add(bpaLevelSelect, BorderLayout.CENTER);
 	}

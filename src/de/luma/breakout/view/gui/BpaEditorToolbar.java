@@ -9,7 +9,6 @@ import java.awt.event.ActionListener;
 import javax.swing.BorderFactory;
 import javax.swing.JComponent;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -113,7 +112,6 @@ public class BpaEditorToolbar extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					guiManager.getGameController().processMenuInput(MENU_ITEM.MNU_LEVEL_CHOOSE);
-//					JOptionPane.showMessageDialog(BpaEditorToolbar.this, "load level");
 				}
 			});
 			btnLoad.setText("Load");
