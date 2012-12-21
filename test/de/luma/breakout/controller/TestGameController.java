@@ -19,9 +19,7 @@ import de.luma.breakout.view.tui.UITextView;
 public class TestGameController extends TestCase {
 
 	private UITextView view;
-//	private MainWindow mainWindow;
 	private GameController controller;
-//	private PlayGrid playGrid;
 	
 	@Before
 	public void setUp() throws Exception {
@@ -38,9 +36,6 @@ public class TestGameController extends TestCase {
 		view.setController(controller);		
 		controller.addObserver(view);
 		
-//		mainWindow = new MainWindow(controller);
-//		controller.addObserver(mainWindow.getBpaGameView2D());
-//		mainWindow.setVisible(true);		
 	}
 	
 	
@@ -270,11 +265,6 @@ public class TestGameController extends TestCase {
 		controller.processMenuInput(MENU_ITEM.MNU_CONTINUE);
 		assertTrue(controller.getState() == GAME_STATE.RUNNING);
 		
-		
-		
-		
-//		controller.processInput(GameController.PLAYER_INPUT.CANCEL_GAME);
-//		assertTrue(controller.getState() == GAME_STATE.MENU_GAMEOVER);
 //		
 		// needed to fix EclEmma bug (no full coverage for enums)
 		GAME_STATE.valueOf(GameController.GAME_STATE.values()[0].name());
@@ -314,6 +304,19 @@ public class TestGameController extends TestCase {
 			File file = new File(filepath);
 			assertTrue(file.exists());
 			file.delete();
+	}
+	
+	@Test
+	public void testLevelEditing() {
+		controller.processMenuInput(MENU_ITEM.MNU_LEVEL_EDITOR);
+		assertTrue(controller.getState() == GAME_STATE.RUNNING && controller.getCreativeMode());
+		
+		controller.processMenuInput(MENU_ITEM.MNU_LEVEL_CHOOSE);
+		assertTrue(controller.getState() == GAME_STATE.MENU_LEVEL_SEL);
+		assertTrue(controller.getCreativeMode());
+		
+		controller.processMenuInput(MENU_ITEM.MNU_CONTINUE);
+		
 	}
 	
 	
