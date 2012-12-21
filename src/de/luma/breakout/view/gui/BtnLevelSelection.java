@@ -11,6 +11,7 @@ import javax.swing.JButton;
 
 /**
  * Button extension to connect the button to a level file.
+ * @autor bausch
  */
 @SuppressWarnings("serial")
 public class BtnLevelSelection extends JButton {
@@ -19,7 +20,11 @@ public class BtnLevelSelection extends JButton {
 	private IGuiManager guiManager;
 	private Rectangle2D stringDimension;
 	
-	/** */
+	/**
+	 * Constructor
+	 * @param filepath
+	 * @param guiMgr
+	 */
 	public BtnLevelSelection(String filepath, IGuiManager guiMgr) {
 		super();
 		this.filePath = filepath;
@@ -27,7 +32,13 @@ public class BtnLevelSelection extends JButton {
 		this.setPreferredSize(new Dimension(80, 80));
 	}
 	
-	/** */
+	/**
+	 * paints the Button in spezific way
+	 * 
+	 * 		fix the Text in Middle of Image
+	 * 
+	 * 		draw image levelButton in Background
+	 */
 	@Override
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;

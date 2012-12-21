@@ -334,7 +334,7 @@ public class GameController extends ObservableGame implements IGameController {
 		}		
 	}
 	
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getState()
 	 */
@@ -349,7 +349,7 @@ public class GameController extends ObservableGame implements IGameController {
 		notifyGameStateChanged(state);
 	}
 
-	/*
+	/**
 	 * (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getCreativeMode()
 	 */
@@ -554,7 +554,7 @@ public class GameController extends ObservableGame implements IGameController {
 		getGrid().addBall(ball);		
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getBricks()
 	 */
 	public List<IBrick> getBricks() {

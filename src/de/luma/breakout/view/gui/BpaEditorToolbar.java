@@ -58,6 +58,13 @@ public class BpaEditorToolbar extends JPanel {
 		initializeComponents();
 	}
 
+	/**
+	 * initialize components of the Editior Toolbar.
+	 *   - set Background
+	 *   - set Resizeable Pane
+	 *   - set Brick Choose Pane
+	 *   - set Button Pane
+	 */
 	private void initializeComponents() {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		this.setBackground(Color.BLACK);
@@ -68,6 +75,15 @@ public class BpaEditorToolbar extends JPanel {
 
 	}
 
+	/**
+	 * Panel for resizeing the Level.
+	 * 
+	 *  create two Textfields 
+	 *    - one for width
+	 *    - one for height.
+	 * 
+	 * @return
+	 */
 	private JPanel getBpaSize() {
 		if (bpaSize == null) {
 			bpaSize = new JPanel();
@@ -102,6 +118,14 @@ public class BpaEditorToolbar extends JPanel {
 		return bpaSize;
 	}
 
+	/**
+	 * Create Button Panel
+	 * 
+	 *   - save Button
+	 *   - load Button
+	 *   - reset Button
+	 * @return
+	 */
 	private JPanel getBpaButtons() {
 		if (bpaButtons == null) {
 			bpaButtons = new JPanel();
@@ -114,6 +138,11 @@ public class BpaEditorToolbar extends JPanel {
 			btnSave = new BtnEditor(guiManager);			
 			btnSave.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, LABEL_WIDTH));
 			btnSave.addActionListener(new ActionListener() {				
+			
+				/**
+				 *  call controller to save Level
+				 *   ... alalalallaaaaaaaa
+				 */
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					guiManager.getGameController().saveLevel();
@@ -124,7 +153,10 @@ public class BpaEditorToolbar extends JPanel {
 			// load button
 			btnLoad = new BtnEditor(guiManager);
 			btnLoad.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, LABEL_WIDTH));
-			btnLoad.addActionListener(new ActionListener() {				
+			btnLoad.addActionListener(new ActionListener() {		
+				/**
+				 *  call controller to display level choose.
+				 */
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					guiManager.getGameController().processMenuInput(MENU_ITEM.MNU_LEVEL_CHOOSE);
@@ -136,7 +168,10 @@ public class BpaEditorToolbar extends JPanel {
 			// reset button
 			btnReset = new BtnEditor(guiManager);
 			btnReset.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, LABEL_WIDTH));
-			btnReset.addActionListener(new ActionListener() {				
+			btnReset.addActionListener(new ActionListener() {		
+				/**
+				 * reset Level.
+				 */
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					resetLevel();

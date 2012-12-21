@@ -24,14 +24,21 @@ public class BpaLevelSelection extends JPanel {
 	private JPanel buttonsPanel;
 	private ActionListener lvlBtnListener;
 
-	/** */
+	/**
+	 * Constructor
+	 * @param guiMgr
+	 */
 	public BpaLevelSelection(IGuiManager guiMgr) {
 		super();		
 		this.guiManager = guiMgr;
 		initializeComponents();
 	}
 	
-	
+	/**
+	 * Initialize Components
+	 *  put everything on a scolpane
+	 *  set Background Color
+	 */
 	private void initializeComponents() {
 		this.setBackground(Color.BLACK);
 		
@@ -61,11 +68,25 @@ public class BpaLevelSelection extends JPanel {
 		}
 	}
 	
+	/**
+	 * Actionlistener for loading a new Level.
+	 * fetch Filepath form Btn
+	 * load Level
+	 * and signals Gamecontroller to continue game
+	 * 
+	 *   in editmode Editor is started.
+	 *   
+	 *   in gamemode Real game is started.
+	 * 
+	 * @return
+	 */
 	private ActionListener getLevelButtonListener() {
 		if (lvlBtnListener == null) {
 			lvlBtnListener = new ActionListener() {
 				
-				/** */
+				/**
+				 *  actionPerformed
+				 */
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() instanceof BtnLevelSelection) {
