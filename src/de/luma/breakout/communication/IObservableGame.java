@@ -40,6 +40,11 @@ public interface IObservableGame {
 	 */
 	void notifyOnResize();
 
+	/**
+	 * notify all Observers which listen that a Menu has changed.
+	 * @param menuItems
+	 * @param title
+	 */
 	void notifyGameMenu(MENU_ITEM[] menuItems, String title);
 
 }

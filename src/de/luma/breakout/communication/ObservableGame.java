@@ -5,6 +5,9 @@ import java.util.List;
 
 public class ObservableGame implements IObservableGame {
 	
+	/**
+	 * All game states.
+	 */
 	public enum GAME_STATE {
 		RUNNING,
 		PAUSED,		
@@ -15,6 +18,9 @@ public class ObservableGame implements IObservableGame {
 		KILLED
 	}
 	
+	/**
+	 * Types of menu items.
+	 */
 	public enum MENU_ITEM {
 		MNU_NEW_GAME,
 		MNU_NEXT_LEVEL,
