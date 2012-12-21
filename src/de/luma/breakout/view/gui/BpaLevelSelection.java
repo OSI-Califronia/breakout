@@ -6,10 +6,13 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+
+import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
 @SuppressWarnings("serial")
 public class BpaLevelSelection extends JPanel {
@@ -60,8 +63,12 @@ public class BpaLevelSelection extends JPanel {
 				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (e.getSource() instanceof BtnLevelSelection) {
-						BtnLevelSelection btn = (BtnLevelSelection) e.getSource();
-						JOptionPane.showMessageDialog(BpaLevelSelection.this, btn.getFilePath());
+						BtnLevelSelection btn = (BtnLevelSelection) e.getSource();						
+						
+						guiManager.getGameController().loadLevel(new File(btn.getFilePath()));
+						guiManager.getGameController().processMenuInput(MENU_ITEM.MNU_CONTINUE);
+						
+//						JOptionPane.showMessageDialog(BpaLevelSelection.this, btn.getFilePath());
 					}
 				}
 			};

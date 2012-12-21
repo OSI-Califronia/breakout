@@ -50,6 +50,7 @@ public class GameController extends ObservableGame implements IGameController {
 	private GameTimerTask task;
 	private GAME_STATE state;
 	private boolean isInCreativeMode;
+	private int levelIndex;
 	
 	public static final String LEVEL_PATH = "levels\\";
 	
@@ -199,7 +200,7 @@ public class GameController extends ObservableGame implements IGameController {
 		cancelTimer();
 
 		setState(GAME_STATE.MENU_GAMEOVER);
-		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END},
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_BACK_MAIN_MENU, MENU_ITEM.MNU_END},
 				TextMapping.getTextForIndex(TextMapping.TXT_YOU_LOSE));		
 	}
 
@@ -218,7 +219,7 @@ public class GameController extends ObservableGame implements IGameController {
 	private void winGame() {
 		cancelTimer();
 		setState(GAME_STATE.MENU_WINGAME);
-		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_END}, 
+		notifyGameMenu(new MENU_ITEM[]{MENU_ITEM.MNU_NEXT_LEVEL, MENU_ITEM.MNU_NEW_GAME, MENU_ITEM.MNU_BACK_MAIN_MENU, MENU_ITEM.MNU_END}, 
 				TextMapping.getTextForIndex(TextMapping.TXT_YOU_WIN));		
 	}
 
@@ -280,19 +281,21 @@ public class GameController extends ObservableGame implements IGameController {
 	public void processMenuInput(MENU_ITEM indexOfMenuItem) {
 		switch (indexOfMenuItem) {
 		case MNU_NEW_GAME:
-			this.setCreativeMode(false);			
-			loadLevel(new File(getLevelList().get(0)));
+			this.setCreativeMode(false);	
+			levelIndex = 0;
+			loadLevel(new File(getLevelList().get(levelIndex)));
 			this.start();
 			break;
 		case MNU_END:
 			// TODO save level and gameprocess
 			terminate();	
 			break;
-		case MNU_CONTINUE:
+		case MNU_CONTINUE:			
 			start();
 			break;
-		case MNU_BACK_MAIN_MENU:
+		case MNU_BACK_MAIN_MENU:			
 			if (getState() != GAME_STATE.RUNNING) {
+				this.setCreativeMode(false);
 				showMainMenu();
 			}
 			break;
@@ -304,6 +307,20 @@ public class GameController extends ObservableGame implements IGameController {
 			clearGrid();
 			setGridSize(500, 500);			
 			this.start();			
+			break;
+		case MNU_NEXT_LEVEL:
+			
+			this.setCreativeMode(false);	
+			// last level
+			levelIndex++;
+			if (levelIndex == getLevelList().size()) {
+				break;
+			}
+			
+			loadLevel(new File(getLevelList().get(levelIndex)));
+			this.start();
+			break;
+		default:
 			break;
 		}		
 	}

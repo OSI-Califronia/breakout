@@ -29,10 +29,15 @@ public class Launcher {
 		view.setController(controller);
 		controller.addObserver(view);		
 		
-		// GUI
+		// GUI I
 		MainWindow mainWindow = new MainWindow(controller);		
 		controller.addObserver(mainWindow.getBpaGameView2D());
 		mainWindow.setVisible(true);
+		
+		// GUI II
+		MainWindow mainWindow2 = new MainWindow(controller);		
+		controller.addObserver(mainWindow2.getBpaGameView2D());
+		mainWindow2.setVisible(true);
 		
 		controller.initialize();
 	}

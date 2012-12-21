@@ -238,6 +238,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 			
 			break;
 		case RUNNING:
+			updateOnResize();
+			
 			// editor mode
 			if (getController().getCreativeMode()) {
 				startEditorMode();
@@ -260,12 +262,14 @@ public class GameView2D extends JPanel implements IGameObserver {
 		addEditorToolbar();
 		
 		// create new Slider
-		getController().clearGrid();
-		getController().setSlider(new Slider(220, 470, 100, 30));
+		if (getController().getSlider() == null) {
+			getController().setSlider(new Slider(220, 470, 100, 30));
+		}
 	}
 
 	@Override
 	public void updateGameMenu(MENU_ITEM[] menuItems, String title) {
+		this.selectedItem = 0;
 		this.menuItems = menuItems.clone();  // make checkstyle happy
 		this.menuTitle = title;
 		repaint();
@@ -463,8 +467,11 @@ public class GameView2D extends JPanel implements IGameObserver {
 	private void addEditorToolbar() {
 		if (bpaEditorComps == null) {
 			bpaEditorComps = new BpaEditorToolbar(guiManager, this);
-			
 		}
+		bpaEditorComps.getTfiHeight().setText(
+				String.valueOf((int) guiManager.getGameController().getGridSize().getHeight()));
+		bpaEditorComps.getTfiWidth().setText(
+				String.valueOf((int) guiManager.getGameController().getGridSize().getWidth()));
 		this.add(bpaEditorComps, BorderLayout.EAST);
 	}
 

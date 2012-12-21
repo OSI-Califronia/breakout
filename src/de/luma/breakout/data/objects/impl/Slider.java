@@ -36,5 +36,4 @@ public class Slider extends AbstractBrick {
 		return super.encodeBasic().toString();
 	}
 
-
 }

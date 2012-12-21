@@ -17,6 +17,7 @@ public class ObservableGame implements IObservableGame {
 	
 	public enum MENU_ITEM {
 		MNU_NEW_GAME,
+		MNU_NEXT_LEVEL,
 		MNU_LEVEL_CHOOSE,
 		MNU_LEVEL_EDITOR,
 		MNU_CONTINUE,

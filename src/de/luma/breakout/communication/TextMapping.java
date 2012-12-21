@@ -13,10 +13,11 @@ public class TextMapping {
 	public static final int TXT_NEW_GAME = 4;
 	public static final int TXT_CONTINUE = 5;
 	public static final int TXT_LEVEL_CHOOSE = 6;
-	public static final int TXT_LEVEL_EDITOR = 7;
-	public static final int TXT_END = 8;
-	public static final int TXT_GAME_PAUSED = 9;
-	public static final int TXT_BACK_TO_MAIN_MENU = 10;
+	public static final int TXT_NEXT_LEVEL = 7;
+	public static final int TXT_LEVEL_EDITOR = 8;
+	public static final int TXT_END = 9;
+	public static final int TXT_GAME_PAUSED = 10;
+	public static final int TXT_BACK_TO_MAIN_MENU = 11;
 	
 	/**
 	 * This mthod returns a String for Txt index
@@ -35,6 +36,8 @@ public class TextMapping {
 			return "Neues Spiel";
 		case TXT_CONTINUE:
 			return "Weiterspielen";
+		case TXT_NEXT_LEVEL:
+			return "Next Level";
 		case TXT_LEVEL_CHOOSE:
 			return "Level wählen";
 		case TXT_LEVEL_EDITOR:
@@ -60,6 +63,8 @@ public class TextMapping {
 			return getTextForIndex(TXT_CONTINUE);
 		case MNU_BACK_MAIN_MENU:
 			return getTextForIndex(TXT_BACK_TO_MAIN_MENU);
+		case MNU_NEXT_LEVEL:
+			return getTextForIndex(TXT_NEXT_LEVEL);
 		case MNU_LEVEL_CHOOSE:
 			return getTextForIndex(TXT_LEVEL_CHOOSE);
 		case MNU_LEVEL_EDITOR:

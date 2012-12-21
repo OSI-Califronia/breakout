@@ -1,6 +1,7 @@
 package de.luma.breakout.view.tui;
 
 import java.io.InputStream;
+import java.util.ConcurrentModificationException;
 import java.util.Locale;
 import java.util.Scanner;
 
@@ -99,6 +100,7 @@ public class UITextView implements IGameObserver {
 	 */
 	@Override
 	public void updateRepaintPlayGrid() {	
+		try {
 				for (IBrick brick : getController().getBricks()) {
 					System.out.printf("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
 				}
@@ -109,7 +111,10 @@ public class UITextView implements IGameObserver {
 		
 				for (IBall ball : getController().getBalls()) {
 					System.out.printf("TUI: ball (%.1f, %.1f)  speed: (%.1f, %.1f) \n---\n", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
-				}		
+				}	
+		} catch (ConcurrentModificationException ex) {
+			// fuck
+		}
 	}
 
 	/*
