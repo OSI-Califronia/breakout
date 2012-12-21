@@ -5,11 +5,15 @@ import com.google.inject.AbstractModule;
 import de.luma.breakout.controller.GameController;
 import de.luma.breakout.controller.IGameController;
 
+/**
+ * DefaultModule for dependecy injection
+ * @author mabausch
+ *
+ */
 public class DefaultModule extends AbstractModule {
 
-	/*
-	 * (non-Javadoc)
-	 * @see com.google.inject.AbstractModule#configure()
+	/**
+	 * Mapps Interfaces to concret classes
 	 */
 	@Override
 	protected void configure() {
