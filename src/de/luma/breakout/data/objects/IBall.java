@@ -3,32 +3,32 @@ package de.luma.breakout.data.objects;
 public interface IBall extends IDecodable {
 
 	/** Maximum absolute speed that a ball can reach */
-	public static final double MAX_BALL_SPEED = 10.0;
+	static final double MAX_BALL_SPEED = 10.0;
 
-	public abstract double getX();
+	double getX();
 
-	public abstract void setX(double x);
+	void setX(double x);
 
-	public abstract double getY();
+	double getY();
 
-	public abstract void setY(double y);
+	void setY(double y);
 
-	public abstract double getSpeedX();
+	double getSpeedX();
 
-	public abstract void setSpeedX(double speedX);
+	void setSpeedX(double speedX);
 
-	public abstract double getSpeedY();
+	double getSpeedY();
 
-	public abstract void setSpeedY(double speedY);
+	void setSpeedY(double speedY);
 
-	public abstract double getRadius();
+	double getRadius();
 
-	public abstract void setRadius(double radius);
+	void setRadius(double radius);
 
-	public abstract void inverseSpeedX();
+	void inverseSpeedX();
 
-	public abstract void inverseSpeedY();
+	void inverseSpeedY();
 
-	public abstract double getAbsoluteSpeed();
+	double getAbsoluteSpeed();
 
 }

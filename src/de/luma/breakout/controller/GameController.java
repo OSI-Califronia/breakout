@@ -53,6 +53,10 @@ public class GameController extends ObservableGame implements IGameController {
 	private int levelIndex;
 	
 	public static final String LEVEL_PATH = "levels\\";
+	private static final int FRAME_DELAY = 10;
+	private static final int DEFAULT_GRID_WIDTH = 500;
+	private static final int DEFAULT_GRID_HEIGHT = 500;
+	private static final int DEFAULT_SLIDER_STEP = 5;
 	
 	/**
 	 * Default Constructor
@@ -177,7 +181,7 @@ public class GameController extends ObservableGame implements IGameController {
 	private void start() {
 		// timer 
 		resetTimer();
-		timer.scheduleAtFixedRate(task, 0, 10);
+		timer.scheduleAtFixedRate(task, 0, FRAME_DELAY);
 		setState(GAME_STATE.RUNNING);
 
 	}
@@ -234,10 +238,10 @@ public class GameController extends ObservableGame implements IGameController {
 	public void processGameInput(PLAYER_INPUT input) {
 		switch (input) {
 		case LEFT:
-			moveSlider(-5);
+			moveSlider(-DEFAULT_SLIDER_STEP);
 			break;
 		case RIGHT:
-			moveSlider(+5);
+			moveSlider(+DEFAULT_SLIDER_STEP);
 			break;
 		case PAUSE:
 			if (getState() == GAME_STATE.RUNNING) {
@@ -305,7 +309,7 @@ public class GameController extends ObservableGame implements IGameController {
 		case MNU_LEVEL_EDITOR: 
 			this.setCreativeMode(true);
 			clearGrid();
-			setGridSize(500, 500);			
+			setGridSize(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);			
 			this.start();			
 			break;
 		case MNU_NEXT_LEVEL:
@@ -481,7 +485,7 @@ public class GameController extends ObservableGame implements IGameController {
 
 	private PlayGrid getGrid() {
 		if (grid == null) {
-			grid = new PlayGrid(500, 500);
+			grid = new PlayGrid(DEFAULT_GRID_WIDTH, DEFAULT_GRID_HEIGHT);
 		}
 		return grid;
 	}

@@ -24,13 +24,15 @@ import de.luma.breakout.controller.IGameController;
 import de.luma.breakout.data.objects.IBall;
 import de.luma.breakout.data.objects.IBrick;
 import de.luma.breakout.data.objects.impl.Ball;
-import de.luma.breakout.data.objects.impl.Slider;
 
 
 @SuppressWarnings("serial")
 public class GameView2D extends JPanel implements IGameObserver {	
 
 	private class GameView2DMouseListener extends MouseInputAdapter  {
+		
+		private static final int DEFAULT_BRICK_WIDTH = 50;
+		private static final int DEFAULT_BRICK_HEIGHT = 20;
 
 		@Override
 		public void mousePressed(MouseEvent e) {
@@ -48,7 +50,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 				case MouseEvent.BUTTON1:		// left mouse, create brick
 					if (brickPreview == null) {
-						brickPreview = new Rectangle(e.getX(), e.getY(), 50, 20);
+						brickPreview = new Rectangle(e.getX(), e.getY(), DEFAULT_BRICK_WIDTH, DEFAULT_BRICK_HEIGHT);
 					}
 					break;
 
@@ -163,6 +165,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 	// length of ball speed vector
 	private final static int VECTOR_LENGTH = 20;
+	private static final int TOOLBAR_AREA_WIDTH = 220;
+	private static final int PADDING_20 = 20;
 
 	// key input
 	private KeyListener keyListener;	
@@ -183,7 +187,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 	}
 
 	private final void initializeComponents() {		
-		this.setPreferredSize(new Dimension(800, 800));
+		this.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
 		this.addKeyListener(getGameKeyListener());
 		MouseInputAdapter mouseHandler = new GameView2DMouseListener();
 		this.addMouseListener(mouseHandler);
@@ -221,12 +225,12 @@ public class GameView2D extends JPanel implements IGameObserver {
 		case MENU_MAIN:
 		case MENU_WINGAME:
 		case PAUSED:
-			this.setPreferredSize(new Dimension(800, 800));
+			this.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
 			this.invalidate();
 			guiManager.updateLayout();
 			break;
 		case MENU_LEVEL_SEL:
-			this.setPreferredSize(new Dimension(800, 800));
+			this.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
 			startLevelSelection();
 			this.invalidate();
 			guiManager.updateLayout();
@@ -258,7 +262,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		
 		// create new Slider
 		if (getController().getSlider() == null) {
-			getController().setSlider(new Slider(220, 470, 100, 30));
+			bpaEditorComps.resetLevel();
 		}
 	}
 
@@ -318,7 +322,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		// paint save and load Button
 		Image menuBackg = guiManager.getGameImage("resources/menu_background.png");
 
-		g.drawImage(menuBackg, this.getWidth() - 220, 0, menuBackg.getWidth(null), this.getHeight(), this);
+		g.drawImage(menuBackg, this.getWidth() - TOOLBAR_AREA_WIDTH, 0, menuBackg.getWidth(null), this.getHeight(), this);
 
 
 		if (brickPreview != null) {
@@ -339,13 +343,13 @@ public class GameView2D extends JPanel implements IGameObserver {
 		g.fillRect(0, 0, getWidth(), getHeight());
 
 		Image img = guiManager.getGameImage("resources/breakout_logo.png");		
-		g.drawImage(img, (this.getWidth() - img.getWidth(null)) / 2, 20, Color.black, null);
+		g.drawImage(img, (this.getWidth() - img.getWidth(null)) / 2, PADDING_20, Color.black, null);
 
 		Image imgBtn = guiManager.getGameImage("resources/button.png");			
 		Image imgBtnSelected = guiManager.getGameImage("resources/button_selected.png");
 
 		int x = (this.getWidth() - imgBtn.getWidth(null)) / 2;
-		int y = 220;
+		int y = TOOLBAR_AREA_WIDTH;
 
 		// print Title
 		g.setFont(IGuiManager.TEXT_FONT);
@@ -353,7 +357,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 		int stringWidth = (int) g.getFontMetrics().getStringBounds(menuTitle, g).getWidth();
 
-		g.drawString(menuTitle, (this.getWidth() - stringWidth) / 2, y - 20);
+		g.drawString(menuTitle, (this.getWidth() - stringWidth) / 2, y - PADDING_20);
 
 		// print Menu Items
 		g.setFont(IGuiManager.BUTTON_FONT);
@@ -366,7 +370,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 				g.drawImage(imgBtn, x, y, Color.black, null);
 			}
 
-			g.drawString(TextMapping.getTextForMenuEnum(menuItems[i]), x + 60, y + 75);
+			g.drawString(TextMapping.getTextForMenuEnum(menuItems[i]), x + (3*PADDING_20), y + 75);
 			y += imgBtn.getHeight(null);
 		}
 
@@ -484,7 +488,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 	public void updateOnResize() {
 		Dimension viewSize = getController().getGridSize();
 		if (getController().getCreativeMode()) {
-			viewSize.setSize(viewSize.getWidth() + 220, viewSize.getHeight());
+			viewSize.setSize(viewSize.getWidth() + TOOLBAR_AREA_WIDTH, viewSize.getHeight());
 		}
 		this.setPreferredSize(viewSize);
 		this.invalidate();

@@ -6,14 +6,14 @@ import de.luma.breakout.data.objects.IBall;
 
 public class MovingBrick extends AbstractBrick {
 
+	private static final int DEFAULT_MOVING_RANGE = 300;
+	
 	private int frameCounter = 0;
 	private int movingRangeX;
 	
 	public MovingBrick() {
 		super();
-		setX(50);
-		setY(20);
-		movingRangeX = 300;
+		movingRangeX = DEFAULT_MOVING_RANGE;
 		frameCounter = 0;
 		getProperties().setProperty(PROP_COLOR, Color.blue.toString());
 		getProperties().setProperty(PROP_IMG_PATH, "resources\\movingBrick.png");

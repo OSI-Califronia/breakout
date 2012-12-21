@@ -30,12 +30,12 @@ public class BpaLevelSelection extends JPanel {
 	private void initializeComponents() {
 		this.setBackground(Color.BLACK);
 		
-		this.setPreferredSize(new Dimension(800, 800));
+		this.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
 		buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
 		buttonsPanel.setBackground(Color.BLACK);
 		
 		scrollPane = new JScrollPane(buttonsPanel);
-		scrollPane.setPreferredSize(new Dimension(800, 800));
+		scrollPane.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
 		this.setLayout(new BorderLayout());
 		this.add(scrollPane, BorderLayout.CENTER);
 	}

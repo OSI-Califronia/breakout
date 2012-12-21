@@ -18,7 +18,11 @@ import de.luma.breakout.data.objects.impl.Slider;
 
 @SuppressWarnings("serial")
 public class BpaEditorToolbar extends JPanel {
-
+	
+	private static final int EDITOR_PAN_WIDTH = 200;
+	private static final int LABEL_WIDTH = 80;
+	private static final int COMP_HEIGHT = 20;
+	
 	private JTextField tfiWidth;
 	private JTextField tfiHeight;
 	private BtnEditor btnSave;
@@ -45,7 +49,7 @@ public class BpaEditorToolbar extends JPanel {
 	private void initializeComponents() {
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
 		this.setBackground(Color.BLACK);
-		this.setPreferredSize(new Dimension(200, 300));
+		this.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, 300));
 		this.add(getBpaSize());
 		this.add(getBpaBricks());
 		this.add(getBpaButtons());		
@@ -57,13 +61,13 @@ public class BpaEditorToolbar extends JPanel {
 			bpaSize = new JPanel();
 			bpaSize.setLayout(new FlowLayout(FlowLayout.CENTER));
 			bpaSize.setBackground(Color.BLACK);
-			bpaSize.setPreferredSize(new Dimension(200, 100));
+			bpaSize.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, 100));
 
 			// width textbox
 			JLabel lblWidth = new JLabel("Width");
-			lblWidth.setPreferredSize(new Dimension(80, 20));
+			lblWidth.setPreferredSize(new Dimension(LABEL_WIDTH, COMP_HEIGHT));
 			tfiWidth = new JTextField();
-			tfiWidth.setPreferredSize(new Dimension(80, 20));
+			tfiWidth.setPreferredSize(new Dimension(LABEL_WIDTH, COMP_HEIGHT));
 			setColors(lblWidth);
 			setColors(tfiWidth);
 			tfiWidth.addActionListener(getResizeActionListener());
@@ -71,9 +75,9 @@ public class BpaEditorToolbar extends JPanel {
 
 			// height textbox
 			JLabel lblHeight = new JLabel("Height");
-			lblHeight.setPreferredSize(new Dimension(80, 20));
+			lblHeight.setPreferredSize(new Dimension(LABEL_WIDTH, COMP_HEIGHT));
 			tfiHeight = new JTextField();
-			tfiHeight.setPreferredSize(new Dimension(80, 20));
+			tfiHeight.setPreferredSize(new Dimension(LABEL_WIDTH, COMP_HEIGHT));
 			setColors(lblHeight);
 			setColors(tfiHeight);		
 			tfiHeight.addActionListener(getResizeActionListener());
@@ -91,12 +95,12 @@ public class BpaEditorToolbar extends JPanel {
 			bpaButtons = new JPanel();
 			bpaButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 			bpaButtons.setBackground(Color.BLACK);
-			bpaButtons.setPreferredSize(new Dimension(200, 300));
+			bpaButtons.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, 300));
 
 
 			// save button
 			btnSave = new BtnEditor(guiManager);			
-			btnSave.setPreferredSize(new Dimension(200, 80));
+			btnSave.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, LABEL_WIDTH));
 			btnSave.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -107,7 +111,7 @@ public class BpaEditorToolbar extends JPanel {
 
 			// load button
 			btnLoad = new BtnEditor(guiManager);
-			btnLoad.setPreferredSize(new Dimension(200, 80));
+			btnLoad.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, LABEL_WIDTH));
 			btnLoad.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -119,13 +123,11 @@ public class BpaEditorToolbar extends JPanel {
 
 			// reset button
 			btnReset = new BtnEditor(guiManager);
-			btnReset.setPreferredSize(new Dimension(200, 80));
+			btnReset.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, LABEL_WIDTH));
 			btnReset.addActionListener(new ActionListener() {				
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					guiManager.getGameController().clearGrid();
-					guiManager.getGameController().setSlider(new Slider(0, 0, 100, 20));
-					guiManager.getGameController().setGridSize(500, 500);
+					resetLevel();
 				}
 			});
 			btnReset.setText("Reset");
@@ -137,18 +139,27 @@ public class BpaEditorToolbar extends JPanel {
 		return bpaButtons;
 	}
 
+	/**
+	 * Prepare a new level with default settings + Slider.
+	 */
+	public void resetLevel() {
+		guiManager.getGameController().clearGrid();
+		guiManager.getGameController().setSlider(new Slider(0, 0, 100, COMP_HEIGHT));
+		guiManager.getGameController().setGridSize(500, 500);
+	}
+
 	private JPanel getBpaBricks() {
 		if (bpaBricks == null) {
 			bpaBricks = new JPanel();
 			bpaBricks.setLayout(new FlowLayout(FlowLayout.CENTER));
 			bpaBricks.setBackground(Color.BLACK);
-			bpaBricks.setPreferredSize(new Dimension(200, 100));
+			bpaBricks.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, 100));
 			bpaBricks.setBorder(BorderFactory.createLineBorder(IGuiManager.TEXT_COLOR));
 
 			BtnEditorBrick btn = null;
 			for (IBrick brick : guiManager.getGameController().getBrickClasses()) {				
 				btn = new BtnEditorBrick(guiManager, brick);
-				btn.setPreferredSize(new Dimension(50, 20));
+				btn.setPreferredSize(new Dimension(LABEL_WIDTH, COMP_HEIGHT));
 				btn.addActionListener(getBtnBrickActionListener());
 				bpaBricks.add(btn);
 			}			
