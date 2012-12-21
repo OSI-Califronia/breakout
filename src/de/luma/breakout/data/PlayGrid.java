@@ -21,6 +21,9 @@ public class PlayGrid implements IDecodable {
 	private List<IBrick> bricks;
 	private IBrick slider;
 	
+	/**
+	 * Constructor
+	 */
 	public PlayGrid(int height, int width) {
 		super();
 		
@@ -31,6 +34,12 @@ public class PlayGrid implements IDecodable {
 		setWidth(width);
 	}
 	
+	/**
+	 * Clear grid 
+	 * all balls
+	 * all bricks
+	 * and slider
+	 */
 	public void clearGrid() {
 		getBalls().clear();
 		getBricks().clear();
@@ -72,6 +81,10 @@ public class PlayGrid implements IDecodable {
 		return false;		
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IDecodable#decode(java.lang.String)
+	 */
 	@Override
 	public void decode(String line) {
 		String[] s = line.split(",");
@@ -80,6 +93,10 @@ public class PlayGrid implements IDecodable {
 		setWidth(Integer.valueOf(s[1]));	
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.data.objects.IDecodable#encode()
+	 */
 	@Override
 	public String encode() {
 		StringBuilder sb = new StringBuilder();
@@ -102,42 +119,52 @@ public class PlayGrid implements IDecodable {
 		return retVal;
 	}
 
+	/** */
 	public int getHeight() {
 		return height;
 	}
 
+	/** */
 	public final void setHeight(int height) {
 		this.height = height;
 	}
 
+	/** */
 	public int getWidth() {
 		return width;
 	}
 
+	/** */
 	public final void setWidth(int width) {
 		this.width = width;
 	}
 
+	/** */
 	public List<IBall> getBalls() {	
 		return balls;
 	}
 
+	/** */
 	public void addBall(IBall ball) {
 		getBalls().add(ball);		
 	}
 
+	/** */
 	public List<IBrick> getBricks() {
 		return bricks;
 	}
 
+	/** */
 	public void addBrick(IBrick brick) {
 		getBricks().add(brick);
 	}
 
+	/** */
 	public IBrick getSlider() {
 		return slider;
 	}
 
+	/** */
 	public void setSlider(IBrick slider) {
 		this.slider = slider;
 	}

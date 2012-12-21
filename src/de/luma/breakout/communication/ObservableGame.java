@@ -9,12 +9,19 @@ public class ObservableGame implements IObservableGame {
 	 * All game states.
 	 */
 	public enum GAME_STATE {
+		/** Game is running or in level editor mode */
 		RUNNING,
+		/** Display pause menu */
 		PAUSED,		
+		/** Display level selection menu */
 		MENU_LEVEL_SEL,
+		/** Display game over menu */
 		MENU_GAMEOVER,
+		/** Display game won menu */
 		MENU_WINGAME,
+		/** Display main menu */
 		MENU_MAIN,
+		/** Terminate game */
 		KILLED
 	}
 	
@@ -22,12 +29,19 @@ public class ObservableGame implements IObservableGame {
 	 * Types of menu items.
 	 */
 	public enum MENU_ITEM {
+		/** Start new game, load first level */
 		MNU_NEW_GAME,
+		/** Load next level in level list */
 		MNU_NEXT_LEVEL,
+		/** Open level selection menu */
 		MNU_LEVEL_CHOOSE,
+		/** Open level editor */
 		MNU_LEVEL_EDITOR,
+		/** Continue a running game */
 		MNU_CONTINUE,
+		/** Open main menu */
 		MNU_BACK_MAIN_MENU,
+		/** Terminate game */
 		MNU_END			
 	}
 	

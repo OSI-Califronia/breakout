@@ -7,16 +7,27 @@ public final class TextMapping {
 	// prevent TextMapping from instantiation
 	private TextMapping() {}
 
+	/** */
 	public static final int TXT_YOU_LOSE = 1;
+	/** */
 	public static final int TXT_YOU_WIN = 2;
+	/** */
 	public static final int TXT_MAIN_MENU = 3;
+	/** */
 	public static final int TXT_NEW_GAME = 4;
+	/** */
 	public static final int TXT_CONTINUE = 5;
+	/** */
 	public static final int TXT_LEVEL_CHOOSE = 6;
+	/** */
 	public static final int TXT_NEXT_LEVEL = 7;
+	/** */
 	public static final int TXT_LEVEL_EDITOR = 8;
+	/** */
 	public static final int TXT_END = 9;
+	/** */
 	public static final int TXT_GAME_PAUSED = 10;
+	/** */
 	public static final int TXT_BACK_TO_MAIN_MENU = 11;
 	
 	/**
@@ -53,6 +64,11 @@ public final class TextMapping {
 		}
 	}
 	
+	/**
+	 * This method returns a String for Menu Item index
+	 * @param mnuEnum
+	 * @return
+	 */
 	public static String getTextForMenuEnum(MENU_ITEM mnuEnum) {
 		switch (mnuEnum) {
 		case MNU_NEW_GAME:

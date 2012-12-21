@@ -3,6 +3,13 @@ package de.luma.breakout.communication;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 
+/**
+ * This class have to be implemented by Displayclasses which want to be
+ * notified by Gamecontroller for changes in Game
+ * 
+ * @author mabausch
+ *
+ */
 public interface IGameObserver {
 	
 	/**
@@ -12,11 +19,14 @@ public interface IGameObserver {
 	
 	/**
 	 * process a game state changed notification.
+	 * @param Game state
 	 */
 	void updateGameState(GAME_STATE state);
 	
 	/**
 	 * process a show menu notification.
+	 * @param menuitems
+	 * @param title
 	 */
 	void updateGameMenu(MENU_ITEM[] menuItems, String title);
 	
