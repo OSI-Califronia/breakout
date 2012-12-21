@@ -24,10 +24,10 @@ import de.luma.breakout.data.objects.IDecodable;
 import de.luma.breakout.data.objects.impl.Slider;
 
 /**
- * TODO:
- * - konstanten einführen (gewünschte fps usw.)
+ * Game Controller 
+ * @author mabausch
+ *
  */
-
 public class GameController extends ObservableGame implements IGameController {	
 
 	/**
@@ -50,9 +50,9 @@ public class GameController extends ObservableGame implements IGameController {
 	private GameTimerTask task;
 	private GAME_STATE state;
 	private boolean isInCreativeMode;
-	private int levelIndex;
+	private int levelIndex;	
 	
-	public static final String LEVEL_PATH = "levels\\";
+	private static final String LEVEL_PATH = "levels\\";
 	private static final int FRAME_DELAY = 10;
 	private static final int DEFAULT_GRID_WIDTH = 500;
 	private static final int DEFAULT_GRID_HEIGHT = 500;
@@ -329,16 +329,25 @@ public class GameController extends ObservableGame implements IGameController {
 		}		
 	}
 	
+	/*
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#getState()
+	 */
 	@Override
 	public GAME_STATE getState() {
 		return state;
 	}
+	
 	
 	private void setState(GAME_STATE state) {
 		this.state = state;
 		notifyGameStateChanged(state);
 	}
 
+	/*
+	 * (non-Javadoc)
+	 * @see de.luma.breakout.controller.IGameController#getCreativeMode()
+	 */
 	@Override
 	public boolean getCreativeMode() {
 		return isInCreativeMode;
@@ -348,7 +357,6 @@ public class GameController extends ObservableGame implements IGameController {
 	 * Enable creative mode to display the running game without
 	 * moving the balls.
 	 */
-
 	private void setCreativeMode(boolean enableCreativeMode) {
 		this.isInCreativeMode = enableCreativeMode;
 	}
@@ -415,7 +423,7 @@ public class GameController extends ObservableGame implements IGameController {
 	}
 	
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#loadLevel(java.io.File)
 	 */
 	@Override
@@ -491,8 +499,12 @@ public class GameController extends ObservableGame implements IGameController {
 	}
 
 
-	/* (non-Javadoc)
-	 * @see de.luma.breakout.controller.IGameController#setGridSize(int, int)
+	/**
+	 * set the Size of the grid and
+	 * resize Slider position.
+	 * calls notifyOnReszie()
+	 * @param width
+	 * @param height
 	 */
 	public void setGridSize(int width, int height) {
 		// set grid size
@@ -508,28 +520,29 @@ public class GameController extends ObservableGame implements IGameController {
 		notifyOnResize();
 	}
 	
-	/* (non-Javadoc)
+	/**
+	 * (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getGridSize()
 	 */
 	public Dimension getGridSize() {
 		return new Dimension(getGrid().getWidth(), getGrid().getHeight());
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getBrickClasses()
 	 */
 	public List<IBrick> getBrickClasses() {
 		return getGrid().getBrickClasses();
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getBalls()
 	 */
 	public List<IBall> getBalls() {	
 		return getGrid().getBalls();
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#addBall(de.luma.breakout.data.objects.Ball)
 	 */
 	public void addBall(IBall ball) {
@@ -543,28 +556,28 @@ public class GameController extends ObservableGame implements IGameController {
 		return getGrid().getBricks();
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#addBrick(de.luma.breakout.data.objects.AbstractBrick)
 	 */
 	public void addBrick(IBrick brick) {
 		getGrid().addBrick(brick);
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#getSlider()
 	 */
 	public IBrick getSlider() {
 		return getGrid().getSlider();
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#setSlider(de.luma.breakout.data.objects.Slider)
 	 */
 	public void setSlider(IBrick slider) {
 		getGrid().setSlider(slider);
 	}
 
-	/* (non-Javadoc)
+	/** (non-Javadoc)
 	 * @see de.luma.breakout.controller.IGameController#clearGrid()
 	 */
 	@Override
