@@ -1,0 +1,11 @@
+500,500
+de.luma.breakout.data.objects.impl.MovingBrick:140,35,58,31,239,300
+de.luma.breakout.data.objects.impl.MovingBrick:219,66,28,72,19,300
+de.luma.breakout.data.objects.impl.MovingBrick:381,100,101,73,157,300
+de.luma.breakout.data.objects.impl.SimpleBrick:114,134,50,20
+de.luma.breakout.data.objects.impl.SimpleBrick:205,134,50,20
+de.luma.breakout.data.objects.impl.SimpleBrick:337,25,50,20
+de.luma.breakout.data.objects.impl.Ball:123.000,356.000,0.000,-1.250,5.000
+de.luma.breakout.data.objects.impl.Ball:237.000,322.000,0.750,-0.900,5.000
+de.luma.breakout.data.objects.impl.Ball:351.000,312.000,1.350,-0.800,5.000
+de.luma.breakout.data.objects.impl.Slider:30,470,100,30
