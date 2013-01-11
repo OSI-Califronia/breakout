@@ -190,6 +190,7 @@ public class GameController extends ObservableGame implements IGameController {
 		setState(GAME_STATE.RUNNING);
 
 	}
+	
 
 	/**
 	 * Pause the game and display the pause menu.
@@ -309,6 +310,7 @@ public class GameController extends ObservableGame implements IGameController {
 			}
 			break;
 		case MNU_LEVEL_CHOOSE:
+			cancelTimer();
 			this.setState(GAME_STATE.MENU_LEVEL_SEL);			
 			break;
 		case MNU_LEVEL_EDITOR: 

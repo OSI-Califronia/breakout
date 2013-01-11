@@ -5,6 +5,8 @@ import java.util.ConcurrentModificationException;
 import java.util.Locale;
 import java.util.Scanner;
 
+import org.apache.log4j.Logger;
+
 import de.luma.breakout.communication.IGameObserver;
 import de.luma.breakout.communication.ObservableGame.GAME_STATE;
 import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
@@ -118,15 +120,15 @@ public class UITextView implements IGameObserver {
 	public void updateRepaintPlayGrid() {	
 		try {
 				for (IBrick brick : getController().getBricks()) {
-					printMsg("TUI: brick (%d, %d)\n", brick.getX(), brick.getY());
+					printMsg("TUI: brick (%d, %d)", brick.getX(), brick.getY());
 				}
 				IBrick s = getController().getSlider();
 				if (s != null) {
-					printMsg("TUI: slider (%d, %d)\n", s.getX(), s.getY());
+					printMsg("TUI: slider (%d, %d)", s.getX(), s.getY());
 				}
 		
 				for (IBall ball : getController().getBalls()) {
-					printMsg("TUI: ball (%.1f, %.1f)  speed: (%.1f, %.1f) \n---\n", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
+					printMsg("TUI: ball (%.1f, %.1f)  speed: (%.1f, %.1f) \n---", ball.getX(), ball.getY(), ball.getSpeedX(), ball.getSpeedY());
 				}	
 		} catch (ConcurrentModificationException ex) {
 			// fuck
@@ -161,7 +163,7 @@ public class UITextView implements IGameObserver {
 
 		printMsg("MENU: -----  " + title + " ----- ");
 		for (MENU_ITEM m : menuItems) {
-			printMsg("[%d] %s\n", m.ordinal(), TextMapping.getTextForMenuEnum(m));
+			printMsg("[%d] %s", m.ordinal(), TextMapping.getTextForMenuEnum(m));
 		}
 
 	}
@@ -180,13 +182,14 @@ public class UITextView implements IGameObserver {
 	 * @see de.luma.breakout.communication.IGameObserver#updateOnResize()
 	 */
 	@Override
-	public void updateOnResize() {
-		// TODO Auto-generated method stub
-		
+	public void updateOnResize() { }
+	
+	private Logger getLogger() {
+		return Logger.getLogger("de.luma.breakout.view.tui.UITextView");
 	}
 	
 	private void printMsg(String format, Object... b) {
-		System.out.printf(format, b);
+		getLogger().info(String.format(format, b));
 	}
 
 

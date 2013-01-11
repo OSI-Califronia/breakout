@@ -1,6 +1,8 @@
 package de.luma.breakout.launcher;
 
 
+import org.apache.log4j.PropertyConfigurator;
+
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 
@@ -32,6 +34,8 @@ public final class Launcher {
 		// create controller by dependency injection
 		Injector injector = Guice.createInjector(new DefaultModule());
 		IGameController controller = injector.getInstance(IGameController.class);	
+		
+		PropertyConfigurator.configure("log4j.properties");
 		
 		// TUI
 		UITextView view = new UITextView();
