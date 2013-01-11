@@ -6,9 +6,6 @@ import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
 /**
  * This class have to be implemented by Displayclasses which want to be
  * notified by Gamecontroller for changes in Game
- * 
- * @author mabausch
- *
  */
 public interface IGameObserver {
 	
