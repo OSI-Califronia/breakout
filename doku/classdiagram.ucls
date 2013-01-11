@@ -1,0 +1,121 @@
+<class-diagram version="1.0.11" icons="true" always-add-relationships="false" generalizations="true" realizations="true" 
+  associations="true" dependencies="false" nesting-relationships="true">  
+  <interface id="1" corner="BOTTOM_RIGHT" language="java" name="de.luma.breakout.communication.IGameObserver" 
+    project="breakout" file="/breakout/src/de/luma/breakout/communication/IGameObserver.java" binary="false">    
+    <position height="-1" width="-1" x="529" y="210"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <interface id="2" corner="BOTTOM_RIGHT" language="java" name="de.luma.breakout.communication.IObservableGame" 
+    project="breakout" file="/breakout/src/de/luma/breakout/communication/IObservableGame.java" binary="false">    
+    <position height="-1" width="-1" x="314" y="4"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="3" corner="BOTTOM_RIGHT" language="java" name="de.luma.breakout.communication.ObservableGame" 
+    project="breakout" file="/breakout/src/de/luma/breakout/communication/ObservableGame.java" binary="false">    
+    <position height="-1" width="-1" x="111" y="208"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </class>  
+  <class id="4" corner="BOTTOM_RIGHT" language="java" name="de.luma.breakout.controller.GameController" 
+    project="breakout" file="/breakout/src/de/luma/breakout/controller/GameController.java" binary="false">    
+    <position height="-1" width="-1" x="91" y="562"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="false" protected="false" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="5" corner="BOTTOM_RIGHT" language="java" name="de.luma.breakout.view.gui.IGuiManager" 
+    project="breakout" file="/breakout/src/de/luma/breakout/view/gui/IGuiManager.java" binary="false">    
+    <position height="-1" width="-1" x="753" y="178"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <class id="6" corner="BOTTOM_RIGHT" language="java" name="de.luma.breakout.view.gui.GameView2D" project="breakout" 
+    file="/breakout/src/de/luma/breakout/view/gui/GameView2D.java" binary="false">    
+    <position height="-1" width="-1" x="752" y="580"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="false"/>      
+      <operations public="true" package="true" protected="true" private="false"/>    
+    </display>  
+  </class>  
+  <class id="7" corner="BOTTOM_RIGHT" language="java" name="de.luma.breakout.view.tui.UITextView" project="breakout" 
+    file="/breakout/src/de/luma/breakout/view/tui/UITextView.java" binary="false">    
+    <position height="-1" width="-1" x="527" y="557"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="false" package="true" protected="true" private="false"/>      
+      <operations public="true" package="true" protected="true" private="false"/>    
+    </display>  
+  </class>  
+  <interface id="8" corner="BOTTOM_RIGHT" language="java" name="de.luma.breakout.controller.IGameController" 
+    project="breakout" file="/breakout/src/de/luma/breakout/controller/IGameController.java" binary="false">    
+    <position height="-1" width="-1" x="290" y="556"/>    
+    <display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" visibility="true">      
+      <attributes public="true" package="true" protected="true" private="true"/>      
+      <operations public="true" package="true" protected="true" private="true"/>    
+    </display>  
+  </interface>  
+  <generalization id="9">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="3"/>  
+  </generalization>  
+  <realization id="10">    
+    <end type="SOURCE" refId="4"/>    
+    <end type="TARGET" refId="8"/>  
+  </realization>  
+  <association id="11">    
+    <end type="SOURCE" refId="7" navigable="false">      
+      <attribute id="12" name="controller"/>      
+      <multiplicity id="13" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="8" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="14">    
+    <end type="SOURCE" refId="6"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <association id="15">    
+    <end type="SOURCE" refId="3" navigable="false">      
+      <attribute id="16" name="observerList"/>      
+      <multiplicity id="17" minimum="0" maximum="2147483647"/>    
+    </end>    
+    <end type="TARGET" refId="1" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <realization id="18">    
+    <end type="SOURCE" refId="7"/>    
+    <end type="TARGET" refId="1"/>  
+  </realization>  
+  <generalization id="19">    
+    <end type="SOURCE" refId="8"/>    
+    <end type="TARGET" refId="2"/>  
+  </generalization>  
+  <realization id="20">    
+    <end type="SOURCE" refId="3"/>    
+    <end type="TARGET" refId="2"/>  
+  </realization>  
+  <association id="21">    
+    <end type="SOURCE" refId="6" navigable="false">      
+      <attribute id="22" name="guiManager"/>      
+      <multiplicity id="23" minimum="0" maximum="1"/>    
+    </end>    
+    <end type="TARGET" refId="5" navigable="true"/>    
+    <display labels="true" multiplicity="true"/>  
+  </association>  
+  <classifier-display autosize="true" stereotype="true" package="true" initial-value="false" signature="false" 
+    visibility="true">    
+    <attributes public="true" package="true" protected="true" private="true"/>    
+    <operations public="true" package="true" protected="true" private="true"/>  
+  </classifier-display>  
+  <association-display labels="true" multiplicity="true"/>
+</class-diagram>

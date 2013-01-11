@@ -17,8 +17,6 @@ import de.luma.breakout.data.objects.impl.SimpleBrick;
  *   - balls
  *   - bricks
  *   - slider
- * @author mabausch
- *
  */
 public class PlayGrid implements IDecodable {
 	
@@ -99,6 +97,7 @@ public class PlayGrid implements IDecodable {
 		
 		setHeight(Integer.valueOf(s[0]));
 		setWidth(Integer.valueOf(s[1]));	
+		this.getBalls().clear();
 	}
 
 	/*
