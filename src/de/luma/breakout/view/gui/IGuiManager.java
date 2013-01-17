@@ -34,7 +34,7 @@ public interface IGuiManager {
 	/**
 	 * GUI window width, height when a menu is displayed.
 	 */
-	static int MENU_X_Y_RANGE = 800;
+	int MENU_X_Y_RANGE = 800;
 	
 	/**
 	 * Loads an image from the specified file path.

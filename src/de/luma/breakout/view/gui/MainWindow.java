@@ -29,10 +29,7 @@ public class MainWindow extends JFrame implements IGuiManager {
 	public MainWindow(IGameController controller) {
 		super();
 		this.controller = controller;
-		initializeComponents();
-	}
-
-	private final void initializeComponents() {		
+		
 		this.setTitle("Breakout");		
 		this.setVisible(true);		
 		this.add(getBpaGameView2D(), BorderLayout.CENTER);
@@ -42,7 +39,6 @@ public class MainWindow extends JFrame implements IGuiManager {
 		
 		loadImageResources();
 	}
-
 
 	/**
 	 * This mehtod returns a Image loaded from the specified FilePath

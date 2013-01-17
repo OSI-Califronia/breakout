@@ -54,6 +54,11 @@ public class BpaEditorToolbar extends JPanel {
 	
 	/**
 	 * Constructor
+	 * initialize components of the Editior Toolbar.
+	 *   - set Background
+	 *   - set Resizeable Pane
+	 *   - set Brick Choose Pane
+	 *   - set Button Pane
 	 * @param guiManager
 	 * @param gameView
 	 */
@@ -61,17 +66,7 @@ public class BpaEditorToolbar extends JPanel {
 		super();
 		this.guiManager = guiManager;
 		this.gameView = gameView;
-		initializeComponents();
-	}
-
-	/**
-	 * initialize components of the Editior Toolbar.
-	 *   - set Background
-	 *   - set Resizeable Pane
-	 *   - set Brick Choose Pane
-	 *   - set Button Pane
-	 */
-	private void initializeComponents() {
+		
 		this.setLayout(new FlowLayout(FlowLayout.CENTER, BORDER_WIDTH, BORDER_WIDTH));
 		this.setBackground(Color.BLACK);
 		this.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, EDITOR_PAN_HIGHT));

@@ -221,10 +221,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 		super();		
 		this.guiManager = resources;
 		this.setFocusable(true);
-		initializeComponents();
-	}
-
-	private final void initializeComponents() {		
+		
+		
 		this.setPreferredSize(new Dimension(IGuiManager.MENU_X_Y_RANGE, IGuiManager.MENU_X_Y_RANGE));
 		this.addKeyListener(getGameKeyListener());
 		MouseInputAdapter mouseHandler = new GameView2DMouseListener();
@@ -234,7 +232,6 @@ public class GameView2D extends JPanel implements IGameObserver {
 		
 		this.newBrickClassName =getController().getBrickClasses().get(0).getClass().getName();
 	}
-
 
 	/**
 	 * (non-Javadoc)
