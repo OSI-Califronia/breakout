@@ -32,14 +32,9 @@ public interface IGuiManager {
 	Color BUTTON_COLOR = Color.WHITE;
 	
 	/**
-	 * GUI window width when a menu is displayed.
+	 * GUI window width, height when a menu is displayed.
 	 */
-	static int MENU_WIDTH = 800;
-	
-	/**
-	 * GUI window height when a menu is displayed.
-	 */
-	static int MENU_HEIGHT = 800;
+	static int MENU_X_Y_RANGE = 800;
 	
 	/**
 	 * Loads an image from the specified file path.

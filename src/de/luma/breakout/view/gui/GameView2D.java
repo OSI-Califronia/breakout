@@ -225,7 +225,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 	}
 
 	private final void initializeComponents() {		
-		this.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
+		this.setPreferredSize(new Dimension(IGuiManager.MENU_X_Y_RANGE, IGuiManager.MENU_X_Y_RANGE));
 		this.addKeyListener(getGameKeyListener());
 		MouseInputAdapter mouseHandler = new GameView2DMouseListener();
 		this.addMouseListener(mouseHandler);
@@ -275,12 +275,12 @@ public class GameView2D extends JPanel implements IGameObserver {
 		case MENU_MAIN:
 		case MENU_WINGAME:
 		case PAUSED:
-			this.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
+			this.setPreferredSize(new Dimension(IGuiManager.MENU_X_Y_RANGE, IGuiManager.MENU_X_Y_RANGE));
 			this.invalidate();
 			guiManager.updateLayout();
 			break;
 		case MENU_LEVEL_SEL:
-			this.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
+			this.setPreferredSize(new Dimension(IGuiManager.MENU_X_Y_RANGE, IGuiManager.MENU_X_Y_RANGE));
 			startLevelSelection();
 			this.invalidate();
 			guiManager.updateLayout();
