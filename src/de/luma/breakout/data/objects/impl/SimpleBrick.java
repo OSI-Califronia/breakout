@@ -9,8 +9,8 @@ import java.awt.Color;
  */
 public class SimpleBrick extends AbstractBrick {	
 	
-	private final static int DEFAULT_WIDTH = 50;
-	private final static int DEFAULT_HEIGHT = 20;
+	private static final  int DEFAULT_WIDTH = 50;
+	private static final  int DEFAULT_HEIGHT = 20;
 	
 	/**
 	 * constructor 

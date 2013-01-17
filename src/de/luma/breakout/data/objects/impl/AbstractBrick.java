@@ -199,9 +199,11 @@ public abstract class AbstractBrick implements IBrick {
 		// Collision with top border
 		if (matchesXRange(ballx) 
 				&& isBetween(bally + ballr, this.getY(), this.getY() + this.getHeight())
-				&& b.getSpeedY() > 0) {// ballx matches bricks width
+				&& b.getSpeedY() > 0) {
+				// ballx matches bricks width
 			
-			b.inverseSpeedY(); // invert speedy
+			// invert speedy
+			b.inverseSpeedY(); 
 			b.setY(this.getY() - b.getRadius() - 1);
 			isHit = true;
 		}
@@ -209,9 +211,11 @@ public abstract class AbstractBrick implements IBrick {
 		// Collision with bottom border
 		if (matchesXRange(ballx) 
 				&& isBetween(bally - ballr, this.getY(), this.getY() + this.getHeight())
-				&& b.getSpeedY() < 0) {// ballx matches bricks width
+				&& b.getSpeedY() < 0) {
+				// ballx matches bricks width
 			
-			b.inverseSpeedY();// invert speedy
+			// invert speedy
+			b.inverseSpeedY();
 			b.setY(this.getY() + this.getHeight() + b.getRadius() + 1);
 			isHit = true;
 		}
@@ -221,7 +225,8 @@ public abstract class AbstractBrick implements IBrick {
 				&& isBetween(ballx + ballr, this.getX(), this.getX() + this.getWidth())
 				&& b.getSpeedX() > 0) { 
 			
-			b.inverseSpeedX(); // invert speedx
+			// invert speedx
+			b.inverseSpeedX(); 
 			b.setX(this.getX() - b.getRadius() - 1);
 			isHit = true;
 		}
@@ -232,7 +237,8 @@ public abstract class AbstractBrick implements IBrick {
 				&& isBetween(ballx - ballr, this.getX(), this.getX() + this.getWidth())
 				&& b.getSpeedX() < 0) { 
 			
-			b.inverseSpeedX(); // invert speedx
+			// invert speedx
+			b.inverseSpeedX();
 			b.setX(this.getX() + this.getWidth() + b.getRadius() + 1);
 			isHit = true;
 		}

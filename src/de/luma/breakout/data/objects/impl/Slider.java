@@ -39,7 +39,8 @@ public class Slider extends AbstractBrick {
 		boolean ret = tryCollisionRectangle(b);
 		if (ret && b.getAbsoluteSpeed() < IBall.MAX_BALL_SPEED) {
 			double delta = b.getX() - (this.getX() + this.getWidth() / 2);
-			double diversionFactor = delta / this.getWidth();  // -0.5  to 0.5
+			// -0.5  to 0.5
+			double diversionFactor = delta / this.getWidth();  
 			b.setSpeedX(b.getSpeedX() + SPEED_FACTOR * Math.sin(diversionFactor));
 		}
 

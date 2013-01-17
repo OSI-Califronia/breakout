@@ -58,13 +58,15 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 				switch (e.getButton()) {
 
-				case MouseEvent.BUTTON1:		// left mouse, create brick
+				// left mouse, create brick
+				case MouseEvent.BUTTON1:		
 					if (brickPreview == null) {
 						brickPreview = new Rectangle(e.getX(), e.getY(), DEFAULT_BRICK_WIDTH, DEFAULT_BRICK_HEIGHT);
 					}
 					break;
 
-				case MouseEvent.BUTTON3:		// right mouse, create ball
+				// right mouse, create ball
+				case MouseEvent.BUTTON3:		
 					if (createdBall == null) {
 						createdBall = new Ball(e.getX(), e.getY(), 0, 0, DEFAULT_BALL_DERIVATE);
 						getController().addBall(createdBall);
@@ -102,7 +104,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 		public void mouseReleased(MouseEvent e) {
 			// creating new game object is finished
 			switch (e.getButton()) {
-			case MouseEvent.BUTTON1:		// left mouse
+			// left mouse
+			case MouseEvent.BUTTON1:		
 				if (brickPreview != null && newBrickClassName != null) {					
 					Class<?> classObj;
 					try {
@@ -125,7 +128,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 					}						
 				}
 				break;
-			case MouseEvent.BUTTON3:		// right mouse
+			// right mouse
+			case MouseEvent.BUTTON3:		
 				createdBall = null;
 				break;
 			}
@@ -319,7 +323,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 	@Override
 	public void updateGameMenu(MENU_ITEM[] menuItems, String title) {
 		this.selectedItem = 0;
-		this.menuItems = menuItems.clone();  // make checkstyle happy
+		// make checkstyle happy
+		this.menuItems = menuItems.clone();  
 		this.menuTitle = title;
 		repaint();
 	}

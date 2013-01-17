@@ -471,7 +471,8 @@ public class GameController extends ObservableGame implements IGameController {
 		} catch(Exception e) {			
 			return false;
 		} finally {
-			if (s != null) { // in case of exception
+			// in case of exception
+			if (s != null) { 
 				s.close();
 			}
 		} 
