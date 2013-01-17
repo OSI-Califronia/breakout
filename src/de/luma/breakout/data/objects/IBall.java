@@ -8,7 +8,7 @@ package de.luma.breakout.data.objects;
 public interface IBall extends IDecodable {
 
 	/** Maximum absolute speed that a ball can reach */
-	static final double MAX_BALL_SPEED = 10.0;
+	static double MAX_BALL_SPEED = 10.0;
 
 	/** */
 	double getX();

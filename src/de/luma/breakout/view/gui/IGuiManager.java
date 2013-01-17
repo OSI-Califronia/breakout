@@ -14,32 +14,32 @@ public interface IGuiManager {
 	/**
 	 * Default text font for menus.
 	 */
-	final Font TEXT_FONT = new Font("Impact", Font.ITALIC, 30);
+	Font TEXT_FONT = new Font("Impact", Font.ITALIC, 30);
 	
 	/**
 	 * Default text color for menus.
 	 */
-	final Color TEXT_COLOR = new Color(43, 247, 255);
+	Color TEXT_COLOR = new Color(43, 247, 255);
 	
 	/**
 	 * Default text font for buttons.
 	 */
-	final Font BUTTON_FONT = new Font("Impact", Font.ITALIC, 24);
+	Font BUTTON_FONT = new Font("Impact", Font.ITALIC, 24);
 	
 	/**
 	 * Default text color for buttons.
 	 */
-	final Color BUTTON_COLOR = Color.WHITE;
+	Color BUTTON_COLOR = Color.WHITE;
 	
 	/**
 	 * GUI window width when a menu is displayed.
 	 */
-	static final int MENU_WIDTH = 800;
+	static int MENU_WIDTH = 800;
 	
 	/**
 	 * GUI window height when a menu is displayed.
 	 */
-	static final int MENU_HEIGHT = 800;
+	static int MENU_HEIGHT = 800;
 	
 	/**
 	 * Loads an image from the specified file path.
