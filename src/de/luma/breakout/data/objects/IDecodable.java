@@ -7,7 +7,7 @@ package de.luma.breakout.data.objects;
  */
 public interface IDecodable {
 	
-	static String FloatFormatString = "%.3f";
+	String FloatFormatString = "%.3f";
 
 	/**
 	 * Decodes the properties of this object from the given string.
