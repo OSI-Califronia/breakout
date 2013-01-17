@@ -10,6 +10,9 @@ import de.luma.breakout.data.objects.IDecodable;
  */
 public class Ball implements IBall {
 
+	private static final int BALL_SPEED_Y = 3;
+	private static final int BALL_RADIUS = 4;
+	
 	private double x;
 	private double y;
 	private double speedX;
@@ -150,8 +153,8 @@ public class Ball implements IBall {
 		setX(Double.valueOf(s[0]));
 		setY(Double.valueOf(s[1]));	
 		setSpeedX(Double.valueOf(s[2]));
-		setSpeedY(Double.valueOf(s[3]));
-		setRadius(Double.valueOf(s[4]));
+		setSpeedY(Double.valueOf(s[BALL_SPEED_Y]));
+		setRadius(Double.valueOf(s[BALL_RADIUS]));
 	}
 
 	@Override

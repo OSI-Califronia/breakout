@@ -14,6 +14,8 @@ import javax.swing.JButton;
 @SuppressWarnings("serial")
 public class BtnEditor extends JButton {
 	
+	private static final int STRING_Y = 50;
+	
 	private IGuiManager guiManager;
 	
 	/**
@@ -35,7 +37,7 @@ public class BtnEditor extends JButton {
 		g.setFont(IGuiManager.BUTTON_FONT);
 		
 		int stringWidth = (int) g.getFontMetrics().getStringBounds(this.getText(), g).getWidth();
-		g.drawString(this.getText(), (this.getWidth() - stringWidth) / 2, 50);	
+		g.drawString(this.getText(), (this.getWidth() - stringWidth) / 2, STRING_Y);	
 	}
 	
 }

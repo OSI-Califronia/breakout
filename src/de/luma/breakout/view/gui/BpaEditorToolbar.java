@@ -26,9 +26,14 @@ import de.luma.breakout.data.objects.impl.Slider;
 @SuppressWarnings("serial")
 public class BpaEditorToolbar extends JPanel {
 	
+	private static final int DEFAULT_GRID_SIZE = 500;
 	private static final int EDITOR_PAN_WIDTH = 200;
+	private static final int EDITOR_PAN_HIGHT = 300;
 	private static final int LABEL_WIDTH = 80;
 	private static final int COMP_HEIGHT = 20;
+	private static final int COMP_WIDTH = 100;
+	private static final int BORDER_WIDTH = 10;
+	
 	
 	private JTextField tfiWidth;
 	private JTextField tfiHeight;
@@ -66,9 +71,9 @@ public class BpaEditorToolbar extends JPanel {
 	 *   - set Button Pane
 	 */
 	private void initializeComponents() {
-		this.setLayout(new FlowLayout(FlowLayout.CENTER, 10, 10));
+		this.setLayout(new FlowLayout(FlowLayout.CENTER, BORDER_WIDTH, BORDER_WIDTH));
 		this.setBackground(Color.BLACK);
-		this.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, 300));
+		this.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, EDITOR_PAN_HIGHT));
 		this.add(getBpaSize());
 		this.add(getBpaBricks());
 		this.add(getBpaButtons());		
@@ -89,7 +94,7 @@ public class BpaEditorToolbar extends JPanel {
 			bpaSize = new JPanel();
 			bpaSize.setLayout(new FlowLayout(FlowLayout.CENTER));
 			bpaSize.setBackground(Color.BLACK);
-			bpaSize.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, 100));
+			bpaSize.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, COMP_WIDTH));
 
 			// width textbox
 			JLabel lblWidth = new JLabel("Width");
@@ -131,7 +136,7 @@ public class BpaEditorToolbar extends JPanel {
 			bpaButtons = new JPanel();
 			bpaButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
 			bpaButtons.setBackground(Color.BLACK);
-			bpaButtons.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, 300));
+			bpaButtons.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, EDITOR_PAN_HIGHT));
 
 
 			// save button
@@ -191,8 +196,8 @@ public class BpaEditorToolbar extends JPanel {
 	 */
 	public void resetLevel() {
 		guiManager.getGameController().clearGrid();
-		guiManager.getGameController().setSlider(new Slider(0, 0, 100, COMP_HEIGHT));
-		guiManager.getGameController().setGridSize(500, 500);
+		guiManager.getGameController().setSlider(new Slider(0, 0, COMP_WIDTH, COMP_HEIGHT));
+		guiManager.getGameController().setGridSize(DEFAULT_GRID_SIZE, DEFAULT_GRID_SIZE);
 	}
 
 	private JPanel getBpaBricks() {
@@ -200,7 +205,7 @@ public class BpaEditorToolbar extends JPanel {
 			bpaBricks = new JPanel();
 			bpaBricks.setLayout(new FlowLayout(FlowLayout.CENTER));
 			bpaBricks.setBackground(Color.BLACK);
-			bpaBricks.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, 100));
+			bpaBricks.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, COMP_WIDTH));
 			bpaBricks.setBorder(BorderFactory.createLineBorder(IGuiManager.TEXT_COLOR));
 
 			BtnEditorBrick btn = null;
@@ -234,24 +239,28 @@ public class BpaEditorToolbar extends JPanel {
 				public void actionPerformed(ActionEvent e) {
 					Dimension gridDim = guiManager.getGameController().getGridSize();
 
-					if (!getTfiHeight().getText().trim().equals("")) {
-						int newHeight = Integer.valueOf(getTfiHeight().getText());
-						if (newHeight >= 500) {
-							gridDim.setSize(gridDim.getWidth(), newHeight);
-						}
-					}
-
-					if (!getTfiWidth().getText().trim().equals("")) {
-						gridDim.setSize(Integer.valueOf(getTfiWidth().getText()), gridDim.getHeight());
-					}					
-
-					guiManager.getGameController().setGridSize(gridDim.width, gridDim.height);	
-
-					gameView.requestFocusInWindow();
+					doOnResizeAction(gridDim);
 				}		
 			};
 		}
 		return resizeActionListener;		
+	}
+	
+	private void doOnResizeAction(Dimension gridDim) {
+		if (!getTfiHeight().getText().trim().equals("")) {
+			int newHeight = Integer.valueOf(getTfiHeight().getText());
+			if (newHeight >= 500) {
+				gridDim.setSize(gridDim.getWidth(), newHeight);
+			}
+		}
+
+		if (!getTfiWidth().getText().trim().equals("")) {
+			gridDim.setSize(Integer.valueOf(getTfiWidth().getText()), gridDim.getHeight());
+		}					
+
+		guiManager.getGameController().setGridSize(gridDim.width, gridDim.height);	
+
+		gameView.requestFocusInWindow();
 	}
 
 	private void setColors(JComponent c) {

@@ -18,6 +18,8 @@ import de.luma.breakout.communication.ObservableGame.MENU_ITEM;
  */
 @SuppressWarnings("serial")
 public class BpaLevelSelection extends JPanel {	
+	
+	private static final int BORDER_WIDTH = 10;
 
 	private IGuiManager guiManager;
 	private JScrollPane scrollPane;
@@ -43,7 +45,7 @@ public class BpaLevelSelection extends JPanel {
 		this.setBackground(Color.BLACK);
 		
 		this.setPreferredSize(new Dimension(IGuiManager.MENU_WIDTH, IGuiManager.MENU_HEIGHT));
-		buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, 10, 10));
+		buttonsPanel = new JPanel(new FlowLayout(FlowLayout.LEFT, BORDER_WIDTH, BORDER_WIDTH));
 		buttonsPanel.setBackground(Color.BLACK);
 		
 		scrollPane = new JScrollPane(buttonsPanel);

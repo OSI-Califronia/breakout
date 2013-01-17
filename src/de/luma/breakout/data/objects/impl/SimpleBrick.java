@@ -9,13 +9,16 @@ import java.awt.Color;
  */
 public class SimpleBrick extends AbstractBrick {	
 	
+	private final static int DEFAULT_WIDTH = 50;
+	private final static int DEFAULT_HEIGHT = 20;
+	
 	/**
 	 * constructor 
 	 * @param x
 	 * @param y
 	 */
 	public SimpleBrick(int x, int y) {
-		super(x, y, 50, 20);
+		super(x, y, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 		getProperties().setProperty(PROP_COLOR, Color.blue.toString());
 		getProperties().setProperty(PROP_IMG_PATH, "resources\\simpleBrick.png");
 	}

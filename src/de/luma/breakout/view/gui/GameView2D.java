@@ -38,6 +38,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 		
 		private static final int DEFAULT_BRICK_WIDTH = 50;
 		private static final int DEFAULT_BRICK_HEIGHT = 20;
+		private static final int DEFAULT_BALL_DERIVATE = 5;
 
 		/**
 		 * (non-Javadoc)
@@ -65,7 +66,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 
 				case MouseEvent.BUTTON3:		// right mouse, create ball
 					if (createdBall == null) {
-						createdBall = new Ball(e.getX(), e.getY(), 0, 0, 5);
+						createdBall = new Ball(e.getX(), e.getY(), 0, 0, DEFAULT_BALL_DERIVATE);
 						getController().addBall(createdBall);
 					}
 					break;
@@ -196,6 +197,8 @@ public class GameView2D extends JPanel implements IGameObserver {
 	private final static int VECTOR_LENGTH = 20;
 	private static final int TOOLBAR_AREA_WIDTH = 220;
 	private static final int PADDING_20 = 20;
+	private static final int PADDING_SCALE = 3;
+	private static final int TEXT_HIGHT_SCALE = 75;
 
 	// key input
 	private KeyListener keyListener;	
@@ -421,7 +424,7 @@ public class GameView2D extends JPanel implements IGameObserver {
 				g.drawImage(imgBtn, x, y, Color.black, null);
 			}
 
-			g.drawString(TextMapping.getTextForMenuEnum(menuItems[i]), x + (3*PADDING_20), y + 75);
+			g.drawString(TextMapping.getTextForMenuEnum(menuItems[i]), x + (PADDING_SCALE*PADDING_20), y + TEXT_HIGHT_SCALE);
 			y += imgBtn.getHeight(null);
 		}
 

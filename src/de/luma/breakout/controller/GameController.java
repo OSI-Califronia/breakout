@@ -520,7 +520,7 @@ public class GameController extends ObservableGame implements IGameController {
 		
 		// fit slider position to new size
 		if (getSlider() != null) {
-			getSlider().setY(height - getSlider().getHeight() -5);
+			getSlider().setY(height - getSlider().getHeight() -DEFAULT_SLIDER_STEP);
 			getSlider().setX(0);
 		}
 		

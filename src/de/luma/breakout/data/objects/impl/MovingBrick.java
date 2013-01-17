@@ -12,6 +12,8 @@ import de.luma.breakout.data.objects.IBall;
 public class MovingBrick extends AbstractBrick {
 
 	private static final int DEFAULT_MOVING_RANGE = 300;
+	private static final int FRAME_COUNTER = 4;
+	private static final int MOVING_RANGE = 5;
 	
 	private int frameCounter = 0;
 	private int movingRangeX;
@@ -35,8 +37,8 @@ public class MovingBrick extends AbstractBrick {
 	public void decode(String line) {
 		String[] s = decodeBasic(line);
 		
-		setFrameCounter(Integer.valueOf(s[4]));
-		setMovingRangeX(Integer.valueOf(s[5]));
+		setFrameCounter(Integer.valueOf(s[FRAME_COUNTER]));
+		setMovingRangeX(Integer.valueOf(s[MOVING_RANGE]));
 	
 	}
 	

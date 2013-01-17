@@ -10,6 +10,8 @@ import de.luma.breakout.data.objects.IBall;
  */
 public class Slider extends AbstractBrick {
 	
+	private static final int SPEED_FACTOR = 3;
+	
 	/**
 	 * 
 	 */
@@ -38,7 +40,7 @@ public class Slider extends AbstractBrick {
 		if (ret && b.getAbsoluteSpeed() < IBall.MAX_BALL_SPEED) {
 			double delta = b.getX() - (this.getX() + this.getWidth() / 2);
 			double diversionFactor = delta / this.getWidth();  // -0.5  to 0.5
-			b.setSpeedX(b.getSpeedX() + 3 * Math.sin(diversionFactor));
+			b.setSpeedX(b.getSpeedX() + SPEED_FACTOR * Math.sin(diversionFactor));
 		}
 
 		return ret;

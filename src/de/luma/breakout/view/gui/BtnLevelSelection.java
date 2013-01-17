@@ -15,7 +15,9 @@ import javax.swing.JButton;
  */
 @SuppressWarnings("serial")
 public class BtnLevelSelection extends JButton {
-
+	public static final int BTN_DIM = 80;
+	public static final float FONT_DERIVE = 40.0F;
+	
 	private String filePath;
 	private IGuiManager guiManager;
 	private Rectangle2D stringDimension;
@@ -29,7 +31,7 @@ public class BtnLevelSelection extends JButton {
 		super();
 		this.filePath = filepath;
 		this.guiManager = guiMgr;
-		this.setPreferredSize(new Dimension(80, 80));
+		this.setPreferredSize(new Dimension(BTN_DIM, BTN_DIM));
 	}
 	
 	/**
@@ -43,7 +45,7 @@ public class BtnLevelSelection extends JButton {
 	public void paint(Graphics g) {
 		Graphics2D g2d = (Graphics2D) g;
 		
-		g2d.setFont(IGuiManager.BUTTON_FONT.deriveFont(40.0F));
+		g2d.setFont(IGuiManager.BUTTON_FONT.deriveFont(FONT_DERIVE));
 		FontMetrics fm = g2d.getFontMetrics();
 		if (stringDimension == null) {			
 			stringDimension = fm.getStringBounds(this.getText(), g2d);

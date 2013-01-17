@@ -12,6 +12,8 @@ import de.luma.breakout.data.objects.IBrick;
  */
 public abstract class AbstractBrick implements IBrick {
 
+	private final static int HEIGHT = 3;
+	
 	private int x;
 	private int y;
 	private int width;
@@ -265,7 +267,7 @@ public abstract class AbstractBrick implements IBrick {
 		setX(Integer.valueOf(s[0]));
 		setY(Integer.valueOf(s[1]));
 		setWidth(Integer.valueOf(s[2]));
-		setHeight(Integer.valueOf(s[3]));	
+		setHeight(Integer.valueOf(s[HEIGHT]));	
 		
 		return s;
 	}
