@@ -33,6 +33,7 @@ public class BpaEditorToolbar extends JPanel {
 	private static final int COMP_HEIGHT = 20;
 	private static final int COMP_WIDTH = 100;
 	private static final int BORDER_WIDTH = 10;
+	private static final int LAYOUT_WIDTH = 5;
 	
 	
 	private JTextField tfiWidth;
@@ -134,7 +135,7 @@ public class BpaEditorToolbar extends JPanel {
 	private JPanel getBpaButtons() {
 		if (bpaButtons == null) {
 			bpaButtons = new JPanel();
-			bpaButtons.setLayout(new FlowLayout(FlowLayout.CENTER, 5, 0));
+			bpaButtons.setLayout(new FlowLayout(FlowLayout.CENTER, LAYOUT_WIDTH, 0));
 			bpaButtons.setBackground(Color.BLACK);
 			bpaButtons.setPreferredSize(new Dimension(EDITOR_PAN_WIDTH, EDITOR_PAN_HIGHT));
 
@@ -249,7 +250,7 @@ public class BpaEditorToolbar extends JPanel {
 	private void doOnResizeAction(Dimension gridDim) {
 		if (!getTfiHeight().getText().trim().equals("")) {
 			int newHeight = Integer.valueOf(getTfiHeight().getText());
-			if (newHeight >= 500) {
+			if (newHeight >= DEFAULT_GRID_SIZE) {
 				gridDim.setSize(gridDim.getWidth(), newHeight);
 			}
 		}
